@@ -1,0 +1,31 @@
+name: GrassGGEvents
+description: GrassGGEvents
+version: '1.0'
+
+main: me.sbpro.grassggevents.GrassGGEvents
+api-version: '1.21'
+load: POSTWORLD
+
+authors: [ SBPro ]
+
+commands:
+  ping:
+    description: Check your or another players' ping.
+    usage: /ping <PLAYER>
+  event:
+    description: Main command for GrassGG Events.
+    usage: /event
+    permission: grassgg.events.manage
+
+permissions:
+  grassgg.ping.others:
+    default: true
+  grassgg.event.manage:
+    description: Allows use of the /event command.
+    default: op
+  grassgg.build:
+    description: Staff
+    default: op
+  grassgg.staff:
+    description: Staff
+    default: op

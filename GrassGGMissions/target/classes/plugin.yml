@@ -1,0 +1,21 @@
+name: GrassGGMissions
+version: 1.0.0
+authors: [ SBPro ]
+
+main: me.sbpro.grassggmissions.GrassGGMissions
+api-version: '1.21'
+load: POSTWORLD
+depend:
+  - Vault
+
+commands:
+  dailymissions:
+    aliases:
+      - daily
+      - dm
+
+permissions:
+  grassggmissions.use:
+    default: true
+  grassggmissions.admin:
+    default: op

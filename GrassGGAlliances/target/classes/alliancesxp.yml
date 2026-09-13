@@ -1,0 +1,252 @@
+categories:
+  mining:
+    entries:
+      - material: COAL_ORE
+        name: "&8Coal Ore"
+        xp: 3
+      - material: DEEPSLATE_COAL_ORE
+        name: "&8Deepslate Coal Ore"
+        xp: 4
+      - material: IRON_ORE
+        name: "&fIron Ore"
+        xp: 4
+      - material: DEEPSLATE_IRON_ORE
+        name: "&fDeepslate Iron Ore"
+        xp: 5
+      - material: COPPER_ORE
+        name: "&6Copper Ore"
+        xp: 4
+      - material: DEEPSLATE_COPPER_ORE
+        name: "&6Deepslate Copper Ore"
+        xp: 5
+      - material: GOLD_ORE
+        name: "&6Gold Ore"
+        xp: 5
+      - material: DEEPSLATE_GOLD_ORE
+        name: "&6Deepslate Gold Ore"
+        xp: 6
+      - material: REDSTONE_ORE
+        name: "&cRedstone Ore"
+        xp: 5
+      - material: DEEPSLATE_REDSTONE_ORE
+        name: "&cDeepslate Redstone Ore"
+        xp: 6
+      - material: LAPIS_ORE
+        name: "&9Lapis Ore"
+        xp: 5
+      - material: DEEPSLATE_LAPIS_ORE
+        name: "&9Deepslate Lapis Ore"
+        xp: 6
+      - material: DIAMOND_ORE
+        name: "&bDiamond Ore"
+        xp: 8
+      - material: DEEPSLATE_DIAMOND_ORE
+        name: "&bDeepslate Diamond Ore"
+        xp: 10
+      - material: EMERALD_ORE
+        name: "&aEmerald Ore"
+        xp: 8
+      - material: DEEPSLATE_EMERALD_ORE
+        name: "&aDeepslate Emerald Ore"
+        xp: 10
+      - material: NETHER_QUARTZ_ORE
+        name: "&fNether Quartz Ore"
+        xp: 4
+      - material: NETHER_GOLD_ORE
+        name: "&6Nether Gold Ore"
+        xp: 4
+      - material: ANCIENT_DEBRIS
+        name: "&4Ancient Debris"
+        xp: 20
+  excavating:
+    entries:
+      - material: ROOTED_DIRT
+        name: "&6Rooted Dirt"
+        xp: 2
+      - material: RED_SAND
+        name: "&cRed Sand"
+        xp: 1
+      - material: CLAY
+        name: "&9Clay"
+        xp: 2
+      - material: SNOW_BLOCK
+        name: "&fSnow Block"
+        xp: 1
+      - material: SOUL_SAND
+        name: "&6Soul Sand"
+        xp: 2
+      - material: SOUL_SOIL
+        name: "&6Soul Soil"
+        xp: 2
+      - material: MYCELIUM
+        name: "&5Mycelium"
+        xp: 3
+  woodcutting:
+    entries:
+      - material: OAK_LOG
+        name: "&6Oak Log"
+        xp: 4
+      - material: SPRUCE_LOG
+        name: "&6Spruce Log"
+        xp: 4
+      - material: BIRCH_LOG
+        name: "&6Birch Log"
+        xp: 4
+      - material: JUNGLE_LOG
+        name: "&6Jungle Log"
+        xp: 5
+      - material: ACACIA_LOG
+        name: "&6Acacia Log"
+        xp: 5
+      - material: DARK_OAK_LOG
+        name: "&6Dark Oak Log"
+        xp: 5
+      - material: MANGROVE_LOG
+        name: "&6Mangrove Log"
+        xp: 5
+      - material: CHERRY_LOG
+        name: "&dCherry Log"
+        xp: 5
+      - material: CRIMSON_STEM
+        name: "&cCrimson Stem"
+        xp: 6
+      - material: WARPED_STEM
+        name: "&bWarped Stem"
+        xp: 6
+  farming:
+    entries:
+      - material: WHEAT
+        key: WHEAT
+        name: "&aWheat"
+        xp: 3
+      - material: CARROT
+        key: CARROTS
+        name: "&aCarrots"
+        xp: 3
+      - material: POTATO
+        key: POTATOES
+        name: "&aPotatoes"
+        xp: 3
+      - material: BEETROOT
+        key: BEETROOTS
+        name: "&cBeetroots"
+        xp: 3
+      - material: MELON_SLICE
+        key: MELON
+        name: "&aMelon"
+        xp: 2
+      - material: PUMPKIN
+        key: PUMPKIN
+        name: "&6Pumpkin"
+        xp: 4
+      - material: SUGAR_CANE
+        key: SUGAR_CANE
+        name: "&aSugar Cane"
+        xp: 2
+      - material: NETHER_WART
+        key: NETHER_WART
+        name: "&cNether Wart"
+        xp: 4
+      - material: COCOA_BEANS
+        key: COCOA
+        name: "&6Cocoa"
+        xp: 3
+      - material: CACTUS
+        key: CACTUS
+        name: "&aCactus"
+        xp: 2
+      - material: BAMBOO
+        key: BAMBOO
+        name: "&aBamboo"
+        xp: 2
+      - material: SWEET_BERRIES
+        key: SWEET_BERRY_BUSH
+        name: "&cSweet Berry Bush"
+        xp: 2
+      - material: KELP
+        key: KELP
+        name: "&2Kelp"
+        xp: 2
+      - material: SEA_PICKLE
+        key: SEA_PICKLE
+        name: "&aSea Pickle"
+        xp: 2
+  fishing:
+    entries:
+      - material: COD
+        name: "&eCod"
+        xp: 3
+      - material: SALMON
+        name: "&eSalmon"
+        xp: 3
+      - material: TROPICAL_FISH
+        name: "&eTropical Fish"
+        xp: 5
+      - material: PUFFERFISH
+        name: "&ePufferfish"
+        xp: 5
+      - material: BOW
+        name: "&6Treasure Bow"
+        xp: 8
+      - material: ENCHANTED_BOOK
+        name: "&dEnchanted Book"
+        xp: 10
+      - material: FISHING_ROD
+        name: "&6Fishing Rod"
+        xp: 8
+      - material: NAME_TAG
+        name: "&eName Tag"
+        xp: 8
+      - material: SADDLE
+        name: "&6Saddle"
+        xp: 8
+  slaying:
+    entries:
+      - material: ROTTEN_FLESH
+        name: "&cZombie"
+        entity-type: ZOMBIE
+        xp: 4
+      - material: BONE
+        name: "&fSkeleton"
+        entity-type: SKELETON
+        xp: 4
+      - material: STRING
+        name: "&fSpider"
+        entity-type: SPIDER
+        xp: 4
+      - material: GUNPOWDER
+        name: "&7Creeper"
+        entity-type: CREEPER
+        xp: 5
+      - material: ENDER_PEARL
+        name: "&5Enderman"
+        entity-type: ENDERMAN
+        xp: 8
+      - material: BLAZE_ROD
+        name: "&6Blaze"
+        entity-type: BLAZE
+        xp: 10
+      - material: PHANTOM_MEMBRANE
+        name: "&9Phantom"
+        entity-type: PHANTOM
+        xp: 8
+      - material: SLIME_BALL
+        name: "&aSlime"
+        entity-type: SLIME
+        xp: 5
+      - material: MAGMA_CREAM
+        name: "&6Magma Cube"
+        entity-type: MAGMA_CUBE
+        xp: 6
+      - material: GHAST_TEAR
+        name: "&fGhast"
+        entity-type: GHAST
+        xp: 12
+      - material: PRISMARINE_SHARD
+        name: "&3Guardian"
+        entity-type: GUARDIAN
+        xp: 8
+      - material: WITHER_SKELETON_SKULL
+        name: "&8Wither Skeleton"
+        entity-type: WITHER_SKELETON
+        xp: 12

@@ -1,0 +1,9 @@
+me\sbpro\grassggcombat\GrassGGCombat.class
+me\sbpro\grassggcombat\CombatJoinListener.class
+me\sbpro\grassggcombat\CombatQuitListener.class
+me\sbpro\grassggcombat\CombatListener.class
+me\sbpro\grassggcombat\CombatManager.class
+me\sbpro\grassggcombat\Messages.class
+me\sbpro\grassggcombat\CombatDeathListener.class
+me\sbpro\grassggcombat\CombatPermissions.class
+me\sbpro\grassggcombat\CombatCommandListener.class

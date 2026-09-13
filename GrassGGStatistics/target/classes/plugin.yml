@@ -1,0 +1,21 @@
+name: GrassGGStatistics
+version: '1.0'
+
+main: me.sbpro.grassggstatistics.GrassGGStatistics
+api-version: '1.21.11'
+load: POSTWORLD
+
+authors: [ SBPro ]
+
+commands:
+  statistics:
+    description: Opens the statistics menu.
+    usage: "/statistics [PLAYER]"
+    aliases:
+      - stats
+    permission: grassgg.statistics
+
+permissions:
+  grassgg.statistics:
+    description: Allows players to view statistics.
+    default: true

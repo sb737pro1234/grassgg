@@ -1,0 +1,13 @@
+name: GrassGGHub
+description: $description
+version: '1.0'
+
+main: me.sbpro.grassgghub.GrassGGHub
+api-version: '1.21.11'
+load: POSTWORLD
+
+authors: [ SBPro ]
+
+permissions:
+  grassgg.staff:
+    default: op

@@ -1,0 +1,251 @@
+name: GrassGG
+version: '1.0'
+description: Official base plugin of GrassGG Network.
+
+main: me.sbpro.grassgg.GrassGGGlobal
+api-version: '26.2'
+load: POSTWORLD
+
+authors: [ SBPro ]
+
+softdepend:
+  - LuckPerms
+
+commands:
+  kill:
+    description: Kills the player.
+    usage: "/kill <PLAYER>"
+    aliases:
+      - suicide
+    permission: grassgg.kill.self
+    permission-message: "§4You do not have permission to use this command."
+  heal:
+    description: Heals  the player.
+    usage: "/heal <PLAYER>"
+    permission: grassgg.heal
+    permission-message: "§4You do not have permission to use this command."
+  feed:
+    description: Feeds  the player.
+    usage: "/feed <PLAYER>"
+    permission: grassgg.feed
+    permission-message: "§4You do not have permission to use this command."
+  youtube:
+    description: Shows the youtube link for MrGrassYT
+    usage: "/<command>"
+    aliases:
+      - mrgrassyt
+      - grass
+  ping:
+    description: Shows your or another player's ping.
+    usage: "/ping [PLAYER]"
+    permission: grassgg.ping
+
+  discord:
+    description: Shows the discord link to join the server!
+    usage: "/<command>"
+    aliases:
+      - dc
+      - apply
+      - bugs
+  store:
+    description: Shows the link for the official store
+    usage: "/<command>"
+
+  staff:
+    description: Displays online staff.
+    usage: "/<command>"
+    aliases:
+      - onlinestaff
+
+  gamemode:
+    aliases:
+    - gm
+    description: Sets yours or another players gamemode.
+    usage: "/gamemode [GAMEMODE] [PLAYER]"
+
+  gmc:
+    description: Sets Creative mode
+    usage: "/gmc [PLAYER]"
+
+  gms:
+    description: Sets Survival mode
+    usage: "/gms [PLAYER]"
+
+  gma:
+    description: Sets Adventure mode
+    usage: "/gma [PLAYER]"
+
+  gmsp:
+    description: Sets Spectator mode
+    usage: "/gmsp [PLAYER]"
+
+  msg:
+    description: Message command.
+    usage: "/message [PLAYER] [MESSAGE]"
+    aliases:
+      - message
+      - tell
+      - w
+      - whisper
+
+  r:
+    description: Reply command.
+    usage: "/reply [MESSAGE]"
+    aliases:
+      - reply
+  msgtoggle:
+    description: Toggle whether you can receive private messages
+    usage: /msgtoggle [on|off]
+
+  nightvision:
+    description: Toggle night vision.
+    usage: /nightvision [player]
+    aliases:
+      - nv
+    permission: grassgg.nightvision.self
+
+  clear:
+    description: Clears a player's inventory
+    usage: /clear [player]
+    permission: grassgg.clear.self
+
+
+
+  craft:
+    description: Opens a virtual crafting table
+    aliases:
+      - craftingtable
+      - workbench
+      - wb
+
+  smithing:
+    description: Opens a virtual smithing table
+    aliases:
+      - smithingtable
+
+  stonecutter:
+    description: Opens a virtual stonecutter
+
+  loom:
+    description: Opens a virtual loom
+
+  cartography:
+    description: Opens a virtual cartography table
+
+  grindstone:
+    description: Opens a virtual grindstone
+
+  anvil:
+    description: Opens a virtual anvil
+    aliases:
+      - rename
+
+  rules:
+    description: Opens the rules menu
+    usage: /rules
+
+
+permissions:
+  grassgg.kill.self:
+    description: Allows players to kill themselves.
+    default: true
+  grassgg.kill.others:
+    description: Allows staff to kill other players.
+    default: op
+  grassgg.heal:
+    description: Allows players to heal yourself.
+    default: op
+  grassgg.heal.others:
+    description: Allows players to heal players.
+    default: op
+  grassgg.feed:
+    description: Allows players to feed yourself.
+    default: op
+  grassgg.feed.others:
+    description: Allows players to feed players.
+    default: op
+
+  grassgg.ping:
+    description: Displays the players ping
+    default: true
+  grassgg.ping.others:
+    description: Displays other players ping
+    default: true
+
+  grassgg.staff:
+    description: Grants access to GrassGG staff commands.
+    default: op
+  grassgg.admin:
+    description: Grants access to GrassGG administrative commands.
+    default: op
+
+  grassgg.gamemode:
+    default: op
+  grassgg.gamemode.creative:
+    default: op
+  grassgg.gamemode.survival:
+    default: op
+  grassgg.gamemode.adventure:
+    default: op
+  grassgg.gamemode.spectator:
+    default: op
+  grassgg.gamemode.others:
+    default: op
+
+  grassgg.announcejoinleave:
+    default: op
+    description: Announces when the player joins and leaves.
+
+  grassgg.nightvision.self:
+    description: Allows the player to toggle their own night vision
+    default: op
+  grassgg.nightvision.others:
+    description: Allows the player to toggle night vision for other players
+    default: op
+
+  grassgg.clear.self:
+    description: Allows the player to clear their inventory.
+    default: op
+  grassgg.clear.others:
+    description: Allows the player to clear another player's inventory.
+    default: op
+
+  grassgg.gui.*:
+    description: Allows access to all virtual GUI commands
+    default: false
+    children:
+      grassgg.gui.craft: true
+      grassgg.gui.smithing: true
+      grassgg.gui.stonecutter: true
+      grassgg.gui.loom: true
+      grassgg.gui.cartography: true
+      grassgg.gui.grindstone: true
+      grassgg.gui.anvil: true
+
+  grassgg.gui.craft:
+    description: Allows use of /craft
+    default: false
+
+  grassgg.gui.smithing:
+    description: Allows use of /smithing
+    default: false
+
+  grassgg.gui.stonecutter:
+    description: Allows use of /stonecutter
+    default: false
+
+  grassgg.gui.loom:
+    description: Allows use of /loom
+    default: false
+
+  grassgg.gui.cartography:
+    description: Allows use of /cartography
+    default: false
+
+  grassgg.gui.grindstone:
+    description: Allows use of /grindstone
+    default: false
+
+  grassgg.gui.anvil:
+    description: Allows use of /anvil
+    default: false

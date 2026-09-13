@@ -1,0 +1,7 @@
+me\sbpro\grassggevents\commands\EventCommand.class
+me\sbpro\grassggevents\commands\PingCommand.class
+me\sbpro\grassggevents\events\sumo\SumoListener.class
+me\sbpro\grassggevents\events\sumo\SumoManager$1.class
+me\sbpro\grassggevents\GrassGGEvents.class
+me\sbpro\grassggevents\events\sumo\SumoManager.class
+me\sbpro\grassggevents\tabcompleters\EventTabCompleter.class

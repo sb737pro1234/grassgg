@@ -1,0 +1,14 @@
+name: GrassGGAlliances
+version: 1.0.0
+main: me.sbpro.grassggalliances.GrassGGAlliances
+api-version: '1.21'
+authors:
+  - alex
+  - sbpro
+softdepend:
+  - PlaceholderAPI
+commands:
+  alliance:
+    description: Main alliance command
+    aliases: [a]
+    usage: /<command> <create|info|delete|chat|invite|accept|kick|top|level>

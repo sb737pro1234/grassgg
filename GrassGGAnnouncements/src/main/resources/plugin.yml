@@ -1,0 +1,22 @@
+name: GrassGGAnnouncements
+version: 1.0.0
+main: me.sbpro.grassggannouncements.GrassGGAnnouncements
+api-version: '1.21'
+
+commands:
+  announcements:
+    description: Manage GrassGG announcements
+    usage: /announcements reload
+    permission: grassggannouncements.admin
+  announce:
+    description: Sends an announcement to the server
+    usage: /announce <announcement>
+    permission: grassgg.announce
+
+permissions:
+  grassggannouncements.admin:
+    description: Allows management of GrassGG announcements
+    default: op
+  grassgg.announce:
+    description: Allows the player to send server announcements
+    default: op

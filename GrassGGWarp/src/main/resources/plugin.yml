@@ -1,0 +1,37 @@
+name: GrassGGWarp
+version: 1.0
+main: me.sbpro.grassggwarp.GrassGGWarp
+api-version: '1.21'
+
+commands:
+
+  spawn:
+    description: Teleport to spawn
+    usage: /spawn
+    aliases:
+      - lobby
+
+  warzone:
+    description: Teleport to the warzone
+    usage: /warzone
+    aliases:
+      - pvp
+
+  crates:
+    description: Teleport to the crates
+    usage: /crates
+
+  setspawn:
+    description: Set the spawn location
+    usage: /setspawn
+    permission: grassgg.admin
+
+  setwarzone:
+    description: Set the warzone location
+    usage: /setwarzone
+    permission: grassgg.admin
+
+  setcrates:
+    description: Set the crates location
+    usage: /setcrates
+    permission: grassgg.admin

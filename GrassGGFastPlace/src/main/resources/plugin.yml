@@ -1,0 +1,31 @@
+name: GrassGGFastPlace
+version: 1.0.0
+main: me.sbpro.fastplace.FastPlace
+api-version: '1.21'
+authors:
+  - Alex
+  - SBPro
+commands:
+  fp:
+    description: Toggle fastplace or set block range
+    usage: /fastplace [1-16 | 1-32 | 1-64 | 1-128]
+    permission: grassgg.fastplace.use
+    aliases:
+      - fastplace
+
+permissions:
+  grassgg.fastplace.use:
+    description: Allows use of /fp
+    default: op
+  grassgg.fastplace.use.16:
+    description: Allows fastplace up to 16 blocks.
+    default: op
+  grassgg.fastplace.use.32:
+    description: Allows fastplace up to 32 blocks.
+    default: op
+  grassgg.fastplace.use.64:
+    description: Allows fastplace up to 64 blocks.
+    default: op
+  grassgg.fastplace.use.128:
+    description: Allows fastplace up to 128 blocks.
+    default: op

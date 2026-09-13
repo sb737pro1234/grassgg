@@ -1,0 +1,10 @@
+# Time between announcements, in seconds.
+# 900 seconds = 15 minutes.
+interval: 900
+
+
+# Can use color codes and hex colors.
+announcements:
+  - "&e&lJOIN OUR DISCORD! &7» &fJoin us at discord.gg/grassgg"
+  - "&e&lSUBSCRIBE! &7» &fSubscribe to our YouTube channel!"
+  - "&e&lREMINDER! &7» &fMake sure to read the server rules."
