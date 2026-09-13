@@ -1,6 +1,0 @@
-name: GrassGGCombat
-version: 1.0.0
-main: me.sbpro.grassggcombat.GrassGGCombat
-api-version: '1.21'
-description: Combat timer plugin for Grass.GG
-author: SBPro

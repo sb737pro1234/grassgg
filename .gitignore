@@ -1,2 +1,5 @@
-target/*.class*.jar
-.idea/workspace.xml
+target/
+*.class
+*.jar
+.idea/
+*.iml
