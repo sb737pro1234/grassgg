@@ -16,6 +16,9 @@ import me.sbpro.grassggstaff.punishment.PunishmentCalculator;
 import me.sbpro.grassggstaff.punishment.PunishmentEnforcementManager;
 import me.sbpro.grassggstaff.punishment.PunishmentManager;
 import me.sbpro.grassggstaff.reason.ReasonManager;
+import me.sbpro.grassggstaff.staffchat.StaffChatCommand;
+import me.sbpro.grassggstaff.staffchat.StaffChatListener;
+import me.sbpro.grassggstaff.staffchat.StaffChatManager;
 import me.sbpro.grassggstaff.sus.SusCommand;
 import me.sbpro.grassggstaff.sus.SusManager;
 import me.sbpro.grassggstaff.sus.SusMenuListener;
@@ -35,6 +38,7 @@ public final class GrassGGStaff extends JavaPlugin {
 
     private SusRepository susRepository;
     private SusManager susManager;
+    private StaffChatManager staffChatManager;
 
     @Override
     public void onEnable() {
@@ -160,6 +164,32 @@ public final class GrassGGStaff extends JavaPlugin {
                         susRepository
                 );
 
+
+
+        this.staffChatManager =
+                new StaffChatManager(this);
+
+        staffChatManager.start();
+
+        StaffChatCommand staffChatCommand =
+                new StaffChatCommand(
+                        staffChatManager
+                );
+
+        getCommand("staffchat")
+                .setExecutor(staffChatCommand);
+
+        getCommand("staffchat")
+                .setTabCompleter(staffChatCommand);
+
+        getServer()
+                .getPluginManager()
+                .registerEvents(
+                        new StaffChatListener(
+                                staffChatManager
+                        ),
+                        this
+                );
         /*
          * ============================================================
          *                    PUNISHMENT SYSTEM
@@ -339,6 +369,10 @@ public final class GrassGGStaff extends JavaPlugin {
         if (playerRepository != null) {
             playerRepository.shutdown();
         }
+
+        if (staffChatManager != null) {
+            staffChatManager.stop();
+        }
     }
 
     public DatabaseManager getDatabaseManager() {
@@ -379,5 +413,9 @@ public final class GrassGGStaff extends JavaPlugin {
 
     public SusManager getSusManager() {
         return susManager;
+    }
+
+    public StaffChatManager getStaffChatManager() {
+        return staffChatManager;
     }
 }

@@ -45,6 +45,11 @@ commands:
     description: Lock or unlock chat.
     usage: /chatlock
 
+  staffchat:
+    description: Toggle staff chat.
+    usage: /staffchat
+    permission: grassgg.staff.chat
+
 permissions:
 
   grassgg.staff:
@@ -75,4 +80,7 @@ permissions:
     default: op
 
   grassgg.staff.sus.remove:
+    default: op
+
+  grassgg.staff.chat:
     default: op
