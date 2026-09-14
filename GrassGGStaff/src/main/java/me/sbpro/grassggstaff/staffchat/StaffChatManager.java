@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.net.Inet4Address;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,8 +18,6 @@ public final class StaffChatManager {
     private static final TextColor STAFF_BLUE =
             TextColor.color(0x2979FF);
 
-    private static final TextColor STAFF_RED =
-            TextColor.color(0xFF5555);
 
     private static final String STAFF_CHAT_NAME =
             "STAFF CHAT";
@@ -178,15 +177,14 @@ public final class StaffChatManager {
                         net.kyori.adventure.text.format.TextDecoration.BOLD
                 )
                 .append(
-                        Component.text(" ")
+                        Component.text(" §8» ")
                 )
                 .append(
                         player.displayName()
                 )
                 .append(
                         Component.text(
-                                " » ",
-                                STAFF_RED
+                                "§b » "
                         )
                 )
                 .append(
@@ -197,16 +195,11 @@ public final class StaffChatManager {
     private Component actionBar() {
 
         return Component.text(
-                        "STAFF CHAT",
+                        "STAFF CHAT IS ENABLED",
                         STAFF_BLUE
                 )
                 .decorate(
                         net.kyori.adventure.text.format.TextDecoration.BOLD
-                )
-                .append(
-                        Component.text(
-                                " §r§7Enabled"
-                        )
                 );
     }
 }

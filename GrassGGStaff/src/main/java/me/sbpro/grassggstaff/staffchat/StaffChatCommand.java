@@ -55,14 +55,14 @@ public final class StaffChatCommand
 
             player.sendMessage(
                     Messages.PREFIX
-                            + "§aStaff chat has been enabled."
+                            + "§fStaff chat has been §aenabled§f."
             );
 
         } else {
 
             player.sendMessage(
                     Messages.PREFIX
-                            + "§cStaff chat has been disabled."
+                            + "§fStaff chat has been §cdisabled§f."
             );
         }
 
