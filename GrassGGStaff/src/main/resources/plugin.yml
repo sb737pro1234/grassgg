@@ -50,6 +50,11 @@ commands:
     usage: /staffchat
     permission: grassgg.staff.chat
 
+  clearchat:
+    description: Clears the public chat.
+    usage: /clearchat
+    permission: grassgg.staff.clearchat
+
 permissions:
 
   grassgg.staff:
@@ -83,4 +88,7 @@ permissions:
     default: op
 
   grassgg.staff.chat:
+    default: op
+
+  grassgg.staff.clearchat:
     default: op

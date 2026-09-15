@@ -3,6 +3,8 @@ package me.sbpro.grassggstaff;
 import me.sbpro.grassggstaff.commands.OtherCommand;
 import me.sbpro.grassggstaff.commands.chatlock.ChatLockCommand;
 import me.sbpro.grassggstaff.commands.chatlock.ChatLockListener;
+import me.sbpro.grassggstaff.commands.clearchat.ClearChatCommand;
+import me.sbpro.grassggstaff.commands.clearchat.ClearChatListener;
 import me.sbpro.grassggstaff.config.PunishmentConfig;
 import me.sbpro.grassggstaff.database.DatabaseManager;
 import me.sbpro.grassggstaff.database.OffenceRepository;
@@ -164,7 +166,13 @@ public final class GrassGGStaff extends JavaPlugin {
                         susRepository
                 );
 
+        /*
+         * ============================================================
+         *                       STAFF CHAT
+         * ============================================================
+         */
 
+        // Staff Chat
 
         this.staffChatManager =
                 new StaffChatManager(this);
@@ -190,6 +198,7 @@ public final class GrassGGStaff extends JavaPlugin {
                         ),
                         this
                 );
+
         /*
          * ============================================================
          *                    PUNISHMENT SYSTEM
@@ -215,7 +224,9 @@ public final class GrassGGStaff extends JavaPlugin {
                 new SusCommand(this);
 
         /*
-         * /offend
+         * ============================================================
+         *                      /OFFEND
+         * ============================================================
          */
 
         getCommand("offend")
@@ -225,7 +236,9 @@ public final class GrassGGStaff extends JavaPlugin {
                 .setTabCompleter(offendCommand);
 
         /*
-         * /offence
+         * ============================================================
+         *                      /OFFENCE
+         * ============================================================
          */
 
         getCommand("offence")
@@ -235,7 +248,9 @@ public final class GrassGGStaff extends JavaPlugin {
                 .setTabCompleter(offenceCommand);
 
         /*
-         * /sus
+         * ============================================================
+         *                        /SUS
+         * ============================================================
          */
 
         getCommand("sus")
@@ -273,6 +288,12 @@ public final class GrassGGStaff extends JavaPlugin {
                         this
                 );
 
+        /*
+         * ============================================================
+         *                    PLAYER IDENTITY
+         * ============================================================
+         */
+
         getServer()
                 .getPluginManager()
                 .registerEvents(
@@ -281,7 +302,9 @@ public final class GrassGGStaff extends JavaPlugin {
                 );
 
         /*
-         * SUS GUI listener
+         * ============================================================
+         *                       SUS GUI
+         * ============================================================
          */
 
         getServer()
@@ -295,7 +318,9 @@ public final class GrassGGStaff extends JavaPlugin {
                 );
 
         /*
-         * Start systems.
+         * ============================================================
+         *                      START SYSTEMS
+         * ============================================================
          */
 
         enforcementManager.start();
@@ -303,7 +328,7 @@ public final class GrassGGStaff extends JavaPlugin {
 
         /*
          * ============================================================
-         *                     OTHER COMMANDS
+         *                    OTHER COMMANDS
          * ============================================================
          */
 
@@ -323,7 +348,9 @@ public final class GrassGGStaff extends JavaPlugin {
                 .setExecutor(otherCommand);
 
         /*
-         * Chat lock
+         * ============================================================
+         *                      CHAT LOCK
+         * ============================================================
          */
 
         getCommand("chatlock")
@@ -335,6 +362,25 @@ public final class GrassGGStaff extends JavaPlugin {
                 .getPluginManager()
                 .registerEvents(
                         new ChatLockListener(),
+                        this
+                );
+
+        /*
+         * ============================================================
+         *                      CLEAR CHAT
+         * ============================================================
+         */
+
+        ClearChatCommand clearChatCommand =
+                new ClearChatCommand();
+
+        getCommand("clearchat")
+                .setExecutor(clearChatCommand);
+
+        getServer()
+                .getPluginManager()
+                .registerEvents(
+                        new ClearChatListener(),
                         this
                 );
 
