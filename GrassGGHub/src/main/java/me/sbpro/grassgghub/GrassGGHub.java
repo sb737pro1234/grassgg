@@ -3,7 +3,7 @@ package me.sbpro.grassgghub;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.entity.Entity;
+
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
@@ -12,11 +12,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Location;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 
 public final class GrassGGHub extends JavaPlugin implements Listener {
 
@@ -58,6 +59,25 @@ public final class GrassGGHub extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+
+        player.getInventory().clear();
+
+        Bukkit.dispatchCommand(
+                Bukkit.getConsoleSender(),
+                "zmenu giveopenitem zmenu:server " + player.getName()
+        );
+
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            ItemStack item = player.getInventory().getItem(0);
+
+            if (item != null) {
+                player.getInventory().setItem(4, item);
+                player.getInventory().setItem(0, null);
+            }
+        }, 1L);
+
+        // Other
         event.setJoinMessage(null);
 
         World world = Bukkit.getWorld("NewHub");
