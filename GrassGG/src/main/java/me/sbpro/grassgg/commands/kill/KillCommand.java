@@ -41,7 +41,7 @@ public class KillCommand implements CommandExecutor {
             }
         }
 
-        Inventory death = Bukkit.createInventory(new me.sbpro.grassgg.commands.kill.KillConfirmHolder(target), 27,
+        Inventory death = Bukkit.createInventory(new KillConfirmHolder(target), 27,
                 ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "Kill Confirm");
 
         ItemStack cancel = new ItemStack(Material.RED_STAINED_GLASS_PANE);
