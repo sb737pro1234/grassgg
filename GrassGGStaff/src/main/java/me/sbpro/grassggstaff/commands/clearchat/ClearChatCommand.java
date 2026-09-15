@@ -16,7 +16,7 @@ import java.util.List;
 public final class ClearChatCommand
         implements CommandExecutor {
 
-    private static final int CLEAR_LINES = 50;
+    private static final int CLEAR_LINES = 500;
 
     private static final String BLUE =
             "§x§2§9§7§9§F§F";
