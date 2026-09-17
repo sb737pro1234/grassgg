@@ -22,7 +22,7 @@ public class ClearCommand implements CommandExecutor {
         if (args.length == 0) {
 
             if (!(sender instanceof Player player)) {
-                sender.sendMessage(ChatColor.RED + "Only players can use /clear without specifying a player.");
+                sender.sendMessage("§x§E§F§4§4§4§4§lADMIN §8» §cYou must specify a player to use this command.");
                 return true;
             }
 
@@ -39,7 +39,7 @@ public class ClearCommand implements CommandExecutor {
         if (args.length == 1) {
 
             if (!sender.hasPermission("grassgg.clear.others")) {
-                sender.sendMessage(ChatColor.RED + "You do not have permission to clear other players.");
+                sender.sendMessage("§x§E§F§4§4§4§4§lADMIN §8» §cYou do not have permission to clear other players.");
                 return true;
             }
 
@@ -50,10 +50,10 @@ public class ClearCommand implements CommandExecutor {
                 return true;
             }
 
-            // Console cannot open an inventory, so require a player for confirmation.
+            // Console (or any non-player sender) can't open an inventory, so
+            // skip the confirm menu and clear the target's inventory directly.
             if (!(sender instanceof Player player)) {
-                sender.sendMessage(ChatColor.RED + "The console cannot open the clear confirmation menu.");
-                sender.sendMessage(ChatColor.GRAY + "Use /clear from in-game.");
+                clearDirectly(sender, target);
                 return true;
             }
 
@@ -63,6 +63,19 @@ public class ClearCommand implements CommandExecutor {
 
         sender.sendMessage(ChatColor.RED + "Usage: /clear [player]");
         return true;
+    }
+
+    private void clearDirectly(CommandSender sender, Player target) {
+
+        target.getInventory().clear();
+
+        sender.sendMessage(
+                "§x§E§F§4§4§4§4§lADMIN §8» §2" + target.getName() + "§f's inventory has been cleared."
+        );
+
+        target.sendMessage(
+                "§x§E§F§4§4§4§4§lADMIN §8» §2Your §finventory has been cleared by §2" + sender.getName() + "§f."
+        );
     }
 
     private void openConfirmMenu(Player player, Player target) {
@@ -83,11 +96,11 @@ public class ClearCommand implements CommandExecutor {
 
         if (target.equals(player)) {
             confirmMeta.setLore(List.of(
-                    "§aThis will clear §fall §ayour items."
+                    "§aThis will clear all §fyour§a items."
             ));
         } else {
             confirmMeta.setLore(List.of(
-                    "§aThis will clear §fall §f" + target.getName() + "§a's items."
+                    "§aThis will clear all §f" + target.getName() + "§a's items."
             ));
         }
 
@@ -97,10 +110,10 @@ public class ClearCommand implements CommandExecutor {
         ItemMeta chestMeta = chest.getItemMeta();
 
         if (target.equals(player)) {
-            chestMeta.setDisplayName("§fClicking confirm will clear your inventory.");
+            chestMeta.setDisplayName("§fClicking confirm will clear §2your§f inventory.");
         } else {
             chestMeta.setDisplayName(
-                    "§fClicking confirm will clear " + target.getName() + "'s inventory."
+                    "§fClicking confirm will clear §2" + target.getName() + "§f's inventory."
             );
         }
 

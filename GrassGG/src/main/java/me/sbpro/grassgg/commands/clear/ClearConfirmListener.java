@@ -52,15 +52,15 @@ public class ClearConfirmListener implements Listener {
 
             if (target.equals(player)) {
                 player.sendMessage(
-                        "§2§lGRASS.GG §8» §fYour inventory has been cleared."
+                        "§x§E§F§4§4§4§4§lADMIN §8» §2Your §finventory has been cleared."
                 );
             } else {
                 player.sendMessage(
-                        "§2§lGRASS.GG §8» §fCleared §2" + target.getName() + "§f's inventory."
+                        "§x§E§F§4§4§4§4§lADMIN §8» §2" + target.getName() + "§f's inventory has been cleared."
                 );
 
                 target.sendMessage(
-                        "§2§lGRASS.GG §8» §fYour inventory has been cleared by §2" + player.getName() + "§f."
+                        "§x§E§F§4§4§4§4§lADMIN §8» §2Your §finventory has been cleared by §2" + player.getName() + "§f."
                 );
             }
         }
