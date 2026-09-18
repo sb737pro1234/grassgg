@@ -3,8 +3,9 @@ version: 1.0.0
 main: me.sbpro.grassggalliances.GrassGGAlliances
 api-version: '1.21'
 authors:
-  - alex
-  - sbpro
+  - SBPro
+contributors:
+  - CrazyLadAlexx
 softdepend:
   - PlaceholderAPI
 commands:
