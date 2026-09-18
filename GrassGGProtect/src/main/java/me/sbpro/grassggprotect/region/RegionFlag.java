@@ -4,8 +4,14 @@ public enum RegionFlag {
 
     BLOCK_BREAK,
     BLOCK_PLACE,
+
     BLOCK_INTERACT,
+    DOORS,
+    TRAPDOORS,
     ENTITY_INTERACT,
+    ITEM_INTERACT,
+    WINDCHARGES,
+    EAT,
 
     PVP,
 
@@ -23,7 +29,11 @@ public enum RegionFlag {
     ITEM_PICKUP,
 
     EXPLOSIONS,
-    MOB_SPAWN,
+
+    MOB_SPAWN_EGG,
+    MOB_SPAWN_COMMAND,
+    MOB_SPAWN_NATURAL,
+
     BLOCK_BURN,
     WEATHER
 }

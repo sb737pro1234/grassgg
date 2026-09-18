@@ -23,7 +23,11 @@ regions:
 
       # Interactions
       block_interact: deny
+      doors_trapdoors: allow
       entity_interact: deny
+      item_interact: deny
+      windcharges: deny
+      eat: allow
 
       # Combat
       pvp: deny
@@ -42,9 +46,17 @@ regions:
       item_drop: deny
       item_pickup: deny
 
+      # Mob spawning
+      # mob_spawn_egg controls mobs spawned using spawn eggs.
+      # mob_spawn_command controls command-spawned mobs such as /summon.
+      # mob_spawn_natural controls every other creature spawn reason,
+      # including normal natural spawning, spawners, raids, breeding, etc.
+      mob_spawn_egg: deny
+      mob_spawn_command: deny
+      mob_spawn_natural: deny
+
       # World mechanics
       explosions: deny
-      mob_spawn: deny
       block_burn: deny
       weather: deny
 
@@ -73,7 +85,11 @@ regions:
 
       # Interactions
       block_interact: allow
+      doors_trapdoors: allow
       entity_interact: allow
+      item_interact: allow
+      windcharges: allow
+      eat: allow
 
       # Combat
       pvp: allow
@@ -92,8 +108,12 @@ regions:
       item_drop: allow
       item_pickup: allow
 
+      # Mob spawning
+      mob_spawn_egg: allow
+      mob_spawn_command: allow
+      mob_spawn_natural: allow
+
       # World mechanics
       explosions: allow
-      mob_spawn: allow
       block_burn: allow
       weather: allow

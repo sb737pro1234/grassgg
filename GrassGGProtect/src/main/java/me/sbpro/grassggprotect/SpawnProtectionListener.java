@@ -1,53 +1,52 @@
 package me.sbpro.grassggprotect;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import me.sbpro.grassggprotect.region.RegionFlag;
-
-import org.bukkit.Tag;
+import org.bukkit.Material;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Door;
+import org.bukkit.block.data.type.TrapDoor;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class SpawnProtectionListener implements Listener {
 
+    private static final long WARNING_COOLDOWN = 3000L;
+
     private final GrassGGProtect plugin;
+    private final Map<UUID, Long> warningCooldowns = new HashMap<>();
 
     public SpawnProtectionListener(GrassGGProtect plugin) {
         this.plugin = plugin;
     }
 
-    private final Map<UUID, Long> warningCooldowns = new HashMap<>();
-
-    private static final long WARNING_COOLDOWN = 3000L;
     /*
      * ==========================================
-     * HELPER
+     * HELPERS
      * ==========================================
      */
 
@@ -58,17 +57,34 @@ public class SpawnProtectionListener implements Listener {
     private void sendWarning(Player player, String message) {
 
         long now = System.currentTimeMillis();
-
         Long lastWarning = warningCooldowns.get(player.getUniqueId());
 
-        if (lastWarning != null
-                && now - lastWarning < WARNING_COOLDOWN) {
+        if (lastWarning != null && now - lastWarning < WARNING_COOLDOWN) {
             return;
         }
 
         warningCooldowns.put(player.getUniqueId(), now);
-
         player.sendMessage(message);
+    }
+
+    private boolean isConsumable(ItemStack item) {
+        return item != null
+                && !item.isEmpty()
+                && item.hasData(DataComponentTypes.CONSUMABLE);
+    }
+
+    private boolean isSpawnEgg(ItemStack item) {
+        return item != null
+                && !item.isEmpty()
+                && item.getType().name().endsWith("_SPAWN_EGG");
+    }
+
+    private boolean isDoor(BlockData blockData) {
+        return blockData instanceof Door;
+    }
+
+    private boolean isTrapdoor(BlockData blockData) {
+        return blockData instanceof TrapDoor;
     }
 
     /*
@@ -87,10 +103,9 @@ public class SpawnProtectionListener implements Listener {
         }
 
         if (!plugin.getRegionManager().isAllowed(
-                player.getLocation(),
+                event.getBlock().getLocation(),
                 RegionFlag.BLOCK_BREAK
         )) {
-
             event.setCancelled(true);
             sendWarning(player, Messages.BLOCK_BREAK);
         }
@@ -112,10 +127,9 @@ public class SpawnProtectionListener implements Listener {
         }
 
         if (!plugin.getRegionManager().isAllowed(
-                player.getLocation(),
+                event.getBlock().getLocation(),
                 RegionFlag.BLOCK_PLACE
         )) {
-
             event.setCancelled(true);
             sendWarning(player, Messages.BLOCK_PLACE);
         }
@@ -123,7 +137,7 @@ public class SpawnProtectionListener implements Listener {
 
     /*
      * ==========================================
-     * BLOCK INTERACTION
+     * BLOCK / ITEM INTERACTION
      * ==========================================
      */
 
@@ -136,37 +150,66 @@ public class SpawnProtectionListener implements Listener {
             return;
         }
 
-        if (event.getClickedBlock() == null) {
+        Action action = event.getAction();
+
+        if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
 
-        /*
-         * Only deal with right-click block interaction.
-         */
-        if (event.getAction() != org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK) {
-            return;
-        }
+        ItemStack item = event.getItem();
 
         /*
-         * Doors are always usable, even when block interaction
-         * is denied in the region.
+         * Wind charges have their own flag and are deliberately
+         * not controlled by item_interact.
          */
-        if (Tag.DOORS.isTagged(event.getClickedBlock().getType())) {
-            return;
-        }
-
-        /*
-         * Right-clicking a block with an empty hand is silently
-         * cancelled.
-         */
-        if (player.getInventory().getItemInMainHand().isEmpty()) {
+        if (item != null && item.getType() == Material.WIND_CHARGE) {
 
             if (!plugin.getRegionManager().isAllowed(
                     player.getLocation(),
-                    RegionFlag.BLOCK_INTERACT
+                    RegionFlag.WINDCHARGES
             )) {
-
                 event.setCancelled(true);
+                sendWarning(player, Messages.WINDCHARGES);
+            }
+
+            return;
+        }
+
+        /*
+         * Doors and trapdoors have their own flag and are deliberately
+         * not controlled by block_interact.
+         */
+        /*
+         * Doors have their own flag and are deliberately
+         * not controlled by block_interact.
+         */
+        if (event.getClickedBlock() != null
+                && isDoor(event.getClickedBlock().getBlockData())) {
+
+            if (!plugin.getRegionManager().isAllowed(
+                    event.getClickedBlock().getLocation(),
+                    RegionFlag.DOORS
+            )) {
+                event.setCancelled(true);
+                sendWarning(player, Messages.DOORS);
+            }
+
+            return;
+        }
+
+        /*
+         * Trapdoors have their own flag and are deliberately
+         * not controlled by block_interact.
+         */
+        if (event.getClickedBlock() != null
+                && isTrapdoor(event.getClickedBlock().getBlockData())) {
+
+            if (!plugin.getRegionManager().isAllowed(
+                    event.getClickedBlock().getLocation(),
+                    RegionFlag.TRAPDOORS
+            )) {
+                event.setCancelled(true);
+                sendWarning(player, Messages.TRAPDOORS);
             }
 
             return;
@@ -175,13 +218,66 @@ public class SpawnProtectionListener implements Listener {
         /*
          * Normal block interaction.
          */
+        if (event.getClickedBlock() != null) {
+
+            if (!plugin.getRegionManager().isAllowed(
+                    event.getClickedBlock().getLocation(),
+                    RegionFlag.BLOCK_INTERACT
+            )) {
+                event.setCancelled(true);
+
+                // Keep empty-hand block interaction silent, matching the old behaviour.
+                if (item != null && !item.isEmpty()) {
+                    sendWarning(player, Messages.BLOCK_INTERACT);
+                }
+
+                return;
+            }
+        }
+
+        /*
+         * Normal item interaction.
+         *
+         * Eating, wind charges and spawn eggs are excluded because
+         * they each have their own independent protection flag.
+         */
+        if (item == null
+                || item.isEmpty()
+                || isConsumable(item)
+                || isSpawnEgg(item)) {
+            return;
+        }
+
         if (!plugin.getRegionManager().isAllowed(
                 player.getLocation(),
-                RegionFlag.BLOCK_INTERACT
+                RegionFlag.ITEM_INTERACT
         )) {
-
             event.setCancelled(true);
-            sendWarning(player, Messages.BLOCK_INTERACT);
+            sendWarning(player, Messages.ITEM_INTERACT);
+        }
+    }
+
+    /*
+     * ==========================================
+     * EATING / CONSUMING
+     * ==========================================
+     */
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPlayerConsume(PlayerItemConsumeEvent event) {
+
+        Player player = event.getPlayer();
+
+        if (isAdmin(player)) {
+            return;
+        }
+
+        if (!plugin.getRegionManager().isAllowed(
+                player.getLocation(),
+                RegionFlag.EAT
+        )) {
+            event.setCancelled(true);
+            sendWarning(player, Messages.EAT);
         }
     }
 
@@ -204,7 +300,6 @@ public class SpawnProtectionListener implements Listener {
                 player.getLocation(),
                 RegionFlag.ENTITY_INTERACT
         )) {
-
             event.setCancelled(true);
             sendWarning(player, Messages.ENTITY_INTERACT);
         }
@@ -214,13 +309,6 @@ public class SpawnProtectionListener implements Listener {
      * ==========================================
      * PVP
      * ==========================================
-     *
-     * Admin attackers can attack anyone anywhere.
-     *
-     * Normal players are blocked when the region
-     * has pvp: deny.
-     *
-     * The victim's permissions do not matter.
      */
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -232,44 +320,21 @@ public class SpawnProtectionListener implements Listener {
 
         Player attacker = null;
 
-        /*
-         * Direct melee attack.
-         */
         if (event.getDamager() instanceof Player player) {
             attacker = player;
-        }
-
-        /*
-         * Projectile attack.
-         */
-        else if (event.getDamager() instanceof Projectile projectile
+        } else if (event.getDamager() instanceof Projectile projectile
                 && projectile.getShooter() instanceof Player player) {
-
             attacker = player;
         }
 
-        /*
-         * Damage was not caused by a player.
-         */
-        if (attacker == null) {
+        if (attacker == null || isAdmin(attacker)) {
             return;
         }
 
-        /*
-         * Admins can PvP anywhere.
-         */
-        if (isAdmin(attacker)) {
-            return;
-        }
-
-        /*
-         * Check the victim's region.
-         */
         if (!plugin.getRegionManager().isAllowed(
                 victim.getLocation(),
                 RegionFlag.PVP
         )) {
-
             event.setCancelled(true);
             sendWarning(attacker, Messages.PVP);
         }
@@ -298,11 +363,7 @@ public class SpawnProtectionListener implements Listener {
             return;
         }
 
-        if (!plugin.getRegionManager().isAllowed(
-                player.getLocation(),
-                flag
-        )) {
-
+        if (!plugin.getRegionManager().isAllowed(player.getLocation(), flag)) {
             event.setCancelled(true);
         }
     }
@@ -310,30 +371,14 @@ public class SpawnProtectionListener implements Listener {
     private RegionFlag getDamageFlag(EntityDamageEvent.DamageCause cause) {
 
         return switch (cause) {
-
-            case FALL ->
-                    RegionFlag.FALL_DAMAGE;
-
-            case FIRE, FIRE_TICK ->
-                    RegionFlag.FIRE_DAMAGE;
-
-            case LAVA ->
-                    RegionFlag.LAVA_DAMAGE;
-
-            case DROWNING ->
-                    RegionFlag.DROWNING;
-
-            case SUFFOCATION ->
-                    RegionFlag.SUFFOCATION;
-
-            case VOID ->
-                    RegionFlag.VOID_DAMAGE;
-
-            case PROJECTILE ->
-                    RegionFlag.PROJECTILE_DAMAGE;
-
-            default ->
-                    null;
+            case FALL -> RegionFlag.FALL_DAMAGE;
+            case FIRE, FIRE_TICK -> RegionFlag.FIRE_DAMAGE;
+            case LAVA -> RegionFlag.LAVA_DAMAGE;
+            case DROWNING -> RegionFlag.DROWNING;
+            case SUFFOCATION -> RegionFlag.SUFFOCATION;
+            case VOID -> RegionFlag.VOID_DAMAGE;
+            case PROJECTILE -> RegionFlag.PROJECTILE_DAMAGE;
+            default -> null;
         };
     }
 
@@ -358,14 +403,13 @@ public class SpawnProtectionListener implements Listener {
                 player.getLocation(),
                 RegionFlag.HUNGER
         )) {
-
             event.setCancelled(true);
         }
     }
 
     /*
      * ==========================================
-     * ITEM DROP
+     * ITEM DROP / PICKUP
      * ==========================================
      */
 
@@ -382,17 +426,10 @@ public class SpawnProtectionListener implements Listener {
                 player.getLocation(),
                 RegionFlag.ITEM_DROP
         )) {
-
             event.setCancelled(true);
             sendWarning(player, Messages.ITEM_DROP);
         }
     }
-
-    /*
-     * ==========================================
-     * ITEM PICKUP
-     * ==========================================
-     */
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onItemPickup(EntityPickupItemEvent event) {
@@ -409,7 +446,6 @@ public class SpawnProtectionListener implements Listener {
                 player.getLocation(),
                 RegionFlag.ITEM_PICKUP
         )) {
-
             event.setCancelled(true);
             sendWarning(player, Messages.ITEM_PICKUP);
         }
@@ -428,7 +464,6 @@ public class SpawnProtectionListener implements Listener {
                 event.getLocation(),
                 RegionFlag.EXPLOSIONS
         )) {
-
             event.blockList().clear();
         }
     }
@@ -440,7 +475,6 @@ public class SpawnProtectionListener implements Listener {
                 event.getBlock().getLocation(),
                 RegionFlag.EXPLOSIONS
         )) {
-
             event.blockList().clear();
         }
     }
@@ -458,7 +492,6 @@ public class SpawnProtectionListener implements Listener {
                 event.getBlock().getLocation(),
                 RegionFlag.BLOCK_BURN
         )) {
-
             event.setCancelled(true);
         }
     }
@@ -476,7 +509,6 @@ public class SpawnProtectionListener implements Listener {
                 event.getWorld().getSpawnLocation(),
                 RegionFlag.WEATHER
         )) {
-
             event.setCancelled(true);
         }
     }
@@ -485,16 +517,22 @@ public class SpawnProtectionListener implements Listener {
      * ==========================================
      * MOB SPAWNING
      * ==========================================
+     *
+     * SPAWNER_EGG = spawn egg
+     * COMMAND     = /summon and command-based creature spawning
+     * Everything else is treated as natural/world-driven spawning.
      */
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onCreatureSpawn(CreatureSpawnEvent event) {
 
-        if (!plugin.getRegionManager().isAllowed(
-                event.getLocation(),
-                RegionFlag.MOB_SPAWN
-        )) {
+        RegionFlag flag = switch (event.getSpawnReason()) {
+            case SPAWNER_EGG -> RegionFlag.MOB_SPAWN_EGG;
+            case COMMAND -> RegionFlag.MOB_SPAWN_COMMAND;
+            default -> RegionFlag.MOB_SPAWN_NATURAL;
+        };
 
+        if (!plugin.getRegionManager().isAllowed(event.getLocation(), flag)) {
             event.setCancelled(true);
         }
     }

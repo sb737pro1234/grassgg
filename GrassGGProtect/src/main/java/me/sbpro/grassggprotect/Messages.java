@@ -50,8 +50,23 @@ public final class Messages {
     public static final String BLOCK_INTERACT =
             PREFIX + "You cannot interact with blocks here.";
 
+    public static final String DOORS =
+            PREFIX + "§fYou cannot use doors here.";
+
+    public static final String TRAPDOORS =
+            PREFIX + "§fYou cannot use trapdoors here.";
+
     public static final String ENTITY_INTERACT =
             PREFIX + "You cannot interact with entities here.";
+
+    public static final String ITEM_INTERACT =
+            PREFIX + "You cannot use items here.";
+
+    public static final String WINDCHARGES =
+            PREFIX + "You cannot use wind charges here.";
+
+    public static final String EAT =
+            PREFIX + "You cannot eat here.";
 
     public static final String PVP =
             PREFIX + "You cannot PvP here.";
