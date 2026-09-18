@@ -76,18 +76,20 @@ tiers:
     display-name: "Game 2"
     offences:
       1:
-        type: "BAN"
-        duration: "1d"
+        type: "WARNING"
       2:
         type: "BAN"
         duration: "7d"
       3:
         type: "BAN"
-        duration: "30d"
+        duration: "14d"
       4:
         type: "BAN"
-        duration: "6mo"
+        duration: "30d"
       5:
+        type: "BAN"
+        duration: "6mo"
+      6:
         type: "BAN"
         duration: "permanent"
 
@@ -96,14 +98,11 @@ tiers:
     offences:
       1:
         type: "BAN"
-        duration: "7d"
+        duration: "60d"
       2:
         type: "BAN"
-        duration: "30d"
+        duration: "90d"
       3:
-        type: "BAN"
-        duration: "6mo"
-      4:
         type: "BAN"
         duration: "permanent"
 
@@ -115,14 +114,175 @@ tiers:
         duration: "permanent"
 
 reasons:
+  # Chat Rules
   chat_spam:
-    name: "Chat Spam"
+    name: "Spamming"
     tier: "CHAT_1"
 
-  advertising:
+  chat_symbols:
+    name: "Excessive Symbols"
+    tier: "CHAT_1"
+
+  chat_non_english:
+    name: "Non-English"
+    tier: "CHAT_1"
+
+  chat_swearing_tier1:
+    name: "Swearing (Tier 1)"
+    tier: "CHAT_1"
+
+  chat_swearing_tier2:
+    name: "Swearing (Tier 2)"
+    tier: "CHAT_2"
+
+  chat_inappropriate:
+    name: "Inappropriate Chat"
+    tier: "CHAT_1"
+
+  chat_disrespect:
+    name: "Disrespect"
+    tier: "CHAT_2"
+
+  chat_advertising:
     name: "Advertising"
     tier: "CHAT_2"
 
-  example_game_rule:
-    name: "Example Game Rule"
+  chat_fake_messages:
+    name: "Fake Messages"
+    tier: "CHAT_1"
+
+  chat_impersonation:
+    name: "Impersonation"
+    tier: "CHAT_2"
+
+  chat_hackusating:
+    name: "Hackusating"
+    tier: "CHAT_1"
+
+  chat_rule_breaking_encouragement:
+    name: "Rule Breaking Encouragement"
+    tier: "CHAT_2"
+
+  chat_scamming_chat:
+    name: "Scamming (In Chat)"
+    tier: "CHAT_1"
+
+  chat_harassment:
+    name: "Harassment"
+    tier: "CHAT_2"
+
+  chat_toxicity:
+    name: "Toxicity"
+    tier: "CHAT_2"
+
+  # Other / Game Rules
+  disallowed_modifications:
+    name: "Disallowed Mods"
     tier: "GAME_1"
+
+  minor_glitch_abuse:
+    name: "Minor Glitch Abuse"
+    tier: "GAME_1"
+
+  event_abuse:
+    name: "Event Abuse"
+    tier: "GAME_1"
+
+  lag:
+    name: "Lag"
+    tier: "GAME_1"
+
+  player_casinos:
+    name: "Player Casinos"
+    tier: "GAME_1"
+
+  inappropriate_builds:
+    name: "Inappropriate Builds"
+    tier: "GAME_1"
+
+  alt_boosting:
+    name: "Alt Boosting"
+    tier: "GAME_1"
+
+  misusing_reporting_system:
+    name: "Misusing Reporting System"
+    tier: "GAME_1"
+
+  teleport_trapping:
+    name: "Teleport Trapping"
+    tier: "GAME_1"
+
+  scamming_game:
+    name: "Scamming (In Game)"
+    tier: "GAME_1"
+
+  command_abuse:
+    name: "Command Abuse"
+    tier: "GAME_1"
+
+  autoclicking:
+    name: "Autoclicking"
+    tier: "GAME_2"
+
+  macros:
+    name: "Macros"
+    tier: "GAME_2"
+
+  excessive_alts:
+    name: "Excessive Alts"
+    tier: "GAME_2"
+
+  account_sharing:
+    name: "Account Sharing"
+    tier: "GAME_2"
+
+  racism_discrimination:
+    name: "Racism/Discrimination"
+    tier: "GAME_4"
+
+  suicide_encouragement:
+    name: "Suicide Encouragement"
+    tier: "GAME_4"
+
+  hacking_hacks:
+    name: "Hacking"
+    tier: "GAME_3"
+
+  hacking_esp:
+    name: "ESP"
+    tier: "GAME_3"
+
+  hacking_xray:
+    name: "Xray"
+    tier: "GAME_3"
+
+  threats:
+    name: "Threats"
+    tier: "GAME_3"
+
+  irl_trading:
+    name: "IRL Trading"
+    tier: "GAME_3"
+
+  irl_scamming:
+    name: "IRL Scamming"
+    tier: "GAME_3"
+
+  major_glitches_duping:
+    name: "Major Glitches/Duping"
+    tier: "GAME_3"
+
+  botting:
+    name: "Botting"
+    tier: "GAME_4"
+
+  leaking_personal_information:
+    name: "Leaking Personal Information"
+    tier: "GAME_3"
+
+  inappropriate_ign:
+    name: "Inappropriate Name"
+    tier: "GAME_3"
+  inappropriate_skins:
+    name: "Inappropriate Skin"
+    tier: "GAME_3"
