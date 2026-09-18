@@ -2,7 +2,7 @@ name: GrassGGHomes
 version: '${version}'
 
 main: me.sbpro.grassgghomes.GrassGGHomes
-api-version: '1.21.11'
+api-version: '26.2'
 load: POSTWORLD
 
 authors: [ SBPro ]

@@ -3,7 +3,7 @@ version: 1.0.0
 authors: [ SBPro ]
 
 main: me.sbpro.grassggmissions.GrassGGMissions
-api-version: '1.21'
+api-version: '26.2'
 load: POSTWORLD
 depend:
   - Vault

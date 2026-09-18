@@ -1,7 +1,7 @@
 name: GrassGGAlliances
 version: 1.0.0
 main: me.sbpro.grassggalliances.GrassGGAlliances
-api-version: '1.21'
+api-version: '26.2'
 authors:
   - SBPro
 contributors:

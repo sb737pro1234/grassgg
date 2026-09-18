@@ -1,10 +1,11 @@
 name: GrassGGFastPlace
 version: 1.0.0
 main: me.sbpro.fastplace.FastPlace
-api-version: '1.21'
+api-version: '26.2'
 authors:
-  - Alex
   - SBPro
+contributors:
+  - CrazyLadAlexx
 commands:
   fp:
     description: Toggle fastplace or set block range

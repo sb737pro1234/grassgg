@@ -1,7 +1,7 @@
 name: GrassGGChat
 version: 1.0
 main: me.sbpro.grassggchat.GrassGGChat
-api-version: '1.21'
+api-version: '26.2'
 
 commands:
   chatcolor:
