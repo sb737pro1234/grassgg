@@ -143,7 +143,7 @@ public final class GrassGGGlobal extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
 
         if(player.hasPermission("grassgg.announcejoinleave")){
-            event.setQuitMessage("§8[§c§l-§8] " + event.getPlayer().getDisplayName());
+            event.setQuitMessage("§8[§c§l-§8] §f" + event.getPlayer().getDisplayName());
         } else {
             event.setQuitMessage(null);
             return;
