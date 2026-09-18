@@ -1,14 +1,14 @@
-package me.sbpro.grassggspawns;
+package me.sbpro.grassggprotect;
 
-import me.sbpro.grassggspawns.command.GrassGGSpawnsCommand;
-import me.sbpro.grassggspawns.region.RegionManager;
+import me.sbpro.grassggprotect.command.GrassGGProtectCommand;
+import me.sbpro.grassggprotect.region.RegionManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
-public class GrassGGSpawns extends JavaPlugin {
+public class GrassGGProtect extends JavaPlugin {
 
     private File regionsFile;
     private FileConfiguration regionsConfig;
@@ -28,20 +28,20 @@ public class GrassGGSpawns extends JavaPlugin {
                 this
         );
 
-        GrassGGSpawnsCommand command =
-                new GrassGGSpawnsCommand(this);
+        GrassGGProtectCommand command =
+                new GrassGGProtectCommand(this);
 
-        if (getCommand("grassggspawns") != null) {
-            getCommand("grassggspawns").setExecutor(command);
-            getCommand("grassggspawns").setTabCompleter(command);
+        if (getCommand("grassggprotect") != null) {
+            getCommand("grassggprotect").setExecutor(command);
+            getCommand("grassggprotect").setTabCompleter(command);
         }
 
-        getLogger().info("GrassGGSpawns enabled.");
+        getLogger().info("GrassGGProtect enabled.");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("GrassGGSpawns disabled.");
+        getLogger().info("GrassGGProtect disabled.");
     }
 
     public void loadRegions() {

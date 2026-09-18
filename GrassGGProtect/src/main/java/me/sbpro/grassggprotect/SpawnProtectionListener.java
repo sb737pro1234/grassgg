@@ -1,6 +1,6 @@
-package me.sbpro.grassggspawns;
+package me.sbpro.grassggprotect;
 
-import me.sbpro.grassggspawns.region.RegionFlag;
+import me.sbpro.grassggprotect.region.RegionFlag;
 
 import org.bukkit.Tag;
 import org.bukkit.entity.Player;
@@ -36,9 +36,9 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 
 public class SpawnProtectionListener implements Listener {
 
-    private final GrassGGSpawns plugin;
+    private final GrassGGProtect plugin;
 
-    public SpawnProtectionListener(GrassGGSpawns plugin) {
+    public SpawnProtectionListener(GrassGGProtect plugin) {
         this.plugin = plugin;
     }
 

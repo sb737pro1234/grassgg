@@ -1,4 +1,4 @@
-package me.sbpro.grassggspawns.region;
+package me.sbpro.grassggprotect.region;
 
 import org.bukkit.Location;
 import org.bukkit.World;

@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.sbpro</groupId>
-    <artifactId>GrassGGSpawns</artifactId>
+    <artifactId>GrassGGProtect</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>GrassGGSpawns</name>
+    <name>GrassGGProtect</name>
 
     <properties>
         <java.version>21</java.version>

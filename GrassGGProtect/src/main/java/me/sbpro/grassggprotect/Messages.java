@@ -1,4 +1,4 @@
-package me.sbpro.grassggspawns;
+package me.sbpro.grassggprotect;
 
 import org.bukkit.ChatColor;
 
@@ -33,7 +33,7 @@ public final class Messages {
             PREFIX + "Configuration reloaded successfully.";
 
     public static final String INVALID_ARGUMENT =
-            PREFIX + "Usage: §e/grassggspawns reload";
+            PREFIX + "Usage: §e/grassggprotect reload";
 
     /*
      * ==========================================

@@ -1,6 +1,6 @@
-package me.sbpro.grassggspawns.region;
+package me.sbpro.grassggprotect.region;
 
-import me.sbpro.grassggspawns.GrassGGSpawns;
+import me.sbpro.grassggprotect.GrassGGProtect;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,11 +11,11 @@ import java.util.List;
 
 public class RegionManager {
 
-    private final GrassGGSpawns plugin;
+    private final GrassGGProtect plugin;
 
     private final List<Region> regions = new ArrayList<>();
 
-    public RegionManager(GrassGGSpawns plugin) {
+    public RegionManager(GrassGGProtect plugin) {
         this.plugin = plugin;
     }
 

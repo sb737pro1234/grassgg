@@ -1,7 +1,7 @@
-package me.sbpro.grassggspawns.command;
+package me.sbpro.grassggprotect.command;
 
-import me.sbpro.grassggspawns.GrassGGSpawns;
-import me.sbpro.grassggspawns.Messages;
+import me.sbpro.grassggprotect.GrassGGProtect;
+import me.sbpro.grassggprotect.Messages;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,11 +11,11 @@ import org.bukkit.command.TabCompleter;
 import java.util.Collections;
 import java.util.List;
 
-public class GrassGGSpawnsCommand implements CommandExecutor, TabCompleter {
+public class GrassGGProtectCommand implements CommandExecutor, TabCompleter {
 
-    private final GrassGGSpawns plugin;
+    private final GrassGGProtect plugin;
 
-    public GrassGGSpawnsCommand(GrassGGSpawns plugin) {
+    public GrassGGProtectCommand(GrassGGProtect plugin) {
         this.plugin = plugin;
     }
 

@@ -1,14 +1,14 @@
-name: GrassGGSpawns
+name: GrassGGProtect
 version: 1.0.0
-main: me.sbpro.grassggspawns.GrassGGSpawns
+main: me.sbpro.grassggprotect.GrassGGProtect
 api-version: '1.21'
 author: SBPro
 description: Lightweight spawn and lobby protection plugin.
 
 commands:
-  grassggspawns:
-    description: GrassGGSpawns administration command.
-    usage: /grassggspawns reload
+  grassggprotect:
+    description: GrassGGProtect administration command.
+    usage: /grassggprotect reload
     permission: grassgg.admin
 
 permissions:
