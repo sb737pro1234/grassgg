@@ -1,19 +1,16 @@
 regions:
-
-  # ==========================================================
-  # SPECIFIC REGION
-  # ==========================================================
-  #
-  # This region covers the area between the two positions.
-  #
-
+  # You can have multiple regions.
   spawn:
     priority: 10
-
+    # If you have multiple regions covering the same area, you can change the priority,
+    # 1 being the lowest, 10 being the highest
     location:
       pos1: -50 60 -50
       pos2: 50 100 50
       world: world
+      # Using * for both positions makes this region cover
+      # the entire specified world, otherwise you can specify specific coordinates.
+
 
     flags:
 
@@ -59,61 +56,3 @@ regions:
       explosions: deny
       block_burn: deny
       weather: deny
-
-
-  # ==========================================================
-  # ENTIRE WORLD
-  # ==========================================================
-  #
-  # Using * for both positions makes this region cover
-  # the entire specified world.
-  #
-
-  world_protection:
-    priority: 1
-
-    location:
-      pos1: "*"
-      pos2: "*"
-      world: world
-
-    flags:
-
-      # Building
-      block_break: allow
-      block_place: allow
-
-      # Interactions
-      block_interact: allow
-      doors_trapdoors: allow
-      entity_interact: allow
-      item_interact: allow
-      windcharges: allow
-      eat: allow
-
-      # Combat
-      pvp: allow
-      projectile_damage: allow
-
-      # Player damage
-      fall_damage: allow
-      fire_damage: allow
-      lava_damage: allow
-      drowning: allow
-      suffocation: allow
-      void_damage: allow
-
-      # Player mechanics
-      hunger: allow
-      item_drop: allow
-      item_pickup: allow
-
-      # Mob spawning
-      mob_spawn_egg: allow
-      mob_spawn_command: allow
-      mob_spawn_natural: allow
-
-      # World mechanics
-      explosions: allow
-      block_burn: allow
-      weather: allow
