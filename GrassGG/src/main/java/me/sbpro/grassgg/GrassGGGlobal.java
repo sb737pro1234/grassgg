@@ -108,15 +108,14 @@ public final class GrassGGGlobal extends JavaPlugin implements Listener {
         if (player.hasPlayedBefore()) {
 
             if (player.hasPermission("grassgg.announcejoinleave")) {
-                event.setJoinMessage("§8[§a§l+§8] §f" + event.getPlayer().getDisplayName());
+                event.setJoinMessage("§8[§a§l+§8] §f" + event.getPlayer().displayName());
             } else {
                 event.setJoinMessage(null);
-                player.sendMessage("§2Welcome back!");
                 return;
             }
 
         } else {
-            event.setJoinMessage("§2§lGRASS.GG §8»§f§l " + player.getDisplayName() + " §2has joined the server for the first time! Welcome!");
+            event.setJoinMessage("§2§lGRASS.GG §8»§f§l " + player.displayName() + " §2has joined the server for the first time! Welcome!");
         }
 
     }
@@ -143,7 +142,7 @@ public final class GrassGGGlobal extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
 
         if(player.hasPermission("grassgg.announcejoinleave")){
-            event.setQuitMessage("§8[§c§l-§8] §f" + event.getPlayer().getDisplayName());
+            event.setQuitMessage("§8[§c§l-§8] §f" + event.getPlayer().displayName());
         } else {
             event.setQuitMessage(null);
             return;
