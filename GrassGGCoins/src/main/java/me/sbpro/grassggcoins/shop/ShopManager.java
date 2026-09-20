@@ -38,9 +38,17 @@ public final class ShopManager {
         for (String identifier : section.getKeys(false)) {
             String path = "Shop.Items." + identifier;
             long cost = Math.max(0L, config.getLong(path + ".Cost", 0L));
+            String displayName = config.getString(path + ".Display Name", identifier);
             String command = config.getString(path + ".Command", "");
             ItemStack displayItem = config.getItemStack(path + ".Display Item");
-            items.add(new ShopItem(identifier, cost, command, displayItem));
+
+            items.add(new ShopItem(
+                    identifier,
+                    displayName,
+                    cost,
+                    command,
+                    displayItem
+            ));
         }
 
         return items;
@@ -79,7 +87,13 @@ public final class ShopManager {
         }
     }
 
-    public record ShopItem(String identifier, long cost, String command, ItemStack displayItem) {
+    public record ShopItem(
+            String identifier,
+            String displayName,
+            long cost,
+            String command,
+            ItemStack displayItem
+    ) {
         public boolean hasDisplayItem() {
             return displayItem != null && displayItem.getType() != Material.AIR;
         }

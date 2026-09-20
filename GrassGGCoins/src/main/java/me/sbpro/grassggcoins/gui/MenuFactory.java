@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.entity.Player;
+import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public final class MenuFactory {
         return inventory;
     }
 
-    public static Inventory createShopMenu(GrassGGCoins plugin) {
+    public static Inventory createShopMenu(GrassGGCoins plugin, Player player) {
         ShopMenuHolder holder = new ShopMenuHolder();
         Inventory inventory = Bukkit.createInventory(holder, 54, Messages.shopMenuTitle());
         holder.setInventory(inventory);
@@ -58,7 +59,7 @@ public final class MenuFactory {
             }
 
             ItemStack display = shopItem.hasDisplayItem()
-                    ? shopItem.displayItem().clone()
+                    ? prepareShopItem(shopItem)
                     : createItem(
                     Material.BARRIER,
                     Messages.shopEmptyItemName(),
@@ -72,18 +73,35 @@ public final class MenuFactory {
                         ? new ArrayList<>()
                         : new ArrayList<>(meta.getLore());
 
-                if (!lore.isEmpty()) {
-                    lore.add("");
-                }
+                // Always add a blank line before the GrassGGCoins shop information.
+                // This keeps our cost/purchase information visually separated.
+                lore.add("");
 
                 lore.addAll(Messages.shopProductLore(shopItem.cost()));
 
                 meta.setLore(lore);
+                meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
                 display.setItemMeta(meta);
             }
 
             inventory.setItem(slot++, display);
+
+            inventory.setItem(
+                    49,
+                    createItem(
+                            Material.SUNFLOWER,
+                            Messages.shopBalanceItemName(
+                                    plugin.getCoinManager().getCoins(player.getUniqueId())
+                            ),
+                            Messages.shopBalanceItemLore(
+                                    plugin.getCoinManager().getCoins(player.getUniqueId())
+                            )
+                    )
+            );
         }
+
+
 
         return inventory;
     }
@@ -122,7 +140,7 @@ public final class MenuFactory {
          */
         inventory.setItem(
                 13,
-                shopItem.displayItem().clone()
+                prepareShopItem(shopItem)
         );
 
         inventory.setItem(
@@ -157,5 +175,30 @@ public final class MenuFactory {
         stack.setItemMeta(meta);
 
         return stack;
+    }
+
+    private static ItemStack prepareShopItem(ShopItem shopItem) {
+        ItemStack display = shopItem.displayItem().clone();
+
+        ItemMeta meta = display.getItemMeta();
+
+        if (meta == null) {
+            return display;
+        }
+
+        // Apply the configured shop display name.
+        meta.setDisplayName(
+                ChatColor.translateAlternateColorCodes(
+                        '&',
+                        shopItem.displayName()
+                )
+        );
+
+        // Hide vanilla Attack Damage, Attack Speed, Armour, etc.
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
+        display.setItemMeta(meta);
+
+        return display;
     }
 }

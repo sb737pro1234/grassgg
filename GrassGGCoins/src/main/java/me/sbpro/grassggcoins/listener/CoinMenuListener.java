@@ -40,7 +40,7 @@ public final class CoinMenuListener implements Listener {
             event.setCancelled(true);
 
             if (event.getRawSlot() == 11) {
-                player.openInventory(MenuFactory.createShopMenu(plugin));
+                player.openInventory(MenuFactory.createShopMenu(plugin, player));
             }
 
             return;
@@ -52,6 +52,14 @@ public final class CoinMenuListener implements Listener {
 
         if (event.getView().getTopInventory().getHolder() instanceof ShopMenuHolder) {
             event.setCancelled(true);
+
+            /*
+             * Slot 49 is the player's balance display.
+             * It is informational only and cannot be purchased.
+             */
+            if (event.getRawSlot() == 49) {
+                return;
+            }
 
             if (event.getRawSlot() < 0
                     || event.getRawSlot() >= event.getView().getTopInventory().getSize()) {
@@ -106,14 +114,19 @@ public final class CoinMenuListener implements Listener {
         // Purchase confirmation menu
         // =============================================================
 
-        if (event.getView().getTopInventory().getHolder() instanceof ConfirmationMenuHolder holder) {
+        if (event.getView().getTopInventory().getHolder()
+                instanceof ConfirmationMenuHolder holder) {
+
             event.setCancelled(true);
 
             int slot = event.getRawSlot();
 
             // Cancel
             if (slot == 10) {
-                player.openInventory(MenuFactory.createShopMenu(plugin));
+                player.openInventory(
+                        MenuFactory.createShopMenu(plugin, player)
+                );
+
                 return;
             }
 
@@ -122,14 +135,19 @@ public final class CoinMenuListener implements Listener {
                 return;
             }
 
-            ShopItem item = plugin.getShopManager().getItem(holder.getIdentifier());
+            ShopItem item = plugin.getShopManager().getItem(
+                    holder.getIdentifier()
+            );
 
             /*
              * The shop item may have been removed/changed while the
              * confirmation menu was open.
              */
             if (item == null || !item.hasDisplayItem()) {
-                player.openInventory(MenuFactory.createShopMenu(plugin));
+                player.openInventory(
+                        MenuFactory.createShopMenu(plugin, player)
+                );
+
                 return;
             }
 
@@ -140,7 +158,9 @@ public final class CoinMenuListener implements Listener {
              * enough coins when opening the confirmation menu but
              * then had their balance changed before clicking Confirm.
              */
-            long balance = plugin.getCoinManager().getCoins(player.getUniqueId());
+            long balance = plugin.getCoinManager().getCoins(
+                    player.getUniqueId()
+            );
 
             if (balance < item.cost()) {
                 player.sendMessage(
@@ -189,7 +209,7 @@ public final class CoinMenuListener implements Listener {
 
             player.sendMessage(
                     Messages.purchased(
-                            item.identifier(),
+                            item.displayName(),
                             item.cost()
                     )
             );
@@ -198,7 +218,7 @@ public final class CoinMenuListener implements Listener {
              * Return to the shop after a successful purchase.
              */
             player.openInventory(
-                    MenuFactory.createShopMenu(plugin)
+                    MenuFactory.createShopMenu(plugin, player)
             );
 
             return;
@@ -208,9 +228,12 @@ public final class CoinMenuListener implements Listener {
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
 
-        if (event.getView().getTopInventory().getHolder() instanceof CoinMenuHolder
-                || event.getView().getTopInventory().getHolder() instanceof ShopMenuHolder
-                || event.getView().getTopInventory().getHolder() instanceof ConfirmationMenuHolder) {
+        if (event.getView().getTopInventory().getHolder()
+                instanceof CoinMenuHolder
+                || event.getView().getTopInventory().getHolder()
+                instanceof ShopMenuHolder
+                || event.getView().getTopInventory().getHolder()
+                instanceof ConfirmationMenuHolder) {
 
             event.setCancelled(true);
         }

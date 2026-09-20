@@ -22,11 +22,13 @@
 Shop:
   Items:
     diamond:
+      Display Name: "&bDiamond"
       Cost: 10
       Command: "give %player% diamond 1"
-      # Set in-game with /coins shop setDisplayItem diamond
+      # Set with /coins shop setDisplayItem diamond
 
     gold:
+      Display Name: "&6Gold Ingot"
       Cost: 5
       Command: "give %player% gold_ingot 1"
-      # Set in-game with /coins shop setDisplayItem gold
+      # Set with /coins shop setDisplayItem gold

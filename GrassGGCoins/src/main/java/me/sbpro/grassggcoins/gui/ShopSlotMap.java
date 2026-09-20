@@ -14,12 +14,23 @@ public final class ShopSlotMap {
     public static Map<Integer, String> create(GrassGGCoins plugin) {
         Map<Integer, String> slots = new HashMap<>();
         int slot = 0;
+
         for (ShopItem item : plugin.getShopManager().getItems()) {
+
+            // Slot 49 is reserved for the player's coin balance.
+            if (slot == 49) {
+                slot++;
+            }
+
+            // Shop is full.
             if (slot >= 54) {
                 break;
             }
-            slots.put(slot++, item.identifier());
+
+            slots.put(slot, item.identifier());
+            slot++;
         }
+
         return slots;
     }
 }

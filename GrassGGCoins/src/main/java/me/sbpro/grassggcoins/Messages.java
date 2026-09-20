@@ -153,11 +153,11 @@ public final class Messages {
         );
     }
 
-    public static String purchased(String identifier, long cost) {
+    public static String purchased(String displayName, long cost) {
         return prefix()
                 + CUSTOM + "Purchase successful! "
                 + WHITE + "You bought "
-                + CUSTOM + identifier
+                + org.bukkit.ChatColor.translateAlternateColorCodes('&', displayName)
                 + WHITE + " for "
                 + CUSTOM + AmountFormatter.format(cost)
                 + WHITE + " coin"
@@ -291,6 +291,17 @@ public final class Messages {
     public static List<String> cancelPurchaseLore() {
         return List.of(
                 WHITE + "Click to return to the shop."
+        );
+    }
+
+
+    public static String shopBalanceItemName(long balance) {
+        return CUSTOM + "§lYour Coins";
+    }
+
+    public static List<String> shopBalanceItemLore(long balance) {
+        return List.of(
+                CUSTOM + "Balance: " + WHITE + AmountFormatter.format(balance) + WHITE + " coins"
         );
     }
 }

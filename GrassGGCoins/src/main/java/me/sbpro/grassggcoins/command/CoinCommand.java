@@ -91,7 +91,7 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        player.openInventory(MenuFactory.createShopMenu(plugin));
+        player.openInventory(MenuFactory.createShopMenu(plugin, player));
         return true;
     }
 
