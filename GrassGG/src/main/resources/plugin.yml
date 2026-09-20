@@ -109,6 +109,14 @@ commands:
     usage: /clear [player]
     permission: grassgg.clear.self
 
+  trash:
+    description: Open the trash menu.
+    usage: /trash
+    permission: grassgg.trash
+    aliases:
+      - bin
+      - disposal
+
 
 
   craft:
@@ -212,7 +220,7 @@ permissions:
 
   grassgg.gui.*:
     description: Allows access to all virtual GUI commands
-    default: false
+    default: op
     children:
       grassgg.gui.craft: true
       grassgg.gui.smithing: true
@@ -224,28 +232,32 @@ permissions:
 
   grassgg.gui.craft:
     description: Allows use of /craft
-    default: false
+    default: op
 
   grassgg.gui.smithing:
     description: Allows use of /smithing
-    default: false
+    default: op
 
   grassgg.gui.stonecutter:
     description: Allows use of /stonecutter
-    default: false
+    default: op
 
   grassgg.gui.loom:
     description: Allows use of /loom
-    default: false
+    default: op
 
   grassgg.gui.cartography:
     description: Allows use of /cartography
-    default: false
+    default: op
 
   grassgg.gui.grindstone:
     description: Allows use of /grindstone
-    default: false
+    default: op
 
   grassgg.gui.anvil:
     description: Allows use of /anvil
-    default: false
+    default: op
+
+  grassgg.trash:
+    description: Allows players to use /trash
+    default: true

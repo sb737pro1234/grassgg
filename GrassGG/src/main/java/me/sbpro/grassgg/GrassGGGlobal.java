@@ -17,6 +17,8 @@ import me.sbpro.grassgg.commands.message.ReplyCommand;
 import me.sbpro.grassgg.commands.misc.*;
 import me.sbpro.grassgg.commands.rules.RulesCommand;
 import me.sbpro.grassgg.commands.rules.RulesListener;
+import me.sbpro.grassgg.commands.trash.TrashCommand;
+import me.sbpro.grassgg.commands.trash.TrashListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -98,6 +100,9 @@ public final class GrassGGGlobal extends JavaPlugin implements Listener {
         getCommand("rules").setExecutor(new RulesCommand());
         getServer().getPluginManager().registerEvents(new RulesListener(),this);
 
+        getCommand("trash").setExecutor(new TrashCommand());
+        getServer().getPluginManager().registerEvents(new TrashListener(this), this);
+
     }
 
 
@@ -108,14 +113,14 @@ public final class GrassGGGlobal extends JavaPlugin implements Listener {
         if (player.hasPlayedBefore()) {
 
             if (player.hasPermission("grassgg.announcejoinleave")) {
-                event.setJoinMessage("§8[§a§l+§8] §f" + event.getPlayer().displayName());
+                event.setJoinMessage("§8[§a§l+§8] §f" + event.getPlayer().getDisplayName());
             } else {
                 event.setJoinMessage(null);
                 return;
             }
 
         } else {
-            event.setJoinMessage("§2§lGRASS.GG §8»§f§l " + player.displayName() + " §2has joined the server for the first time! Welcome!");
+            event.setJoinMessage("§2§lGRASS.GG §8»§f§l " + player.getDisplayName() + " §2has joined the server for the first time! Welcome!");
         }
 
     }
@@ -142,7 +147,7 @@ public final class GrassGGGlobal extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
 
         if(player.hasPermission("grassgg.announcejoinleave")){
-            event.setQuitMessage("§8[§c§l-§8] §f" + event.getPlayer().displayName());
+            event.setQuitMessage("§8[§c§l-§8] §f" + event.getPlayer().getDisplayName());
         } else {
             event.setQuitMessage(null);
             return;
