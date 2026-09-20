@@ -1,15 +1,16 @@
 package me.sbpro.grassggcoins;
 
 import me.sbpro.grassggcoins.util.AmountFormatter;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Sound;
 
 import java.util.List;
 
 /**
  * All player-facing GrassGGCoins messages, titles, colours and GUI text live here.
- * Edit this class when you want to change the wording or the colour scheme.
+ *
+ * This class intentionally uses the classic Bukkit String-based message API rather
+ * than Adventure Components, so all messages can be edited using normal § colour
+ * codes, including the §x hex format.
  */
 public final class Messages {
 
@@ -21,93 +22,103 @@ public final class Messages {
     // =============================================================
 
     /** Main text colour: white. */
-    public static final TextColor MAIN_COLOR = TextColor.color(0xFFFFFF);
+    public static final String WHITE = "§f";
 
-    /** Change this one value to change highlight/title colour everywhere. */
-    public static final TextColor CUSTOM_COLOR = TextColor.color(0x55FF55);
+    /**
+     * Main GrassGGCoins highlight/title colour.
+     * Change this one value to change the highlight colour everywhere.
+     * Current colour: #FFD54A
+     */
+    public static final String CUSTOM = "§x§F§F§D§5§4§A";
+
+    /** Error colour: red. */
+    public static final String ERROR = "§c";
 
     // =============================================================
     // Prefix / general messages
     // =============================================================
 
-    public static Component prefix() {
-        return Component.text("GRASS.GG COINS ").color(CUSTOM_COLOR)
-                .append(main("» "));
+    public static String prefix() {
+        return CUSTOM + "COINS §8» §r";
     }
 
-    public static Component noPermission() {
-        return prefix().append(main("You do not have permission to do that."));
+    public static String noPermission() {
+        return prefix() + ERROR + "You do not have permission to do that.";
     }
 
-    public static Component playerOnly() {
-        return prefix().append(main("This command can only be used by a player."));
+    public static String playerOnly() {
+        return prefix() + ERROR + "Only players can use this command.";
     }
 
-    public static Component invalidNumber() {
-        return prefix().append(main("Please enter a valid whole number."));
+    public static String invalidNumber() {
+        return prefix() + ERROR + "Please enter a valid whole number.";
     }
 
-    public static Component invalidAmount() {
-        return prefix().append(main("The amount must be zero or greater."));
+    public static String invalidAmount() {
+        return prefix() + ERROR + "The amount must be zero or greater.";
     }
 
-    public static Component playerNotFound() {
-        return prefix().append(main("That player could not be found."));
+    public static String playerNotFound() {
+        return prefix() + ERROR + "That player could not be found.";
     }
 
-    public static Component unknownSubcommand() {
-        return prefix().append(main("Unknown subcommand."));
+    public static String unknownSubcommand() {
+        return prefix() + ERROR + "Unknown subcommand.";
     }
 
     // =============================================================
     // Reward messages
     // =============================================================
 
-    public static Component rewardActionBar() {
-        return highlight("You have received +1 coin.");
+    public static String rewardActionBar() {
+        return WHITE + "You have received " + CUSTOM + "+1 coin" + WHITE +".";
     }
 
-    public static Component rewardChatMessage() {
-        return main("-----------------------------------------------")
-                .appendNewline()
-                .append(highlight("You have received +1 coin."))
-                .append(main(" Do /coins for more info."))
-                .appendNewline()
-                .append(main("-----------------------------------------------"));
+    public static String rewardChatMessage() {
+        return "§8-----------------------------------------------\n"
+                + WHITE + "You have received" + CUSTOM + "+1 coin" + WHITE + "."
+                + WHITE + " Do" + CUSTOM + "/coins" + WHITE + "for more info.\n"
+                + "§8-----------------------------------------------";
     }
 
     // =============================================================
     // /coins menu
     // =============================================================
 
-    public static Component coinsMenuTitle() {
-        return highlight("COINS").decorate(net.kyori.adventure.text.format.TextDecoration.BOLD);
+    public static String coinsMenuTitle() {
+        return CUSTOM + "§lCOINS";
     }
 
-    public static Component shopButtonName() {
-        return highlight("Coin Shop").decorate(net.kyori.adventure.text.format.TextDecoration.BOLD);
+    public static String shopButtonName() {
+        return CUSTOM + "§lCoin Shop";
     }
 
-    public static List<Component> shopButtonLore() {
-        return List.of(main("Click to go to the shop."));
-    }
-
-    public static Component balanceItemName(long balance) {
-        return main("Coins: ").append(highlight(AmountFormatter.format(balance)));
-    }
-
-    public static List<Component> balanceItemLore() {
-        return List.of(main("This is your current coin balance."));
-    }
-
-    public static Component infoItemName() {
-        return highlight("What are coins?").decorate(net.kyori.adventure.text.format.TextDecoration.BOLD);
-    }
-
-    public static List<Component> infoItemLore() {
+    public static List<String> shopButtonLore() {
         return List.of(
-                main("Earn coins through playing."),
-                main("More ways to earn coins can be added later.")
+                WHITE + "Click to go to the shop."
+        );
+    }
+
+    public static String balanceItemName(long balance) {
+        return WHITE + "Coins: "
+                + CUSTOM
+                + AmountFormatter.format(balance);
+    }
+
+    public static List<String> balanceItemLore() {
+        return List.of(
+                WHITE + "This is your current coin balance."
+        );
+    }
+
+    public static String infoItemName() {
+        return CUSTOM + "§lWhat are coins?";
+    }
+
+    public static List<String> infoItemLore() {
+        return List.of(
+                WHITE + "Earn coins through playing.",
+                WHITE + "More ways to earn coins can be added later."
         );
     }
 
@@ -115,116 +126,137 @@ public final class Messages {
     // /coinshop menu
     // =============================================================
 
-    public static Component shopMenuTitle() {
-        return highlight("COIN SHOP").decorate(net.kyori.adventure.text.format.TextDecoration.BOLD);
+    public static String shopMenuTitle() {
+        return CUSTOM + "§lCOIN SHOP";
     }
 
-    public static List<Component> shopProductLore(long cost) {
+    public static List<String> shopProductLore(long cost) {
         return List.of(
-                main("Cost: ").append(highlight(AmountFormatter.format(cost))).append(main(" coins")),
-                main("Click to purchase.")
+                WHITE + "Cost: "
+                        + CUSTOM
+                        + AmountFormatter.format(cost)
+                        + WHITE
+                        + " coins",
+                WHITE + "Click to purchase."
         );
     }
 
-    public static Component shopEmptyItemName() {
-        return main("Not configured");
+    public static String shopEmptyItemName() {
+        return WHITE + "Not configured";
     }
 
-    public static List<Component> shopEmptyItemLore() {
-        return List.of(main("Set this item's display item using the command."));
+    public static List<String> shopEmptyItemLore() {
+        return List.of(
+                WHITE + "Set this item's display item using the command."
+        );
     }
 
-    public static Component purchased(String identifier, long cost) {
+    public static String purchased(String identifier, long cost) {
         return prefix()
-                .append(highlight("Purchase successful! "))
-                .append(main("You bought "))
-                .append(highlight(identifier))
-                .append(main(" for "))
-                .append(highlight(AmountFormatter.format(cost)))
-                .append(main(" coin" + (cost == 1 ? "." : "s.")));
+                + CUSTOM + "Purchase successful! "
+                + WHITE + "You bought "
+                + CUSTOM + identifier
+                + WHITE + " for "
+                + CUSTOM + AmountFormatter.format(cost)
+                + WHITE + " coin"
+                + (cost == 1 ? "." : "s.");
     }
 
-    public static Component insufficientCoins(long balance, long cost) {
+    public static String insufficientCoins(long balance, long cost) {
         return prefix()
-                .append(highlight("You do not have enough coins."))
-                .appendNewline()
-                .append(main("Balance: "))
-                .append(highlight(AmountFormatter.format(balance)))
-                .append(main(" | Cost: "))
-                .append(highlight(AmountFormatter.format(cost)));
+                + ERROR + "You do not have enough coins."
+                + "\n"
+                + WHITE + "Balance: "
+                + CUSTOM + AmountFormatter.format(balance)
+                + WHITE + " | Cost: "
+                + CUSTOM + AmountFormatter.format(cost);
     }
 
     public static final Sound INSUFFICIENT_COINS_SOUND = Sound.ENTITY_VILLAGER_NO;
     public static final float INSUFFICIENT_COINS_SOUND_VOLUME = 1.0f;
     public static final float INSUFFICIENT_COINS_SOUND_PITCH = 1.0f;
 
-    public static Component purchaseCommandFailed() {
-        return prefix().append(main("This shop item could not be processed, so your coins were not taken."));
+    public static String purchaseCommandFailed() {
+        return prefix()
+                + ERROR
+                + "This shop item could not be processed, so your coins were not taken.";
     }
 
     // =============================================================
     // Admin command messages
     // =============================================================
 
-    public static Component giveSuccess(String playerName, long amount) {
-        return prefix().append(main("Gave "))
-                .append(highlight(AmountFormatter.format(amount)))
-                .append(main(" coin" + (amount == 1 ? "" : "s") + " to "))
-                .append(highlight(playerName)).append(main("."));
+    public static String giveSuccess(String playerName, long amount) {
+        return prefix()
+                + WHITE + "Gave "
+                + CUSTOM + AmountFormatter.format(amount)
+                + WHITE + " coin"
+                + (amount == 1 ? "" : "s")
+                + " to "
+                + CUSTOM + playerName
+                + WHITE + ".";
     }
 
-    public static Component takeSuccess(String playerName, long amount) {
-        return prefix().append(main("Took "))
-                .append(highlight(AmountFormatter.format(amount)))
-                .append(main(" coin" + (amount == 1 ? "" : "s") + " from "))
-                .append(highlight(playerName)).append(main("."));
+    public static String takeSuccess(String playerName, long amount) {
+        return prefix()
+                + WHITE + "Took "
+                + CUSTOM + AmountFormatter.format(amount)
+                + WHITE + " coin"
+                + (amount == 1 ? "" : "s")
+                + " from "
+                + CUSTOM + playerName
+                + WHITE + ".";
     }
 
-    public static Component setSuccess(String playerName, long amount) {
-        return prefix().append(main("Set "))
-                .append(highlight(playerName))
-                .append(main("'s balance to "))
-                .append(highlight(AmountFormatter.format(amount))).append(main("."));
+    public static String setSuccess(String playerName, long amount) {
+        return prefix()
+                + WHITE + "Set "
+                + CUSTOM + playerName
+                + WHITE + "'s balance to "
+                + CUSTOM + AmountFormatter.format(amount)
+                + WHITE + ".";
     }
 
-    public static Component balanceMessage(String playerName, long amount) {
-        return prefix().append(highlight(playerName))
-                .append(main(" has "))
-                .append(highlight(AmountFormatter.format(amount)))
-                .append(main(" coin" + (amount == 1 ? "." : "s.")));
+    public static String balanceMessage(String playerName, long amount) {
+        return prefix()
+                + CUSTOM + playerName
+                + WHITE + " has "
+                + CUSTOM + AmountFormatter.format(amount)
+                + WHITE + " coin"
+                + (amount == 1 ? "." : "s.");
     }
 
-    public static Component setDisplaySuccess(String identifier) {
-        return prefix().append(main("Set the display item for "))
-                .append(highlight(identifier)).append(main("."));
+    public static String setDisplaySuccess(String identifier) {
+        return prefix()
+                + WHITE + "Set the display item for "
+                + CUSTOM + identifier
+                + WHITE + ".";
     }
 
-    public static Component shopIdentifierMissing() {
-        return prefix().append(main("Please provide a shop identifier."));
+    public static String shopIdentifierMissing() {
+        return prefix()
+                + ERROR
+                + "Please provide a shop identifier.";
     }
 
-    public static Component shopIdentifierUnknown(String identifier) {
-        return prefix().append(main("No shop item exists with identifier "))
-                .append(highlight(identifier)).append(main("."));
+    public static String shopIdentifierUnknown(String identifier) {
+        return prefix()
+                + ERROR
+                + "No shop item exists with identifier "
+                + CUSTOM + identifier
+                + ERROR + ".";
     }
 
-    public static Component emptyHand() {
-        return prefix().append(main("You must hold the display item in your main hand."));
+    public static String emptyHand() {
+        return prefix()
+                + ERROR
+                + "You must hold the display item in your main hand.";
     }
 
-    public static Component usage(String usage) {
-        return prefix().append(main("Usage: ")).append(highlight(usage));
-    }
-
-    // =============================================================
-    // Component helpers
-    // =============================================================
-
-    public static Component main(String text) {
-        return Component.text(text).color(MAIN_COLOR);
-    }
-
-    public static Component highlight(String text) {
-        return Component.text(text).color(CUSTOM_COLOR);
+    public static String usage(String usage) {
+        return prefix()
+                + ERROR
+                + "Usage: "
+                + CUSTOM + usage;
     }
 }

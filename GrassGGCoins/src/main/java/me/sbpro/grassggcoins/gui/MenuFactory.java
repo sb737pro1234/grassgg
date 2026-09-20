@@ -3,7 +3,6 @@ package me.sbpro.grassggcoins.gui;
 import me.sbpro.grassggcoins.GrassGGCoins;
 import me.sbpro.grassggcoins.Messages;
 import me.sbpro.grassggcoins.shop.ShopManager.ShopItem;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -63,15 +62,15 @@ public final class MenuFactory {
 
             ItemMeta meta = display.getItemMeta();
             if (meta != null) {
-                List<Component> lore = meta.lore() == null
+                List<String> lore = meta.getLore() == null
                         ? new ArrayList<>()
-                        : new ArrayList<>(meta.lore());
+                        : new ArrayList<>(meta.getLore());
 
                 if (!lore.isEmpty()) {
-                    lore.add(Component.empty());
+                    lore.add("");
                 }
                 lore.addAll(Messages.shopProductLore(shopItem.cost()));
-                meta.lore(lore);
+                meta.setLore(lore);
                 display.setItemMeta(meta);
             }
 
@@ -81,15 +80,15 @@ public final class MenuFactory {
         return inventory;
     }
 
-    private static ItemStack createItem(Material material, Component name, List<Component> lore) {
+    private static ItemStack createItem(Material material, String name, List<String> lore) {
         ItemStack stack = new ItemStack(material);
         ItemMeta meta = stack.getItemMeta();
         if (meta == null) {
             return stack;
         }
 
-        meta.displayName(name);
-        meta.lore(lore);
+        meta.setDisplayName(name);
+        meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         stack.setItemMeta(meta);
         return stack;
