@@ -5,11 +5,11 @@ import me.sbpro.grassggcoins.Messages;
 import me.sbpro.grassggcoins.shop.ShopManager.ShopItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +51,7 @@ public final class MenuFactory {
         holder.setInventory(inventory);
 
         int slot = 0;
+
         for (ShopItem shopItem : plugin.getShopManager().getItems()) {
             if (slot >= inventory.getSize()) {
                 break;
@@ -58,9 +59,14 @@ public final class MenuFactory {
 
             ItemStack display = shopItem.hasDisplayItem()
                     ? shopItem.displayItem().clone()
-                    : createItem(Material.BARRIER, Messages.shopEmptyItemName(), Messages.shopEmptyItemLore());
+                    : createItem(
+                    Material.BARRIER,
+                    Messages.shopEmptyItemName(),
+                    Messages.shopEmptyItemLore()
+            );
 
             ItemMeta meta = display.getItemMeta();
+
             if (meta != null) {
                 List<String> lore = meta.getLore() == null
                         ? new ArrayList<>()
@@ -69,7 +75,9 @@ public final class MenuFactory {
                 if (!lore.isEmpty()) {
                     lore.add("");
                 }
+
                 lore.addAll(Messages.shopProductLore(shopItem.cost()));
+
                 meta.setLore(lore);
                 display.setItemMeta(meta);
             }
@@ -80,9 +88,64 @@ public final class MenuFactory {
         return inventory;
     }
 
-    private static ItemStack createItem(Material material, String name, List<String> lore) {
+    public static Inventory createConfirmationMenu(GrassGGCoins plugin, ShopItem shopItem) {
+        ConfirmationMenuHolder holder =
+                new ConfirmationMenuHolder(shopItem.identifier());
+
+        Inventory inventory = Bukkit.createInventory(
+                holder,
+                27,
+                Messages.confirmationMenuTitle()
+        );
+
+        holder.setInventory(inventory);
+
+        /*
+         * Slot 10 = Cancel
+         * Slot 13 = Display Item
+         * Slot 16 = Confirm
+         */
+
+        inventory.setItem(
+                10,
+                createItem(
+                        Material.RED_WOOL,
+                        Messages.cancelPurchaseName(),
+                        Messages.cancelPurchaseLore()
+                )
+        );
+
+        /*
+         * The item displayed here is the exact ItemStack stored in shop.yml.
+         * Nothing is added to it, so enchantments, lore, names, components,
+         * custom model data, etc. are preserved.
+         */
+        inventory.setItem(
+                13,
+                shopItem.displayItem().clone()
+        );
+
+        inventory.setItem(
+                16,
+                createItem(
+                        Material.LIME_WOOL,
+                        Messages.confirmPurchaseName(),
+                        Messages.confirmPurchaseLore(shopItem.cost())
+                )
+        );
+
+        return inventory;
+    }
+
+    private static ItemStack createItem(
+            Material material,
+            String name,
+            List<String> lore
+    ) {
         ItemStack stack = new ItemStack(material);
+
         ItemMeta meta = stack.getItemMeta();
+
         if (meta == null) {
             return stack;
         }
@@ -90,7 +153,9 @@ public final class MenuFactory {
         meta.setDisplayName(name);
         meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
         stack.setItemMeta(meta);
+
         return stack;
     }
 }

@@ -39,7 +39,7 @@ public final class Messages {
     // =============================================================
 
     public static String prefix() {
-        return CUSTOM + "COINS §8» §r";
+        return CUSTOM + "§lCOINS §8» §r";
     }
 
     public static String noPermission() {
@@ -76,8 +76,8 @@ public final class Messages {
 
     public static String rewardChatMessage() {
         return "§8-----------------------------------------------\n"
-                + WHITE + "You have received" + CUSTOM + "+1 coin" + WHITE + "."
-                + WHITE + " Do" + CUSTOM + "/coins" + WHITE + "for more info.\n"
+                + prefix() + WHITE + "You have received " + CUSTOM + "+1 coin" + WHITE + "."
+                + WHITE + " Do " + CUSTOM + "/coins" + WHITE + " for more info.\n"
                 + "§8-----------------------------------------------";
     }
 
@@ -258,5 +258,37 @@ public final class Messages {
                 + ERROR
                 + "Usage: "
                 + CUSTOM + usage;
+    }
+
+    // =============================================================
+// Purchase confirmation menu
+// =============================================================
+
+    public static String confirmationMenuTitle() {
+        return CUSTOM + "§lCONFIRM PURCHASE";
+    }
+
+    public static String confirmPurchaseName() {
+        return "§a§lConfirm";
+    }
+
+    public static List<String> confirmPurchaseLore(long cost) {
+        return List.of(
+                WHITE + "Click to confirm your purchase.",
+                WHITE + "Cost: "
+                        + CUSTOM
+                        + AmountFormatter.format(cost)
+                        + " coins"
+        );
+    }
+
+    public static String cancelPurchaseName() {
+        return ERROR + "§lCancel";
+    }
+
+    public static List<String> cancelPurchaseLore() {
+        return List.of(
+                WHITE + "Click to return to the shop."
+        );
     }
 }
