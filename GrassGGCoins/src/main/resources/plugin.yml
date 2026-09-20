@@ -10,7 +10,7 @@ softdepend:
 commands:
   coins:
     description: View your GrassGGCoins balance and information.
-    usage: /coins [shop|give|take|set|balance]
+    usage: /coins [shop|give|take|set|balance|reload]
     aliases: [coin]
   coinshop:
     description: Open the GrassGG coin shop.
@@ -37,4 +37,7 @@ permissions:
     default: op
   grassgg.coins.shop.setdisplayitem:
     description: Allows setting a shop item's display item.
+    default: op
+  grassgg.coins.reload:
+    description: Allows reloading GrassGGCoins configuration.
     default: op

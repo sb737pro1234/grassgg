@@ -38,6 +38,10 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
             return openCoins(sender);
         }
 
+        if (args[0].equalsIgnoreCase("reload")) {
+            return reload(sender);
+        }
+
         if (args[0].equalsIgnoreCase("shop")) {
             if (args.length == 1) {
                 return openShop(sender);
@@ -88,6 +92,19 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
         }
 
         player.openInventory(MenuFactory.createShopMenu(plugin));
+        return true;
+    }
+
+    private boolean reload(CommandSender sender) {
+        if (!sender.hasPermission("grassgg.coins.reload")) {
+            sender.sendMessage(Messages.noPermission());
+            return true;
+        }
+
+        plugin.getShopManager().reload();
+
+        sender.sendMessage(Messages.reloadSuccess());
+
         return true;
     }
 
@@ -222,7 +239,9 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 1) {
-            List<String> suggestions = new ArrayList<>(List.of("shop", "give", "take", "set", "balance"));
+            List<String> suggestions = new ArrayList<>(
+                    List.of("shop", "give", "take", "set", "balance", "reload")
+            );
             if (!sender.hasPermission("grassgg.coins.shop")) {
                 suggestions.remove("shop");
             }
@@ -234,6 +253,9 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
             }
             if (!sender.hasPermission("grassgg.coins.set")) {
                 suggestions.remove("set");
+            }
+            if (!sender.hasPermission("grassgg.coins.reload")) {
+                suggestions.remove("reload");
             }
             return partial(args[0], suggestions);
         }

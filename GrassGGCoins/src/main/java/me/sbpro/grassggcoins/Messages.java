@@ -66,6 +66,8 @@ public final class Messages {
         return prefix() + ERROR + "Unknown subcommand.";
     }
 
+    public static String reloadSuccess() {return prefix() + "§aConfiguration reloaded successfully.";}
+
     // =============================================================
     // Reward messages
     // =============================================================
