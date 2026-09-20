@@ -109,7 +109,7 @@ public final class MenuFactory {
         inventory.setItem(
                 10,
                 createItem(
-                        Material.RED_WOOL,
+                        Material.RED_STAINED_GLASS_PANE,
                         Messages.cancelPurchaseName(),
                         Messages.cancelPurchaseLore()
                 )
@@ -128,7 +128,7 @@ public final class MenuFactory {
         inventory.setItem(
                 16,
                 createItem(
-                        Material.LIME_WOOL,
+                        Material.GREEN_STAINED_GLASS_PANE,
                         Messages.confirmPurchaseName(),
                         Messages.confirmPurchaseLore(shopItem.cost())
                 )
