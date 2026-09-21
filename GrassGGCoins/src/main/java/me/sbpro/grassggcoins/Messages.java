@@ -1,6 +1,7 @@
 package me.sbpro.grassggcoins;
 
 import me.sbpro.grassggcoins.util.AmountFormatter;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 
 import java.util.List;
@@ -303,5 +304,97 @@ public final class Messages {
         return List.of(
                 CUSTOM + "Balance: " + WHITE + AmountFormatter.format(balance) + WHITE + " coins"
         );
+    }
+
+
+
+    // =============================================================
+// Bank notes
+// =============================================================
+
+    public static final Material BANK_NOTE_MATERIAL = Material.SUNFLOWER;
+
+    public static String bankNoteName() {
+        return CUSTOM + "§lCoin Bank Note";
+    }
+
+    public static List<String> bankNoteLore(
+            long amount,
+            String withdrawnBy
+    ) {
+        return List.of(
+                WHITE
+                        + "Amount: "
+                        + CUSTOM
+                        + AmountFormatter.format(amount),
+
+                WHITE
+                        + "Withdrawn by: "
+                        + CUSTOM
+                        + withdrawnBy
+        );
+    }
+
+    public static String withdrawSuccess(long amount) {
+        return prefix()
+                + WHITE
+                + "Withdrew "
+                + CUSTOM
+                + AmountFormatter.format(amount)
+                + WHITE
+                + " coins into a bank note.";
+    }
+
+    public static String invalidWithdrawAmount() {
+        return prefix()
+                + ERROR
+                + "The withdrawal amount must be greater than zero.";
+    }
+
+    public static String insufficientWithdrawBalance(
+            long balance,
+            long amount
+    ) {
+        return prefix()
+                + ERROR
+                + "You do not have enough coins to withdraw that amount."
+                + "\n"
+                + WHITE
+                + "Balance: "
+                + CUSTOM
+                + AmountFormatter.format(balance)
+                + WHITE
+                + " | Requested: "
+                + CUSTOM
+                + AmountFormatter.format(amount);
+    }
+
+    public static String bankNoteInventoryFull() {
+        return prefix()
+                + ERROR
+                + "Your inventory is full, so the withdrawal was cancelled.";
+    }
+
+    public static String bankNoteRedeemed(long amount) {
+        return prefix()
+                + WHITE
+                + "You redeemed a bank note worth "
+                + CUSTOM
+                + AmountFormatter.format(amount)
+                + WHITE
+                + " coins.";
+    }
+
+    public static String bankNoteAlreadyUsed() {
+        return prefix()
+                + ERROR
+                + "This bank note has already been used.";
+    }
+
+    public static String bankNoteError() {
+        return prefix()
+                + ERROR
+                + "This bank note could not be redeemed. "
+                + "No coins were added.";
     }
 }
