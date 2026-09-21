@@ -73,7 +73,7 @@ permissions:
     default: op
 
   grassgg.staff.exempt:
-    default: false
+    default: op
 
   grassgg.staff.sus:
     default: op
