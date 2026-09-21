@@ -27,9 +27,18 @@ public class CombatManager {
         this.plugin = plugin;
     }
 
-    public void tag(Player player) {
+    public void tag(Player player, Player opponent) {
+
+        boolean wasInCombat = isInCombat(player);
+
         combatTimers.put(player.getUniqueId(), COMBAT_TIME);
         updateActionBar(player);
+
+        // Only announce entering combat the first time they're tagged,
+        // not on every subsequent hit that just refreshes the timer.
+        if (!wasInCombat) {
+            sendEnteredCombatMessage(player, opponent);
+        }
     }
 
     public boolean isInCombat(Player player) {
@@ -41,8 +50,14 @@ public class CombatManager {
     }
 
     public void remove(Player player) {
-        combatTimers.remove(player.getUniqueId());
+
+        boolean wasInCombat = combatTimers.remove(player.getUniqueId()) != null;
+
         player.sendActionBar(Component.empty());
+
+        if (wasInCombat) {
+            sendLeftCombatMessage(player);
+        }
     }
 
     /**
@@ -90,6 +105,7 @@ public class CombatManager {
                         if (time <= 0) {
                             expired.put(uuid, 0);
                             player.sendActionBar(Component.empty());
+                            sendLeftCombatMessage(player);
                             continue;
                         }
 
@@ -126,5 +142,27 @@ public class CombatManager {
                 .deserialize(message);
 
         player.sendActionBar(component);
+    }
+
+    private void sendEnteredCombatMessage(Player player, Player opponent) {
+
+        String message = Messages.ENTERED_COMBAT
+                .replace("[OPPONENT]", opponent.getName())
+                .replace("[TIME]", String.valueOf(COMBAT_TIME));
+
+        Component component = LegacyComponentSerializer
+                .legacySection()
+                .deserialize(message);
+
+        player.sendMessage(component);
+    }
+
+    private void sendLeftCombatMessage(Player player) {
+
+        Component component = LegacyComponentSerializer
+                .legacySection()
+                .deserialize(Messages.LEFT_COMBAT);
+
+        player.sendMessage(component);
     }
 }

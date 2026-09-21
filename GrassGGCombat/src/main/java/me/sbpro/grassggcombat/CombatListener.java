@@ -33,9 +33,9 @@ public class CombatListener implements Listener {
             return;
         }
 
-        // Put both players into combat.
-        combatManager.tag(attacker);
-        combatManager.tag(victim);
+        // Put both players into combat, naming who tagged them.
+        combatManager.tag(attacker, victim);
+        combatManager.tag(victim, attacker);
     }
 
     /**
