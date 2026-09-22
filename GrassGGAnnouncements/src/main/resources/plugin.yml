@@ -12,6 +12,20 @@ commands:
     description: Sends an announcement to the server
     usage: /announce <announcement>
     permission: grassgg.announce
+  livestream:
+    aliases:
+      - livestreamannounce
+      - announcelivestream
+      - stream
+    permission: grassgg.media.announce
+  content:
+    aliases:
+      - contentannounce
+      - announce  content
+      - video
+      - short
+    permission: grassgg.media.announce
+
 
 permissions:
   grassggannouncements.admin:
@@ -20,3 +34,6 @@ permissions:
   grassgg.announce:
     description: Allows the player to send server announcements
     default: op
+  grassgg.media.announce:
+    default: op
+    description: Allows a media rank or above use /livestream.
