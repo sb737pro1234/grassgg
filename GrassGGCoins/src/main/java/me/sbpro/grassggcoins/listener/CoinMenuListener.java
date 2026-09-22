@@ -6,6 +6,7 @@ import me.sbpro.grassggcoins.gui.CoinMenuHolder;
 import me.sbpro.grassggcoins.gui.ConfirmationMenuHolder;
 import me.sbpro.grassggcoins.gui.MenuFactory;
 import me.sbpro.grassggcoins.gui.ShopMenuHolder;
+import me.sbpro.grassggcoins.gui.TopCoinsMenuHolder;
 import me.sbpro.grassggcoins.gui.ShopSlotMap;
 import me.sbpro.grassggcoins.shop.ShopManager.ShopItem;
 import org.bukkit.Bukkit;
@@ -43,6 +44,15 @@ public final class CoinMenuListener implements Listener {
                 player.openInventory(MenuFactory.createShopMenu(plugin, player));
             }
 
+            return;
+        }
+
+        // =============================================================
+        // Top coins menu
+        // =============================================================
+
+        if (event.getView().getTopInventory().getHolder() instanceof TopCoinsMenuHolder) {
+            event.setCancelled(true);
             return;
         }
 
@@ -233,7 +243,9 @@ public final class CoinMenuListener implements Listener {
                 || event.getView().getTopInventory().getHolder()
                 instanceof ShopMenuHolder
                 || event.getView().getTopInventory().getHolder()
-                instanceof ConfirmationMenuHolder) {
+                instanceof ConfirmationMenuHolder
+                || event.getView().getTopInventory().getHolder()
+                instanceof TopCoinsMenuHolder) {
 
             event.setCancelled(true);
         }

@@ -10,7 +10,7 @@ softdepend:
 commands:
   coins:
     description: View your GrassGGCoins balance and information.
-    usage: /coins [shop|give|take|set|balance|withdraw|reload]
+    usage: /coins [shop|top|give|take|set|balance|withdraw|reload]
     aliases: [coin]
   coinshop:
     description: Open the GrassGG coin shop.
@@ -19,6 +19,10 @@ commands:
     description: Withdraw coins into a bank note.
     usage: /withdrawcoins <amount>
     aliases: [coinswithdraw]
+  cointop:
+    description: View the top GrassGG coin balances.
+    usage: /cointop
+    aliases: []
 
 permissions:
   grassgg.coins.use:

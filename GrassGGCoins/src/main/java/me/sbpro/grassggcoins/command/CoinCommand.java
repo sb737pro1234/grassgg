@@ -38,12 +38,19 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
         boolean isWithdrawCoinsCommand =
                 command.getName().equalsIgnoreCase("withdrawcoins");
 
+        boolean isCoinTopCommand =
+                command.getName().equalsIgnoreCase("cointop");
+
         if (isCoinShopCommand) {
             return openShop(sender);
         }
 
         if (isWithdrawCoinsCommand) {
             return withdraw(sender, args);
+        }
+
+        if (isCoinTopCommand) {
+            return openTop(sender);
         }
 
         if (!sender.hasPermission("grassgg.coins.use")) {
@@ -61,6 +68,10 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
 
         if (args[0].equalsIgnoreCase("withdraw")) {
             return withdraw(sender, args);
+        }
+
+        if (args[0].equalsIgnoreCase("top")) {
+            return openTop(sender);
         }
 
         if (args[0].equalsIgnoreCase("shop")) {
@@ -105,6 +116,25 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
 
         player.openInventory(
                 MenuFactory.createCoinsMenu(plugin, player)
+        );
+
+        return true;
+    }
+
+    private boolean openTop(CommandSender sender) {
+
+        if (!sender.hasPermission("grassgg.coins.use")) {
+            sender.sendMessage(Messages.noPermission());
+            return true;
+        }
+
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(Messages.playerOnly());
+            return true;
+        }
+
+        player.openInventory(
+                MenuFactory.createTopCoinsMenu(plugin, player)
         );
 
         return true;
@@ -531,6 +561,7 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
                     new ArrayList<>(
                             List.of(
                                     "shop",
+                                    "top",
                                     "give",
                                     "take",
                                     "set",

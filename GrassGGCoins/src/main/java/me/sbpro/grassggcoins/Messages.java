@@ -264,6 +264,38 @@ public final class Messages {
     }
 
     // =============================================================
+    // Top coins menu
+    // =============================================================
+
+    public static String topCoinsMenuTitle() {
+        return CUSTOM + "§lTOP COINS";
+    }
+
+    public static String topCoinsPlayerName(String playerName, int position) {
+        return WHITE
+                + playerName
+                + WHITE
+                + " (#"
+                + CUSTOM
+                + position
+                + WHITE
+                + ")";
+    }
+
+    public static String topCoinsPlayerNameUnranked(String playerName) {
+        return WHITE + playerName;
+    }
+
+    public static List<String> topCoinsPlayerLore(long balance) {
+        return List.of(
+                WHITE
+                        + "Coins: "
+                        + CUSTOM
+                        + AmountFormatter.format(balance)
+        );
+    }
+
+    // =============================================================
 // Purchase confirmation menu
 // =============================================================
 

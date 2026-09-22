@@ -64,6 +64,21 @@ public final class GrassGGCoins extends JavaPlugin {
                 "withdrawcoins command missing from plugin.yml"
         ).setExecutor(coinCommand);
 
+        Objects.requireNonNull(
+                getCommand("withdrawcoins"),
+                "withdrawcoins command missing from plugin.yml"
+        ).setTabCompleter(coinCommand);
+
+        Objects.requireNonNull(
+                getCommand("cointop"),
+                "cointop command missing from plugin.yml"
+        ).setExecutor(coinCommand);
+
+        Objects.requireNonNull(
+                getCommand("cointop"),
+                "cointop command missing from plugin.yml"
+        ).setTabCompleter(coinCommand);
+
         if (Bukkit.getPluginManager()
                 .isPluginEnabled("PlaceholderAPI")) {
 
