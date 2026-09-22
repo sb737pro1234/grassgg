@@ -17,6 +17,7 @@ import me.sbpro.grassgg.commands.message.ReplyCommand;
 import me.sbpro.grassgg.commands.misc.*;
 import me.sbpro.grassgg.commands.rules.RulesCommand;
 import me.sbpro.grassgg.commands.rules.RulesListener;
+import me.sbpro.grassgg.commands.say.SayCommand;
 import me.sbpro.grassgg.commands.trash.TrashCommand;
 import me.sbpro.grassgg.commands.trash.TrashListener;
 import org.bukkit.Bukkit;
@@ -102,6 +103,9 @@ public final class GrassGGGlobal extends JavaPlugin implements Listener {
 
         getCommand("trash").setExecutor(new TrashCommand());
         getServer().getPluginManager().registerEvents(new TrashListener(this), this);
+
+
+        getCommand("say").setExecutor(new SayCommand());
 
     }
 

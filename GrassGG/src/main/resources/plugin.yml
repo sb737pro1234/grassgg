@@ -152,6 +152,14 @@ commands:
     description: Opens the rules menu
     usage: /rules
 
+  say:
+    description: Makes it so admins can use /say with titles
+    usage: /say
+    permission: grassgg.say
+    aliases:
+      - shout
+      - talk
+
 
 permissions:
   grassgg.kill.self:
@@ -261,3 +269,7 @@ permissions:
   grassgg.trash:
     description: Allows players to use /trash
     default: true
+
+  grassgg.say:
+    description: Allows player to use /say
+    default: op
