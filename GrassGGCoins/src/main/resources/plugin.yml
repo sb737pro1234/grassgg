@@ -21,7 +21,7 @@ commands:
     aliases: [coinswithdraw]
   coinstop:
     description: View the top GrassGG coin balances.
-    usage: /cointop
+    usage: /coinstop
     aliases: []
 
 permissions:

@@ -70,13 +70,13 @@ public final class GrassGGCoins extends JavaPlugin {
         ).setTabCompleter(coinCommand);
 
         Objects.requireNonNull(
-                getCommand("cointop"),
-                "cointop command missing from plugin.yml"
+                getCommand("coinstop"),
+                "coinstop command missing from plugin.yml"
         ).setExecutor(coinCommand);
 
         Objects.requireNonNull(
-                getCommand("cointop"),
-                "cointop command missing from plugin.yml"
+                getCommand("coinstop"),
+                "coinstop command missing from plugin.yml"
         ).setTabCompleter(coinCommand);
 
         if (Bukkit.getPluginManager()
