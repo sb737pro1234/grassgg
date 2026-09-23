@@ -11,18 +11,25 @@ commands:
   coins:
     description: View your GrassGGCoins balance and information.
     usage: /coins [shop|top|give|take|set|balance|withdraw|reload]
-    aliases: [coin]
+    aliases:
+      - coin
+      - c
   coinshop:
     description: Open the GrassGG coin shop.
     usage: /coinshop
+    aliases:
+      - coinsshop
   withdrawcoins:
     description: Withdraw coins into a bank note.
     usage: /withdrawcoins <amount>
-    aliases: [coinswithdraw]
+    aliases:
+    - coinswithdraw
+    - coinwithdraw
   coinstop:
     description: View the top GrassGG coin balances.
     usage: /coinstop
-    aliases: []
+    aliases:
+      - cointop
 
 permissions:
   grassgg.coins.use:
