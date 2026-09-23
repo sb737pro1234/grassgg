@@ -39,7 +39,8 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
                 command.getName().equalsIgnoreCase("withdrawcoins");
 
         boolean isCoinTopCommand =
-                command.getName().equalsIgnoreCase("cointop");
+                command.getName().equalsIgnoreCase("coinstop")
+                        || command.getName().equalsIgnoreCase("cointop");
 
         if (isCoinShopCommand) {
             return openShop(sender);

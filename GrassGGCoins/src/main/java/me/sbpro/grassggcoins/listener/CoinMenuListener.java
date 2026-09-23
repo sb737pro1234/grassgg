@@ -40,8 +40,13 @@ public final class CoinMenuListener implements Listener {
         if (event.getView().getTopInventory().getHolder() instanceof CoinMenuHolder) {
             event.setCancelled(true);
 
-            if (event.getRawSlot() == 11) {
+            if (event.getRawSlot() == 10) {
                 player.openInventory(MenuFactory.createShopMenu(plugin, player));
+                return;
+            }
+
+            if (event.getRawSlot() == 16) {
+                player.openInventory(MenuFactory.createTopCoinsMenu(plugin, player));
             }
 
             return;

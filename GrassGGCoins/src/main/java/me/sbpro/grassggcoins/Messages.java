@@ -125,6 +125,16 @@ public final class Messages {
         );
     }
 
+    public static String topButtonName() {
+        return CUSTOM + "§lTop Coins";
+    }
+
+    public static List<String> topButtonLore() {
+        return List.of(
+                WHITE + "View the players with the most coins."
+        );
+    }
+
     // =============================================================
     // /coinshop menu
     // =============================================================
@@ -275,7 +285,7 @@ public final class Messages {
         return WHITE
                 + playerName
                 + WHITE
-                + "("
+                + " ("
                 + CUSTOM
                 + "#"
                 + position

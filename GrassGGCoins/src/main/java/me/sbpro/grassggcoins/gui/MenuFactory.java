@@ -29,22 +29,28 @@ public final class MenuFactory {
         Inventory inventory = Bukkit.createInventory(holder, 27, Messages.coinsMenuTitle());
         holder.setInventory(inventory);
 
-        inventory.setItem(11, createItem(
+        inventory.setItem(10, createItem(
                 Material.EMERALD,
                 Messages.shopButtonName(),
                 Messages.shopButtonLore()
         ));
 
-        inventory.setItem(13, createItem(
+        inventory.setItem(12, createItem(
                 Material.GOLD_NUGGET,
                 Messages.balanceItemName(plugin.getCoinManager().getCoins(player.getUniqueId())),
                 Messages.balanceItemLore()
         ));
 
-        inventory.setItem(15, createItem(
+        inventory.setItem(14, createItem(
                 Material.BOOK,
                 Messages.infoItemName(),
                 Messages.infoItemLore()
+        ));
+
+        inventory.setItem(16, createItem(
+                Material.PLAYER_HEAD,
+                Messages.topButtonName(),
+                Messages.topButtonLore()
         ));
 
         return inventory;
