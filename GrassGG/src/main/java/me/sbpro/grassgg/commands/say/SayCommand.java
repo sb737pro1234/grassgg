@@ -10,11 +10,27 @@ public class SayCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "This command can only be used by players.");
+
+        if (args.length == 0) {
+            sender.sendMessage(ChatColor.RED + "Usage: /say <text>");
             return true;
         }
 
+        String message = String.join(" ", args);
+
+        // Console / non-player sender
+        if (!(sender instanceof Player)) {
+
+            String consoleMessage = ChatColor.WHITE + "[CONSOLE] " + ChatColor.WHITE + message;
+
+            for (Player online : sender.getServer().getOnlinePlayers()) {
+                online.sendMessage(consoleMessage);
+            }
+
+            return true;
+        }
+
+        // Player sender
         Player player = (Player) sender;
 
         if (!player.hasPermission("grassgg.say")) {
@@ -22,14 +38,7 @@ public class SayCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length == 0) {
-            player.sendMessage(ChatColor.RED + "Usage: /say <text>");
-            return true;
-        }
-
-        String message = String.join(" ", args);
-
-        String titleLine = "§x§2§9§7§9§F§F"+ player.getName() + ChatColor.WHITE + ":";
+        String titleLine = "§x§2§9§7§9§F§F" + player.getName() + ChatColor.WHITE + ":";
         String subtitleLine = ChatColor.WHITE + message;
 
         for (Player online : player.getServer().getOnlinePlayers()) {
@@ -38,6 +47,7 @@ public class SayCommand implements CommandExecutor {
 
         String confirmation = "§x§2§9§7§9§F§F§lSTAFF §8» §fYou sent the message: §x§2§9§7§9§F§F\""
                 + message + "\" §fto all online players.";
+
         player.sendMessage(confirmation);
 
         return true;
