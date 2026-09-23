@@ -52,9 +52,9 @@ public class MsgToggleCommand implements CommandExecutor {
 
     private void sendStateMessage(Player player, boolean disabled) {
         if (disabled) {
-            player.sendMessage("§8[§2Message Toggle§8] §cYou will no longer receive private messages.");
+            player.sendMessage("§2§lGRASS.GG §8» §cYou will no longer receive private messages.");
         } else {
-            player.sendMessage("§8[§2Message Toggle§8] §aYou will now receive private messages.");
+            player.sendMessage("§2§lGRASS.GG §8» §aYou will now receive private messages.");
         }
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
     }
