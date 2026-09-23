@@ -275,8 +275,9 @@ public final class Messages {
         return WHITE
                 + playerName
                 + WHITE
-                + " (#"
+                + "("
                 + CUSTOM
+                + "#"
                 + position
                 + WHITE
                 + ")";

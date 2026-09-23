@@ -19,7 +19,7 @@ commands:
     description: Withdraw coins into a bank note.
     usage: /withdrawcoins <amount>
     aliases: [coinswithdraw]
-  cointop:
+  coinstop:
     description: View the top GrassGG coin balances.
     usage: /cointop
     aliases: []
