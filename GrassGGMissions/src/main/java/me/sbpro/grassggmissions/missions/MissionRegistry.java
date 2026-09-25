@@ -31,9 +31,8 @@ public class MissionRegistry {
                 MissionType.BREAK_BLOCK,
                 Set.of(Material.STONE),
                 null,
-                32,
-                15000
-        ));
+                32
+                ));
 
         register(new Mission(
                 "MINE_COAL",
@@ -46,9 +45,8 @@ public class MissionRegistry {
                         Material.DEEPSLATE_COAL_ORE
                 ),
                 null,
-                16,
-                15000
-        ));
+                16
+                ));
 
         register(new Mission(
                 "MINE_IRON",
@@ -61,9 +59,8 @@ public class MissionRegistry {
                         Material.DEEPSLATE_IRON_ORE
                 ),
                 null,
-                12,
-                15000
-        ));
+                12
+                ));
 
         register(new Mission(
                 "MINE_DIAMONDS",
@@ -76,9 +73,8 @@ public class MissionRegistry {
                         Material.DEEPSLATE_DIAMOND_ORE
                 ),
                 null,
-                4,
-                15000
-        ));
+                4
+                ));
 
 
         /*
@@ -107,9 +103,8 @@ public class MissionRegistry {
                         Material.WARPED_STEM
                 ),
                 null,
-                32,
-                15000
-        ));
+                32
+                ));
 
         register(new Mission(
                 "STRIP_LOGS",
@@ -129,9 +124,8 @@ public class MissionRegistry {
                         Material.PALE_OAK_LOG
                 ),
                 null,
-                16,
-                15000
-        ));
+                16
+                ));
 
         register(new Mission(
                 "CRAFT_CHESTS",
@@ -141,9 +135,8 @@ public class MissionRegistry {
                 MissionType.CRAFT_ITEM,
                 Set.of(Material.CHEST),
                 null,
-                8,
-                15000
-        ));
+                8
+                ));
 
 
         /*
@@ -160,9 +153,8 @@ public class MissionRegistry {
                 MissionType.KILL_ENTITY,
                 null,
                 EntityType.ZOMBIE,
-                20,
-                15000
-        ));
+                20
+                ));
 
         register(new Mission(
                 "KILL_SKELETONS",
@@ -172,9 +164,8 @@ public class MissionRegistry {
                 MissionType.KILL_ENTITY,
                 null,
                 EntityType.SKELETON,
-                15,
-                15000
-        ));
+                15
+                ));
 
         register(new Mission(
                 "KILL_CREEPERS",
@@ -184,9 +175,8 @@ public class MissionRegistry {
                 MissionType.KILL_ENTITY,
                 null,
                 EntityType.CREEPER,
-                5,
-                15000
-        ));
+                5
+                ));
 
 
         /*
@@ -203,9 +193,8 @@ public class MissionRegistry {
                 MissionType.HARVEST_CROP,
                 Set.of(Material.WHEAT_SEEDS),
                 null,
-                32,
-                15000
-        ));
+                32
+                ));
 
         register(new Mission(
                 "PLANT_SEEDS",
@@ -215,9 +204,8 @@ public class MissionRegistry {
                 MissionType.PLANT_CROP,
                 Set.of(Material.WHEAT),
                 null,
-                32,
-                15000
-        ));
+                32
+                ));
 
         register(new Mission(
                 "BREED_COWS",
@@ -227,9 +215,8 @@ public class MissionRegistry {
                 MissionType.BREED_ANIMAL,
                 null,
                 EntityType.COW,
-                8,
-                15000
-        ));
+                8
+                ));
 
 
         /*
@@ -246,9 +233,8 @@ public class MissionRegistry {
                 MissionType.CATCH_FISH,
                 null,
                 null,
-                8,
-                15000
-        ));
+                8
+                ));
 
 
         /*
@@ -265,9 +251,8 @@ public class MissionRegistry {
                 MissionType.CRAFT_ITEM,
                 Set.of(Material.FURNACE),
                 null,
-                8,
-                15000
-        ));
+                8
+                ));
 
         register(new Mission(
                 "CRAFT_TORCHES",
@@ -277,9 +262,8 @@ public class MissionRegistry {
                 MissionType.CRAFT_ITEM,
                 Set.of(Material.TORCH),
                 null,
-                8,
-                15000
-        ));
+                8
+                ));
 
         register(new Mission(
                 "CRAFT_TABLES",
@@ -289,9 +273,8 @@ public class MissionRegistry {
                 MissionType.CRAFT_ITEM,
                 Set.of(Material.CRAFTING_TABLE),
                 null,
-                16,
-                15000
-        ));
+                16
+                ));
 
     }
 

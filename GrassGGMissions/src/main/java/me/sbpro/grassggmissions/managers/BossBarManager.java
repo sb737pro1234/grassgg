@@ -43,7 +43,7 @@ public class BossBarManager {
         bossBar.setColor(getColor(mission));
 
         bossBar.setTitle(
-                "§2§lDaily Mission §8» §f"
+                "§f"
                         + mission.getMission().getDisplayName()
                         + " §8("
                         + mission.getProgressString()

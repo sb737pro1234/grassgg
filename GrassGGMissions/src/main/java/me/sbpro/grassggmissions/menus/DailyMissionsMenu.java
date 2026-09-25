@@ -75,9 +75,6 @@ public class DailyMissionsMenu {
 
             lore.add("");
 
-            lore.add("§6Reward");
-            lore.add(" §f£" + String.format("%,.0f", mission.getMission().getReward()));
-
             lore.add("");
 
             if (mission.isCompleted()) {
@@ -138,7 +135,7 @@ public class DailyMissionsMenu {
                 .setLore(List.of(
                         "",
                         "§7Complete all four daily missions",
-                        "§7to earn rewards.",
+                        "§7to earn §x§F§F§D§5§4§A10 Coins§7 per mission.",
                         "",
                         "§7• Missions reset every 24 hours.",
                         "§7• Rewards are given instantly.",
@@ -209,7 +206,7 @@ public class DailyMissionsMenu {
                 .setLore(List.of(
                         "",
                         "§7Complete your daily missions",
-                        "§7to earn money and progress.",
+                        "§7to earn §x§F§F§D§5§4§ACoins §7and progress.",
                         "",
                         "§7Or click one of the four",
                         "§7buttons below a mission",

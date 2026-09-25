@@ -18,7 +18,6 @@ public class Mission {
     private final EntityType entityType;
 
     private final int goal;
-    private final double reward;
 
     public Mission(String id,
                    String displayName,
@@ -27,8 +26,7 @@ public class Mission {
                    MissionType type,
                    Set<Material> materials,
                    EntityType entityType,
-                   int goal,
-                   double reward) {
+                   int goal) {
 
         this.id = id;
         this.displayName = displayName;
@@ -41,7 +39,6 @@ public class Mission {
         this.entityType = entityType;
 
         this.goal = goal;
-        this.reward = reward;
     }
 
     public String getId() {
@@ -76,8 +73,5 @@ public class Mission {
         return goal;
     }
 
-    public double getReward() {
-        return reward;
-    }
 
 }

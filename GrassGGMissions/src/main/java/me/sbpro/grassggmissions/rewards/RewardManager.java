@@ -1,12 +1,10 @@
 package me.sbpro.grassggmissions.rewards;
 
-import me.sbpro.grassggmissions.managers.EconomyManager;
+import me.sbpro.grassggmissions.Messages;
 import me.sbpro.grassggmissions.missions.PlayerMission;
-import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-
-import java.text.NumberFormat;
 
 public class RewardManager {
 
@@ -15,22 +13,26 @@ public class RewardManager {
 
     public static void reward(Player player, PlayerMission mission) {
 
-        EconomyManager.deposit(player, mission.getMission().getReward());
+        String command = Messages.MISSION_REWARD_COMMAND
+                .replace("%player%", player.getName());
 
-        String reward = NumberFormat.getInstance()
-                .format(mission.getMission().getReward());
+        if (command.startsWith("/")) {
+            command = command.substring(1);
+        }
+
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
 
         player.sendTitle(
-                "§a§lMission Complete!",
-                "§6+£" + reward,
+                Messages.MISSION_COMPLETE_TITLE,
+                Messages.MISSION_COMPLETE_SUBTITLE,
                 10,
                 60,
                 20
         );
 
         player.sendMessage("");
-        player.sendMessage("§8[§2Daily Missions§8] §aMission completed!");
-        player.sendMessage("§8[§2Daily Missions§8] §aYou earned §6£" + reward);
+        player.sendMessage(Messages.PREFIX + Messages.MISSION_COMPLETE_MESSAGE);
+        player.sendMessage(Messages.PREFIX + Messages.MISSION_REWARD_MESSAGE);
         player.sendMessage("");
 
         player.playSound(

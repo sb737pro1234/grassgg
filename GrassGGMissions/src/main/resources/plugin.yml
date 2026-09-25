@@ -15,7 +15,7 @@ commands:
       - dm
 
 permissions:
-  grassggmissions.use:
+  grassgg.missions.use:
     default: true
-  grassggmissions.admin:
+  grassgg.missions.admin:
     default: op

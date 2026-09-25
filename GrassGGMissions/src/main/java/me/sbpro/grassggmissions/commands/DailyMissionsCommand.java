@@ -29,7 +29,7 @@ public class DailyMissionsCommand implements CommandExecutor {
         // /dailymissions reset <player>
         if (args.length == 2 && args[0].equalsIgnoreCase("reset")) {
 
-            if (!sender.hasPermission("grassggmissions.admin")) {
+            if (!sender.hasPermission("grassgg.dailymissions.admin")) {
                 sender.sendMessage("§cYou do not have permission.");
                 return true;
             }
@@ -52,7 +52,7 @@ public class DailyMissionsCommand implements CommandExecutor {
 
         if (args.length == 3 && args[0].equalsIgnoreCase("complete")) {
 
-            if (!sender.hasPermission("grassggmissions.admin")) {
+            if (!sender.hasPermission("grassgg.dailymissions.admin")) {
                 sender.sendMessage("§cYou do not have permission.");
                 return true;
             }
