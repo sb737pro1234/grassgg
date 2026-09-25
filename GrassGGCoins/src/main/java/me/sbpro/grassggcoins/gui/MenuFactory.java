@@ -18,6 +18,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public final class MenuFactory {
 
@@ -61,16 +62,20 @@ public final class MenuFactory {
         Inventory inventory = Bukkit.createInventory(holder, 54, Messages.shopMenuTitle());
         holder.setInventory(inventory);
 
-        int slot = 0;
+        /*
+         * Use each item's configured Slot from shop.yml.
+         * ShopSlotMap also validates the slots and keeps slot 49 reserved
+         * for the player's balance.
+         */
+        for (Map.Entry<Integer, String> entry
+                : new java.util.TreeMap<>(ShopSlotMap.create(plugin)).entrySet()) {
 
-        for (ShopItem shopItem : plugin.getShopManager().getItems()) {
-            // Slot 49 is reserved for the player's balance.
-            if (slot == 49) {
-                slot++;
-            }
+            ShopItem shopItem = plugin.getShopManager().getItem(
+                    entry.getValue()
+            );
 
-            if (slot >= inventory.getSize()) {
-                break;
+            if (shopItem == null) {
+                continue;
             }
 
             ItemStack display = shopItem.hasDisplayItem()
@@ -97,8 +102,7 @@ public final class MenuFactory {
                 display.setItemMeta(meta);
             }
 
-            inventory.setItem(slot, display);
-            slot++;
+            inventory.setItem(entry.getKey(), display);
         }
 
         // Slot 49 is the centre of the bottom row and is reserved for balance.

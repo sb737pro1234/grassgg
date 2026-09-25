@@ -35,18 +35,40 @@ public final class ShopManager {
         }
 
         List<ShopItem> items = new ArrayList<>();
+
         for (String identifier : section.getKeys(false)) {
             String path = "Shop.Items." + identifier;
-            long cost = Math.max(0L, config.getLong(path + ".Cost", 0L));
-            String displayName = config.getString(path + ".Display Name", identifier);
-            String command = config.getString(path + ".Command", "");
-            ItemStack displayItem = config.getItemStack(path + ".Display Item");
+
+            long cost = Math.max(
+                    0L,
+                    config.getLong(path + ".Cost", 0L)
+            );
+
+            String displayName = config.getString(
+                    path + ".Display Name",
+                    identifier
+            );
+
+            String command = config.getString(
+                    path + ".Command",
+                    ""
+            );
+
+            int slot = config.getInt(
+                    path + ".Slot",
+                    -1
+            );
+
+            ItemStack displayItem = config.getItemStack(
+                    path + ".Display Item"
+            );
 
             items.add(new ShopItem(
                     identifier,
                     displayName,
                     cost,
                     command,
+                    slot,
                     displayItem
             ));
         }
@@ -60,21 +82,36 @@ public final class ShopManager {
                 return item;
             }
         }
+
         return null;
     }
 
     public List<String> getIdentifiers() {
-        return getItems().stream().map(ShopItem::identifier).toList();
+        return getItems()
+                .stream()
+                .map(ShopItem::identifier)
+                .toList();
     }
 
-    public boolean setDisplayItem(String identifier, ItemStack itemStack) {
+    public boolean setDisplayItem(
+            String identifier,
+            ItemStack itemStack
+    ) {
         ShopItem item = getItem(identifier);
+
         if (item == null) {
             return false;
         }
 
-        config.set("Shop.Items." + item.identifier() + ".Display Item", itemStack.clone());
+        config.set(
+                "Shop.Items."
+                        + item.identifier()
+                        + ".Display Item",
+                itemStack.clone()
+        );
+
         save();
+
         return true;
     }
 
@@ -82,8 +119,12 @@ public final class ShopManager {
         try {
             config.save(file);
             reload();
+
         } catch (IOException exception) {
-            plugin.getLogger().severe("Could not save shop.yml: " + exception.getMessage());
+            plugin.getLogger().severe(
+                    "Could not save shop.yml: "
+                            + exception.getMessage()
+            );
         }
     }
 
@@ -92,10 +133,13 @@ public final class ShopManager {
             String displayName,
             long cost,
             String command,
+            int slot,
             ItemStack displayItem
     ) {
+
         public boolean hasDisplayItem() {
-            return displayItem != null && displayItem.getType() != Material.AIR;
+            return displayItem != null
+                    && displayItem.getType() != Material.AIR;
         }
     }
 }

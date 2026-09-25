@@ -3,8 +3,19 @@
 # =============================================================
 # Products can be added under Shop.Items.
 #
+# Display Name: The name shown for the item in the shop,
+#               confirmation menu and purchase message.
+#               Supports & colour codes.
+#
 # Cost: How many coins the player must spend.
-# Command: Command run by the CONSOLE. Use %player% for the buyer.
+#
+# Command: Command run by the CONSOLE.
+#          Use %player% for the buyer.
+#
+# Slot: The inventory slot used by the item.
+#       Valid slots are 0-53.
+#       Slot 49 is reserved for the player's balance.
+#
 # Display Item: Set in-game with:
 #   /coins shop setDisplayItem <identifier>
 #
@@ -15,20 +26,25 @@
 # Shop:
 #   Items:
 #     diamond:
+#       Display Name: "&bDiamond"
 #       Cost: 10
 #       Command: "give %player% diamond 1"
+#       Slot: 6
 # =============================================================
 
 Shop:
   Items:
+
     diamond:
       Display Name: "&bDiamond"
       Cost: 10
       Command: "give %player% diamond 1"
+      Slot: 6
       # Set with /coins shop setDisplayItem diamond
 
     gold:
       Display Name: "&6Gold Ingot"
       Cost: 5
       Command: "give %player% gold_ingot 1"
+      Slot: 15
       # Set with /coins shop setDisplayItem gold

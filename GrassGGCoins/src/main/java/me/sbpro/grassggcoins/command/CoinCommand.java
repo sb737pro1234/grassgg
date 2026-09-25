@@ -294,6 +294,21 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
                                 amount
                         )
                 );
+
+                /*
+                 * Notify the recipient that they received coins.
+                 * This uses the same action bar and chat message
+                 * as the automatic 15-minute reward.
+                 */
+                if (amount > 0) {
+                    target.sendActionBar(
+                            Messages.rewardActionBar(amount)
+                    );
+
+                    target.sendMessage(
+                            Messages.rewardChatMessage(amount)
+                    );
+                }
             }
 
             case TAKE -> {

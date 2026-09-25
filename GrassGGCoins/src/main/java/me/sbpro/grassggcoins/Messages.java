@@ -72,15 +72,44 @@ public final class Messages {
     // =============================================================
     // Reward messages
     // =============================================================
-
     public static String rewardActionBar() {
-        return WHITE + "You have received " + CUSTOM + "+1 coin" + WHITE +".";
+        return rewardActionBar(1);
+    }
+
+    public static String rewardActionBar(long amount) {
+        return WHITE
+                + "You have received "
+                + CUSTOM
+                + "+"
+                + AmountFormatter.format(amount)
+                + " coin"
+                + (amount == 1 ? "" : "s")
+                + WHITE
+                + ".";
     }
 
     public static String rewardChatMessage() {
+        return rewardChatMessage(1);
+    }
+
+    public static String rewardChatMessage(long amount) {
         return "§8-----------------------------------------------\n"
-                + prefix() + WHITE + "You have received " + CUSTOM + "+1 coin" + WHITE + "."
-                + WHITE + " Do " + CUSTOM + "/coins" + WHITE + " for more info.\n"
+                + prefix()
+                + WHITE
+                + "You have received "
+                + CUSTOM
+                + "+"
+                + AmountFormatter.format(amount)
+                + " coin"
+                + (amount == 1 ? "" : "s")
+                + WHITE
+                + "."
+                + WHITE
+                + " Do "
+                + CUSTOM
+                + "/coins"
+                + WHITE
+                + " for more info.\n"
                 + "§8-----------------------------------------------";
     }
 
