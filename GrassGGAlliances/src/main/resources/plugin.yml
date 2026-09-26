@@ -12,4 +12,4 @@ commands:
   alliance:
     description: Main alliance command
     aliases: [a]
-    usage: /<command> <create|info|delete|chat|invite|accept|kick|top|level>
+    usage: /<command> <create|info|delete|chat|invite|accept|kick|leave|top|level>

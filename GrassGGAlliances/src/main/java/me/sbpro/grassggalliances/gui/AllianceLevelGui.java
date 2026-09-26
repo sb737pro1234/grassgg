@@ -43,7 +43,7 @@ public final class AllianceLevelGui {
     public static void openMain(GrassGGAlliances plugin, Player player, Alliance alliance) {
         Inventory inventory = Bukkit.createInventory((InventoryHolder)new AllianceLevelGuiHolder(alliance.getName()), (int)27, (Component)plugin.getMessageService().getComponent("level-title"));
         inventory.setItem(13, AllianceLevelGui.createAllianceInfoItem(plugin, alliance));
-        inventory.setItem(22, AllianceLevelGui.createSimpleItem(Material.BARRIER, plugin.getMessageService().getRaw("go-back"), List.of("&7Close this menu")));
+        inventory.setItem(22, AllianceLevelGui.createSimpleItem(Material.ARROW, plugin.getMessageService().getRaw("go-back"), List.of("&7Return to alliance information")));
         inventory.setItem(25, AllianceLevelGui.createSimpleItem(Material.CHEST, plugin.getMessageService().getRaw("xp-values-button"), List.of("&7View all alliance XP sources")));
         player.openInventory(inventory);
     }

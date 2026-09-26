@@ -24,6 +24,7 @@ import me.sbpro.grassggalliances.GrassGGAlliances;
 import me.sbpro.grassggalliances.InviteService;
 import me.sbpro.grassggalliances.MessageService;
 import me.sbpro.grassggalliances.data.AllianceStorage;
+import me.sbpro.grassggalliances.gui.AllianceInfoGui;
 import me.sbpro.grassggalliances.gui.AllianceLevelGui;
 import me.sbpro.grassggalliances.gui.DeleteAllianceGui;
 import me.sbpro.grassggalliances.model.Alliance;
@@ -70,7 +71,7 @@ TabCompleter {
         }
         Player player = (Player)sender;
         if (args.length == 0) {
-            player.sendMessage(this.messageService.prefixed("usage"));
+            this.openAllianceInfo(player);
             return true;
         }
         switch (args[0].toLowerCase()) {
@@ -100,6 +101,10 @@ TabCompleter {
             }
             case "kick": {
                 this.handleKick(player, args);
+                break;
+            }
+            case "leave": {
+                this.handleLeave(player);
                 break;
             }
             case "top": {
@@ -147,7 +152,7 @@ TabCompleter {
 
     private void handleInfo(Player player, String[] args) {
         if (args.length < 2) {
-            player.sendMessage(this.messageService.prefixed("not-found", text -> text.replace("%input%", "")));
+            this.openAllianceInfo(player);
             return;
         }
         String input = String.join((CharSequence)" ", Arrays.copyOfRange(args, 1, args.length)).trim();
@@ -163,6 +168,15 @@ TabCompleter {
         for (Component line : this.messageService.getComponentList("info-format", text -> text.replace("%alliance%", alliance.getName()).replace("%owner%", ownerName).replace("%members%", members))) {
             player.sendMessage(line);
         }
+    }
+
+    private void openAllianceInfo(Player player) {
+        Optional<Alliance> allianceOptional = this.allianceStorage.getAllianceByPlayer(player.getUniqueId());
+        if (allianceOptional.isEmpty()) {
+            player.sendMessage(this.messageService.prefixed("no-alliance"));
+            return;
+        }
+        AllianceInfoGui.open(this.plugin, player, allianceOptional.get());
     }
 
     private Optional<Alliance> findAlliance(String input) {
@@ -321,6 +335,43 @@ TabCompleter {
         }
     }
 
+    private void handleLeave(Player player) {
+        Optional<Alliance> allianceOptional = this.allianceStorage.getAllianceByPlayer(player.getUniqueId());
+        if (allianceOptional.isEmpty()) {
+            player.sendMessage(this.messageService.prefixed("no-alliance"));
+            return;
+        }
+
+        Alliance alliance = allianceOptional.get();
+
+        if (alliance.getOwner().equals(player.getUniqueId())) {
+            player.sendMessage(this.messageService.prefixed("owner-only-leave"));
+            return;
+        }
+
+        String allianceName = alliance.getName();
+        if (!this.allianceStorage.removeMember(allianceName, player.getUniqueId())) {
+            player.sendMessage(this.messageService.prefixed("leave-failed"));
+            return;
+        }
+
+        this.chatToggleService.disable(player.getUniqueId());
+        this.buffService.clearPlayer(player);
+
+        player.sendMessage(this.messageService.prefixed("left", text -> text.replace("%alliance%", allianceName)));
+
+        Optional<Alliance> updatedAlliance = this.allianceStorage.getAllianceByName(allianceName);
+        if (updatedAlliance.isPresent()) {
+            for (UUID memberId : updatedAlliance.get().getMembers()) {
+                Player member = Bukkit.getPlayer(memberId);
+                if (member != null) {
+                    member.sendMessage(this.messageService.prefixed("member-left",
+                            text -> text.replace("%player%", player.getName())));
+                }
+            }
+        }
+    }
+
     private void handleTop(Player player) {
         List<Alliance> topAlliances = this.xpService.getTopAlliances();
         if (topAlliances.isEmpty()) {
@@ -347,11 +398,40 @@ TabCompleter {
         AllianceLevelGui.openMain(this.plugin, player, allianceOptional.get());
     }
 
+    @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length == 1) {
-            return List.of("create", "info", "delete", "chat", "invite", "accept", "kick", "top", "level").stream().filter(option -> option.startsWith(args[0].toLowerCase())).toList();
+        if (!(sender instanceof Player)) {
+            return List.of();
         }
-        return new ArrayList<String>();
+
+        if (args.length == 1) {
+            String input = args[0].toLowerCase();
+            return List.of("create", "info", "delete", "chat", "invite", "accept", "kick", "leave", "top", "level")
+                    .stream()
+                    .filter(option -> option.startsWith(input))
+                    .toList();
+        }
+
+        String subcommand = args[0].toLowerCase();
+        if (args.length == 2 && (subcommand.equals("invite") || subcommand.equals("kick"))) {
+            String input = args[1].toLowerCase();
+            return Bukkit.getOnlinePlayers().stream()
+                    .map(Player::getName)
+                    .filter(name -> name.toLowerCase().startsWith(input))
+                    .sorted(String.CASE_INSENSITIVE_ORDER)
+                    .toList();
+        }
+
+        if (args.length >= 2 && subcommand.equals("info")) {
+            String input = String.join(" ", java.util.Arrays.copyOfRange(args, 1, args.length)).toLowerCase();
+            return this.allianceStorage.getAlliances().stream()
+                    .map(Alliance::getName)
+                    .filter(name -> name.toLowerCase().startsWith(input))
+                    .sorted(String.CASE_INSENSITIVE_ORDER)
+                    .toList();
+        }
+
+        return List.of();
     }
 }
 
