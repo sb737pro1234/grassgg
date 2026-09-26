@@ -10,7 +10,7 @@ softdepend:
 commands:
   coins:
     description: View your GrassGGCoins balance and information.
-    usage: /coins [shop|top|give|take|set|balance|withdraw|reload]
+    usage: /coins [shop|top|give|take|set|balance|withdraw|pay|reload]
     aliases:
       - coin
       - c
@@ -30,6 +30,10 @@ commands:
     usage: /coinstop
     aliases:
       - cointop
+  paycoins:
+    description: Pay coins to another player.
+    usage: /paycoins <player> <amount>
+    aliases: []
 
 permissions:
   grassgg.coins.use:
@@ -40,6 +44,9 @@ permissions:
     default: true
   grassgg.coins.withdraw:
     description: Allows withdrawing coins into bank notes.
+    default: true
+  grassgg.coins.pay:
+    description: Allows players to pay coins to other players.
     default: true
   grassgg.coins.give:
     description: Allows giving coins to players.
@@ -52,7 +59,7 @@ permissions:
     default: op
   grassgg.coins.balance.others:
     description: Allows checking another player's coin balance.
-    default: op
+    default: true
   grassgg.coins.shop.setdisplayitem:
     description: Allows setting a shop item's display item.
     default: op

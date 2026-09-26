@@ -70,6 +70,16 @@ public final class GrassGGCoins extends JavaPlugin {
         ).setTabCompleter(coinCommand);
 
         Objects.requireNonNull(
+                getCommand("paycoins"),
+                "paycoins command missing from plugin.yml"
+        ).setExecutor(coinCommand);
+
+        Objects.requireNonNull(
+                getCommand("paycoins"),
+                "paycoins command missing from plugin.yml"
+        ).setTabCompleter(coinCommand);
+
+        Objects.requireNonNull(
                 getCommand("coinstop"),
                 "coinstop command missing from plugin.yml"
         ).setExecutor(coinCommand);

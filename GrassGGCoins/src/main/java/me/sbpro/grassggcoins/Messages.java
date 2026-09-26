@@ -381,6 +381,100 @@ public final class Messages {
 
 
     // =============================================================
+    // Player-to-player payments
+    // =============================================================
+
+    public static String payReceivedActionBar(
+            String playerName,
+            long amount
+    ) {
+        return WHITE
+                + "You have received "
+                + CUSTOM
+                + "+"
+                + AmountFormatter.format(amount)
+                + " coins "
+                + WHITE
+                + "from "
+                + CUSTOM
+                + playerName
+                + WHITE
+                + ".";
+    }
+
+    public static String payReceivedChatMessage(
+            String playerName,
+            long amount
+    ) {
+        return "§8-----------------------------------------------\n"
+                + prefix()
+                + WHITE
+                + "You have received "
+                + CUSTOM
+                + "+"
+                + AmountFormatter.format(amount)
+                + " coins"
+                + WHITE
+                + " from "
+                + CUSTOM
+                + playerName
+                + WHITE
+                + ". Do "
+                + CUSTOM
+                + "/coins"
+                + WHITE
+                + " for more info.\n"
+                + "§8-----------------------------------------------";
+    }
+
+    public static String paySuccess(
+            String playerName,
+            long amount
+    ) {
+        return prefix()
+                + WHITE
+                + "You sent "
+                + CUSTOM
+                + AmountFormatter.format(amount)
+                + WHITE
+                + " coins to "
+                + CUSTOM
+                + playerName
+                + WHITE
+                + ".";
+    }
+
+    public static String insufficientPayBalance(
+            long balance,
+            long amount
+    ) {
+        return prefix()
+                + ERROR
+                + "You do not have enough coins to make that payment."
+                + "\n"
+                + WHITE
+                + "Balance: "
+                + CUSTOM
+                + AmountFormatter.format(balance)
+                + WHITE
+                + " | Requested: "
+                + CUSTOM
+                + AmountFormatter.format(amount);
+    }
+
+    public static String invalidPayAmount() {
+        return prefix()
+                + ERROR
+                + "The payment amount must be greater than zero.";
+    }
+
+    public static String paySelf() {
+        return prefix()
+                + ERROR
+                + "You cannot pay yourself.";
+    }
+
+    // =============================================================
 // Bank notes
 // =============================================================
 

@@ -38,6 +38,9 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
         boolean isWithdrawCoinsCommand =
                 command.getName().equalsIgnoreCase("withdrawcoins");
 
+        boolean isPayCoinsCommand =
+                command.getName().equalsIgnoreCase("paycoins");
+
         boolean isCoinTopCommand =
                 command.getName().equalsIgnoreCase("coinstop")
                         || command.getName().equalsIgnoreCase("cointop");
@@ -48,6 +51,10 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
 
         if (isWithdrawCoinsCommand) {
             return withdraw(sender, args);
+        }
+
+        if (isPayCoinsCommand) {
+            return pay(sender, args);
         }
 
         if (isCoinTopCommand) {
@@ -69,6 +76,10 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
 
         if (args[0].equalsIgnoreCase("withdraw")) {
             return withdraw(sender, args);
+        }
+
+        if (args[0].equalsIgnoreCase("pay")) {
+            return pay(sender, args);
         }
 
         if (args[0].equalsIgnoreCase("top")) {
@@ -352,6 +363,107 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
+    private boolean pay(
+            CommandSender sender,
+            String[] args
+    ) {
+
+        if (!sender.hasPermission("grassgg.coins.pay")) {
+            sender.sendMessage(Messages.noPermission());
+            return true;
+        }
+
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(Messages.playerOnly());
+            return true;
+        }
+
+        if (args.length < 3) {
+            sender.sendMessage(
+                    Messages.usage("/coins pay <player> <amount>")
+            );
+            return true;
+        }
+
+        Player target = Bukkit.getPlayerExact(args[1]);
+
+        if (target == null) {
+            sender.sendMessage(Messages.playerNotFound());
+            return true;
+        }
+
+        if (target.getUniqueId().equals(player.getUniqueId())) {
+            sender.sendMessage(Messages.paySelf());
+            return true;
+        }
+
+        Long amount = parseLong(sender, args[2]);
+
+        if (amount == null) {
+            return true;
+        }
+
+        if (amount <= 0) {
+            sender.sendMessage(Messages.invalidPayAmount());
+            return true;
+        }
+
+        long balance = plugin.getCoinManager().getCoins(
+                player.getUniqueId()
+        );
+
+        if (balance < amount) {
+            sender.sendMessage(
+                    Messages.insufficientPayBalance(
+                            balance,
+                            amount
+                    )
+            );
+            return true;
+        }
+
+        if (!plugin.getCoinManager().takeCoins(
+                player.getUniqueId(),
+                amount
+        )) {
+            sender.sendMessage(
+                    Messages.insufficientPayBalance(
+                            balance,
+                            amount
+                    )
+            );
+            return true;
+        }
+
+        plugin.getCoinManager().addCoins(
+                target.getUniqueId(),
+                amount
+        );
+
+        sender.sendMessage(
+                Messages.paySuccess(
+                        target.getName(),
+                        amount
+                )
+        );
+
+        target.sendActionBar(
+                Messages.payReceivedActionBar(
+                        player.getName(),
+                        amount
+                )
+        );
+
+        target.sendMessage(
+                Messages.payReceivedChatMessage(
+                        player.getName(),
+                        amount
+                )
+        );
+
+        return true;
+    }
+
     private boolean withdraw(
             CommandSender sender,
             String[] args
@@ -544,6 +656,34 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
             return List.of();
         }
 
+        boolean isPayCoinsCommand =
+                command.getName().equalsIgnoreCase("paycoins");
+
+        if (isPayCoinsCommand) {
+
+            if (!sender.hasPermission("grassgg.coins.pay")) {
+                return List.of();
+            }
+
+            if (args.length == 1) {
+                return partial(
+                        args[0],
+                        Bukkit.getOnlinePlayers()
+                                .stream()
+                                .filter(target ->
+                                        !(sender instanceof Player player)
+                                                || !target.getUniqueId().equals(
+                                                player.getUniqueId()
+                                        )
+                                )
+                                .map(Player::getName)
+                                .toList()
+                );
+            }
+
+            return List.of();
+        }
+
         boolean isCoinShopCommand =
                 command.getName()
                         .equalsIgnoreCase("coinshop");
@@ -583,6 +723,7 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
                                     "set",
                                     "balance",
                                     "withdraw",
+                                    "pay",
                                     "reload"
                             )
                     );
@@ -610,6 +751,11 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
             if (!sender.hasPermission(
                     "grassgg.coins.withdraw")) {
                 suggestions.remove("withdraw");
+            }
+
+            if (!sender.hasPermission(
+                    "grassgg.coins.pay")) {
+                suggestions.remove("pay");
             }
 
             if (!sender.hasPermission(
@@ -645,7 +791,8 @@ public final class CoinCommand implements CommandExecutor, TabCompleter {
                 "give",
                 "take",
                 "set",
-                "balance"
+                "balance",
+                "pay"
         ).contains(args[0].toLowerCase())) {
 
             return partial(
