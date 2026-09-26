@@ -117,7 +117,11 @@ commands:
       - bin
       - disposal
 
-
+  colors:
+    description: Shows all the Minecraft Colors and their formatting codes.
+    usage: /colors
+    aliases:
+      - colours
 
   craft:
     description: Opens a virtual crafting table

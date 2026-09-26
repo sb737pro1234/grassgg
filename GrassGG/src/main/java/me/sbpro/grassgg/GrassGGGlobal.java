@@ -1,5 +1,7 @@
 package me.sbpro.grassgg;
 
+import me.sbpro.grassgg.color.AnvilColorListener;
+import me.sbpro.grassgg.color.ColorsCommand;
 import me.sbpro.grassgg.commands.clear.ClearCommand;
 import me.sbpro.grassgg.commands.clear.ClearConfirmListener;
 import me.sbpro.grassgg.commands.feed.FeedCommand;
@@ -30,6 +32,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -106,6 +109,9 @@ public final class GrassGGGlobal extends JavaPlugin implements Listener {
 
 
         getCommand("say").setExecutor(new SayCommand());
+
+        getCommand("colors").setExecutor(new ColorsCommand());
+        getServer().getPluginManager().registerEvents(new AnvilColorListener(), this);
 
     }
 
