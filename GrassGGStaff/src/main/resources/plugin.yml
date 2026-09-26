@@ -55,6 +55,11 @@ commands:
     usage: /clearchat
     permission: grassgg.staff.clearchat
 
+  sign:
+    description: Signs the item in your hand.
+    usage: /sign
+    permission: grassgg.staff.sign
+
 permissions:
 
   grassgg.staff:
@@ -91,4 +96,7 @@ permissions:
     default: op
 
   grassgg.staff.clearchat:
+    default: op
+
+  grassgg.staff.sign:
     default: op

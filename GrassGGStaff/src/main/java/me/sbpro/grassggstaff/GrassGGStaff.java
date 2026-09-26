@@ -5,6 +5,7 @@ import me.sbpro.grassggstaff.commands.chatlock.ChatLockCommand;
 import me.sbpro.grassggstaff.commands.chatlock.ChatLockListener;
 import me.sbpro.grassggstaff.commands.clearchat.ClearChatCommand;
 import me.sbpro.grassggstaff.commands.clearchat.ClearChatListener;
+import me.sbpro.grassggstaff.commands.sign.SignCommand;
 import me.sbpro.grassggstaff.config.PunishmentConfig;
 import me.sbpro.grassggstaff.database.DatabaseManager;
 import me.sbpro.grassggstaff.database.OffenceRepository;
@@ -383,6 +384,11 @@ public final class GrassGGStaff extends JavaPlugin {
                         new ClearChatListener(),
                         this
                 );
+
+
+        getCommand("sign").setExecutor(new SignCommand());
+
+
 
         getLogger().info(
                 "GrassGGStaff enabled."
