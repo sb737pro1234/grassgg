@@ -73,8 +73,8 @@ public class GameModeCommand implements CommandExecutor, TabCompleter {
 
             player.setGameMode(type.getGameMode());
 
-            player.sendMessage("§x§E§F§4§4§4§4§lADMIN §8» §2Your gamemode has been changed to §f"
-                    + type.getDisplayName() + "§2.");
+            player.sendMessage("§x§E§F§4§4§4§4§lADMIN §8» §2Your §fgamemode has been changed to §2"
+                    + type.getDisplayName() + "§f.");
 
             return true;
         }

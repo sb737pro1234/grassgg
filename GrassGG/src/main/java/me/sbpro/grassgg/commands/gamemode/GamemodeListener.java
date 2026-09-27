@@ -50,17 +50,17 @@ public class GamemodeListener implements Listener {
                 target.setGameMode(pending.getGamemode().getGameMode());
 
                 player.sendMessage(
-                        "§x§E§F§4§4§4§4§lADMIN §8» §2Changed §f"
+                        "§x§E§F§4§4§4§4§lADMIN §8» §2"
                                 + target.getName()
-                                + "§2 to "
+                                + "§f's gamemode has been changed to §2"
                                 + pending.getGamemode().getDisplayName()
-                                + " mode."
+                                + "§f."
                 );
 
                 target.sendMessage(
-                        "§x§E§F§4§4§4§4§lADMIN §8» §2Your gamemode has been changed to §f"
+                        "§x§E§F§4§4§4§4§lADMIN §8» §2Your §fgamemode has been changed to §2"
                                 + pending.getGamemode().getDisplayName()
-                                + "§2."
+                                + "§f."
                 );
 
                 GameModeCommand.getPending().remove(player.getUniqueId());
