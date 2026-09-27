@@ -53,7 +53,7 @@ public class FastPlaceListener implements Listener {
 
         if (material == Material.SPAWNER) {
             event.setCancelled(true);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&x&A&7&F&3&D&0&lFASTPLACE &8» &c&l(!) &cYou cannot place spawners with fastplace!"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&x&A&7&F&3&D&0&lFASTPLACE &8» &cYou cannot place spawners with fastplace!"));
             return;
         }
 

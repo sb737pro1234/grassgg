@@ -27,7 +27,7 @@ public class FPCommand implements CommandExecutor {
 
         if (args.length == 0) {
             this.manager.disable(player.getUniqueId());
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&x&A&7&F&3&D&0&lFASTPLACE &8» &c&l(!) &cFastplace disabled."));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&x&A&7&F&3&D&0&lFASTPLACE &8» &cFastplace disabled."));
             return true;
         }
 
@@ -51,7 +51,7 @@ public class FPCommand implements CommandExecutor {
         }
 
         this.manager.enable(player.getUniqueId(), amount);
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&x&A&7&F&3&D&0&lFASTPLACE &8» &6&l(!) &6Fastplace enabled with block range &e" + amount + "&6."));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&x&A&7&F&3&D&0&lFASTPLACE &8» &aFastplace enabled with block range &f" + amount + "&a."));
         return true;
     }
 
