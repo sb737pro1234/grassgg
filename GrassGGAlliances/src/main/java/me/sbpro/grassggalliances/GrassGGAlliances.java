@@ -41,7 +41,7 @@ extends JavaPlugin {
     private AllianceXpService xpService;
 
     public void onEnable() {
-        this.messageService = new MessageService(this);
+        this.messageService = new MessageService();
         this.messageService.saveDefaultMessages();
         this.allianceStorage = new AllianceStorage(this);
         this.chatToggleService = new ChatToggleService();

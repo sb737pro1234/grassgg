@@ -18,6 +18,7 @@ package me.sbpro.grassggalliances.gui;
 import java.util.ArrayList;
 import java.util.List;
 import me.sbpro.grassggalliances.GrassGGAlliances;
+import me.sbpro.grassggalliances.Messages;
 import me.sbpro.grassggalliances.gui.AllianceLevelGuiHolder;
 import me.sbpro.grassggalliances.gui.AllianceXpValuesGuiHolder;
 import me.sbpro.grassggalliances.model.Alliance;
@@ -43,8 +44,8 @@ public final class AllianceLevelGui {
     public static void openMain(GrassGGAlliances plugin, Player player, Alliance alliance) {
         Inventory inventory = Bukkit.createInventory((InventoryHolder)new AllianceLevelGuiHolder(alliance.getName()), (int)27, (Component)plugin.getMessageService().getComponent("level-title"));
         inventory.setItem(13, AllianceLevelGui.createAllianceInfoItem(plugin, alliance));
-        inventory.setItem(22, AllianceLevelGui.createSimpleItem(Material.ARROW, plugin.getMessageService().getRaw("go-back"), List.of("&7Return to alliance information")));
-        inventory.setItem(25, AllianceLevelGui.createSimpleItem(Material.CHEST, plugin.getMessageService().getRaw("xp-values-button"), List.of("&7View all alliance XP sources")));
+        inventory.setItem(22, AllianceLevelGui.createSimpleItem(Material.ARROW, plugin.getMessageService().getRaw("go-back"), List.of("&fReturn to alliance information")));
+        inventory.setItem(25, AllianceLevelGui.createSimpleItem(Material.CHEST, plugin.getMessageService().getRaw("xp-values-button"), List.of("&fView all alliance XP sources")));
         player.openInventory(inventory);
     }
 
@@ -57,9 +58,9 @@ public final class AllianceLevelGui {
         for (int index = start; index < end; ++index) {
             inventory.setItem(slot++, AllianceLevelGui.createXpEntryItem(entries.get(index)));
         }
-        inventory.setItem(18, AllianceLevelGui.createSimpleItem(Material.ARROW, plugin.getMessageService().getRaw("previous-page"), List.of("&7Open the previous page")));
-        inventory.setItem(22, AllianceLevelGui.createSimpleItem(Material.BARRIER, plugin.getMessageService().getRaw("go-back"), List.of("&7Return to alliance information")));
-        inventory.setItem(26, AllianceLevelGui.createSimpleItem(Material.ARROW, plugin.getMessageService().getRaw("next-page"), List.of("&7Open the next page")));
+        inventory.setItem(18, AllianceLevelGui.createSimpleItem(Material.ARROW, plugin.getMessageService().getRaw("previous-page"), List.of("&fOpen the previous page")));
+        inventory.setItem(22, AllianceLevelGui.createSimpleItem(Material.BARRIER, plugin.getMessageService().getRaw("go-back"), List.of("&fReturn to alliance information")));
+        inventory.setItem(26, AllianceLevelGui.createSimpleItem(Material.ARROW, plugin.getMessageService().getRaw("next-page"), List.of("&fOpen the next page")));
         player.openInventory(inventory);
     }
 
@@ -71,23 +72,23 @@ public final class AllianceLevelGui {
     private static ItemStack createAllianceInfoItem(GrassGGAlliances plugin, Alliance alliance) {
         AllianceXpService xpService = plugin.getXpService();
         ArrayList<String> lore = new ArrayList<String>();
-        lore.add("&7Alliance: " + alliance.getName());
-        lore.add("&7Current Alliance Level: &e" + alliance.getLevel());
-        lore.add("&7Current Alliance XP: &f" + Math.round(alliance.getXp()));
-        lore.add("&7Upgrade Progress: " + xpService.getProgressBar(alliance));
+        lore.add("&fAlliance: " + Messages.ALLIANCE_COLOR + alliance.getName());
+        lore.add("&fCurrent Alliance Level: " + Messages.ALLIANCE_COLOR + alliance.getLevel());
+        lore.add("&fCurrent Alliance XP: " + Messages.ALLIANCE_COLOR + Math.round(alliance.getXp()));
+        lore.add("&fUpgrade Progress: " + xpService.getProgressBar(alliance));
         lore.add(" ");
         lore.addAll(xpService.getLevelPerksLore());
         return AllianceLevelGui.createSimpleItem(Material.GRASS_BLOCK, plugin.getMessageService().getRaw("level-gui-title"), lore);
     }
 
     private static ItemStack createXpEntryItem(AllianceXpService.XpEntry entry) {
-        return AllianceLevelGui.createSimpleItem(entry.iconMaterial(), entry.displayName(), List.of("&7Category: &f" + entry.prettyCategory(), "&7Alliance XP: &e" + Math.round(entry.xp())));
+        return AllianceLevelGui.createSimpleItem(entry.iconMaterial(), entry.displayName(), List.of("&fCategory: " + Messages.ALLIANCE_COLOR + entry.prettyCategory(), "&fAlliance XP: " + Messages.ALLIANCE_COLOR + Math.round(entry.xp())));
     }
 
     private static ItemStack createSimpleItem(Material material, String name, List<String> loreLines) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName((Component)LEGACY.deserialize(name));
+        meta.displayName((Component)LEGACY.deserialize(name.replace('§', '&')));
         if (!loreLines.isEmpty()) {
             List<Component> lore = loreLines.stream().map(line -> (Component)LEGACY.deserialize(line)).toList();
             meta.lore(lore);

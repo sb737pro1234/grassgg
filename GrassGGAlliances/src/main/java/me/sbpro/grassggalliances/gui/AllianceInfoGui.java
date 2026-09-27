@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import me.sbpro.grassggalliances.GrassGGAlliances;
+import me.sbpro.grassggalliances.Messages;
 import me.sbpro.grassggalliances.model.Alliance;
 import me.sbpro.grassggalliances.service.AllianceXpService;
 import net.kyori.adventure.text.Component;
@@ -35,34 +36,27 @@ public final class AllianceInfoGui {
 
         inventory.setItem(4, createOverviewItem(plugin, alliance));
 
-        // Separator rows around the central action row.
-        ItemStack separator = createSimpleItem(Material.GRAY_STAINED_GLASS_PANE, "&7", List.of());
-        for (int slot = 9; slot < 18; slot++) {
-            inventory.setItem(slot, separator);
-        }
-        for (int slot = 27; slot < 36; slot++) {
-            inventory.setItem(slot, separator);
-        }
+        // Leave the rest of the menu empty so the GUI has a clean look.
 
         // Three central action buttons.
         inventory.setItem(20, createSimpleItem(Material.PLAYER_HEAD,
-                "&e&lMEMBERS",
-                List.of("&7View everyone in your alliance.")));
+                Messages.INFO_GUI_MEMBERS,
+                List.of("&fView everyone in your alliance.")));
         inventory.setItem(22, createSimpleItem(Material.EXPERIENCE_BOTTLE,
-                "&e&lALLIANCE LEVEL",
+                Messages.INFO_GUI_LEVEL,
                 List.of(
-                        "&7Alliance Level: &e" + alliance.getLevel(),
-                        "&7Alliance XP: &f" + Math.round(alliance.getXp()),
-                        "&7Progress: " + plugin.getXpService().getProgressBar(alliance),
+                        "&fAlliance Level: " + Messages.ALLIANCE_COLOR + alliance.getLevel(),
+                        "&fAlliance XP: " + Messages.ALLIANCE_COLOR + Math.round(alliance.getXp()),
+                        "&fProgress: " + plugin.getXpService().getProgressBar(alliance),
                         " ",
-                        "&eClick to open the Alliance Level menu."
+                        Messages.ALLIANCE_COLOR + "Click to open the Alliance Level menu."
                 )));
         inventory.setItem(24, createSimpleItem(Material.CHEST,
-                "&e&lALLIANCE XP",
-                List.of("&7View how your alliance earns XP.")));
+                Messages.INFO_GUI_XP_VALUES,
+                List.of("&fView how your alliance earns XP.")));
         inventory.setItem(40, createSimpleItem(Material.BARRIER,
                 plugin.getMessageService().getRaw("go-back"),
-                List.of("&7Close this menu")));
+                List.of("&fClose this menu")));
 
         player.openInventory(inventory);
     }
@@ -92,14 +86,14 @@ public final class AllianceInfoGui {
 
             OfflinePlayer member = Bukkit.getOfflinePlayer(memberId);
             String name = member.getName() == null ? memberId.toString().substring(0, 8) : member.getName();
-            String role = memberId.equals(alliance.getOwner()) ? "&6Owner" : "&7Member";
-            List<String> lore = List.of(role, member.isOnline() ? "&a● Online" : "&7● Offline");
+            String role = memberId.equals(alliance.getOwner()) ? Messages.ALLIANCE_COLOR + "Owner" : "&fMember";
+            List<String> lore = List.of(role, member.isOnline() ? Messages.ALLIANCE_COLOR + "● Online" : "&7● Offline");
             inventory.setItem(slot++, createPlayerHead(member, name, lore));
         }
 
         inventory.setItem(22, createSimpleItem(Material.ARROW,
                 plugin.getMessageService().getRaw("go-back"),
-                List.of("&7Return to alliance information")));
+                List.of("&fReturn to alliance information")));
 
         player.openInventory(inventory);
     }
@@ -110,22 +104,23 @@ public final class AllianceInfoGui {
         String ownerName = owner.getName() == null ? alliance.getOwner().toString() : owner.getName();
 
         List<String> lore = List.of(
-                "&7Owner: &f" + ownerName,
-                "&7Members: &f" + alliance.getMembers().size() + "&7/5",
-                "&7Alliance Level: &e" + alliance.getLevel(),
-                "&7Alliance XP: &f" + Math.round(alliance.getXp()),
-                "&7Progress: " + xpService.getProgressBar(alliance)
+                "&fOwner: " + Messages.ALLIANCE_COLOR + ownerName,
+                "&fMembers: " + Messages.ALLIANCE_COLOR + alliance.getMembers().size() + "§f/5",
+                "&fAlliance Level: " + Messages.ALLIANCE_COLOR + alliance.getLevel(),
+                "&fAlliance XP: " + Messages.ALLIANCE_COLOR + Math.round(alliance.getXp()),
+                "&fProgress: " + xpService.getProgressBar(alliance)
         );
 
         return createSimpleItem(Material.GRASS_BLOCK,
-                "&6&l" + alliance.getName(),
+                Messages.ALLIANCE_COLOR + alliance.getName(),
                 lore);
     }
 
     private static ItemStack createPlayerHead(OfflinePlayer player, String name, List<String> loreLines) {
         ItemStack item = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
-        meta.displayName(LEGACY.deserialize("&f" + name));
+        meta.setOwningPlayer(player);
+        meta.displayName(LEGACY.deserialize(("&f" + name).replace('§', '&')));
         meta.lore(loreLines.stream().map(LEGACY::deserialize).map(component -> (Component) component).toList());
         item.setItemMeta(meta);
         return item;
@@ -134,7 +129,7 @@ public final class AllianceInfoGui {
     private static ItemStack createSimpleItem(Material material, String name, List<String> loreLines) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(LEGACY.deserialize(name));
+        meta.displayName(LEGACY.deserialize(name.replace('§', '&')));
         meta.lore(loreLines.stream().map(LEGACY::deserialize).map(component -> (Component) component).toList());
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);

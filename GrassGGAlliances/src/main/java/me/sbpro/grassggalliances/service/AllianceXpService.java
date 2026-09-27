@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import me.sbpro.grassggalliances.MessageService;
+import me.sbpro.grassggalliances.Messages;
 import me.sbpro.grassggalliances.data.AllianceStorage;
 import me.sbpro.grassggalliances.model.Alliance;
 import me.sbpro.grassggalliances.service.AllianceBuffService;
@@ -175,7 +176,7 @@ public final class AllianceXpService {
         int filled = Math.max(0, Math.min(20, (int)Math.round((double)percent / 5.0)));
         StringBuilder builder = new StringBuilder();
         for (int index = 0; index < 20; ++index) {
-            builder.append(index < filled ? "&a|" : "&c|");
+            builder.append(index < filled ? Messages.ALLIANCE_COLOR + "|" : "§c|");
         }
         return builder.toString();
     }
@@ -207,7 +208,7 @@ public final class AllianceXpService {
     }
 
     public List<String> getLevelPerksLore() {
-        return List.of("&7Level 1: &fHealth Boost I", "&7Level 2: &f+5% Alliance XP", "&7Level 3: &fSpeed I", "&7Level 4: &fJump Boost I", "&7Level 5: &fStrength I", "&7Level 6: &f+10% Alliance XP", "&7Level 7: &f+15% Alliance XP", "&7Level 8: &f+17.5% Alliance XP", "&7Level 9: &fNo extra perk", "&7Level 10: &f+20% XP, Strength II, Speed II, Health Boost II");
+        return List.of("§fLevel 1: " + Messages.ALLIANCE_COLOR + "Health Boost I", "§fLevel 2: " + Messages.ALLIANCE_COLOR + "+5% Alliance XP", "§fLevel 3: " + Messages.ALLIANCE_COLOR + "Speed I", "§fLevel 4: " + Messages.ALLIANCE_COLOR + "Jump Boost I", "§fLevel 5: " + Messages.ALLIANCE_COLOR + "Strength I", "§fLevel 6: " + Messages.ALLIANCE_COLOR + "+10% Alliance XP", "§fLevel 7: " + Messages.ALLIANCE_COLOR + "+15% Alliance XP", "§fLevel 8: " + Messages.ALLIANCE_COLOR + "+17.5% Alliance XP", "§fLevel 9: " + Messages.ALLIANCE_COLOR + "No extra perk", "§fLevel 10: " + Messages.ALLIANCE_COLOR + "+20% XP, Strength II, Speed II, Health Boost II");
     }
 
     private void syncStoredLevels() {
