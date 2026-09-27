@@ -100,7 +100,7 @@ public final class AllianceLevelGuiListener implements Listener {
                 AllianceInfoGui.open(plugin, player, alliance);
                 return;
             }
-            if (event.getSlot() == 25 && event.getCurrentItem().getType() == Material.CHEST) {
+            if (event.getSlot() == 26 && event.getCurrentItem().getType() == Material.CHEST) {
                 AllianceLevelGui.openXpValues(plugin, player, alliance, 0);
             }
             return;
@@ -123,7 +123,7 @@ public final class AllianceLevelGuiListener implements Listener {
         }
 
         int maxPage = AllianceLevelGui.getMaxPage(plugin);
-        if (event.getSlot() == 18) {
+        if (event.getSlot() == 0) {
             if (xpHolder.getPage() <= 0) {
                 player.sendMessage(messageService.prefixed("no-previous-page"));
                 return;
@@ -131,7 +131,7 @@ public final class AllianceLevelGuiListener implements Listener {
             AllianceLevelGui.openXpValues(plugin, player, alliance, xpHolder.getPage() - 1);
             return;
         }
-        if (event.getSlot() == 26) {
+        if (event.getSlot() == 8) {
             if (xpHolder.getPage() >= maxPage) {
                 player.sendMessage(messageService.prefixed("no-next-page"));
                 return;

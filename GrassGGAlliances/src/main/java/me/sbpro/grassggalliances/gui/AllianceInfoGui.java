@@ -9,6 +9,7 @@ import me.sbpro.grassggalliances.Messages;
 import me.sbpro.grassggalliances.model.Alliance;
 import me.sbpro.grassggalliances.service.AllianceXpService;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -22,7 +23,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public final class AllianceInfoGui {
-    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacyAmpersand();
+    private static final LegacyComponentSerializer LEGACY = LegacyComponentSerializer.legacySection();
 
     private AllianceInfoGui() {
     }
@@ -41,22 +42,22 @@ public final class AllianceInfoGui {
         // Three central action buttons.
         inventory.setItem(20, createSimpleItem(Material.PLAYER_HEAD,
                 Messages.INFO_GUI_MEMBERS,
-                List.of("&fView everyone in your alliance.")));
+                List.of("§fView everyone in your alliance.")));
         inventory.setItem(22, createSimpleItem(Material.EXPERIENCE_BOTTLE,
                 Messages.INFO_GUI_LEVEL,
                 List.of(
-                        "&fAlliance Level: " + Messages.ALLIANCE_COLOR + alliance.getLevel(),
-                        "&fAlliance XP: " + Messages.ALLIANCE_COLOR + Math.round(alliance.getXp()),
-                        "&fProgress: " + plugin.getXpService().getProgressBar(alliance),
+                        "§fAlliance Level: " + Messages.ALLIANCE_COLOR + alliance.getLevel(),
+                        "§fAlliance XP: " + Messages.ALLIANCE_COLOR + Math.round(alliance.getXp()),
+                        "§fProgress: " + plugin.getXpService().getProgressBar(alliance),
                         " ",
                         Messages.ALLIANCE_COLOR + "Click to open the Alliance Level menu."
                 )));
         inventory.setItem(24, createSimpleItem(Material.CHEST,
                 Messages.INFO_GUI_XP_VALUES,
-                List.of("&fView how your alliance earns XP.")));
+                List.of("§fView how your alliance earns XP.")));
         inventory.setItem(40, createSimpleItem(Material.BARRIER,
                 plugin.getMessageService().getRaw("go-back"),
-                List.of("&fClose this menu")));
+                List.of("§fClose this menu")));
 
         player.openInventory(inventory);
     }
@@ -86,14 +87,14 @@ public final class AllianceInfoGui {
 
             OfflinePlayer member = Bukkit.getOfflinePlayer(memberId);
             String name = member.getName() == null ? memberId.toString().substring(0, 8) : member.getName();
-            String role = memberId.equals(alliance.getOwner()) ? Messages.ALLIANCE_COLOR + "Owner" : "&fMember";
-            List<String> lore = List.of(role, member.isOnline() ? Messages.ALLIANCE_COLOR + "● Online" : "&7● Offline");
+            String role = memberId.equals(alliance.getOwner()) ? Messages.ALLIANCE_COLOR + "§fOwner" : "§r§fMember";
+            List<String> lore = List.of(role, member.isOnline() ? Messages.ALLIANCE_COLOR + "§a● Online" : "§7● Offline");
             inventory.setItem(slot++, createPlayerHead(member, name, lore));
         }
 
         inventory.setItem(22, createSimpleItem(Material.ARROW,
                 plugin.getMessageService().getRaw("go-back"),
-                List.of("&fReturn to alliance information")));
+                List.of("§fReturn to alliance information")));
 
         player.openInventory(inventory);
     }
@@ -104,11 +105,11 @@ public final class AllianceInfoGui {
         String ownerName = owner.getName() == null ? alliance.getOwner().toString() : owner.getName();
 
         List<String> lore = List.of(
-                "&fOwner: " + Messages.ALLIANCE_COLOR + ownerName,
-                "&fMembers: " + Messages.ALLIANCE_COLOR + alliance.getMembers().size() + "§f/5",
-                "&fAlliance Level: " + Messages.ALLIANCE_COLOR + alliance.getLevel(),
-                "&fAlliance XP: " + Messages.ALLIANCE_COLOR + Math.round(alliance.getXp()),
-                "&fProgress: " + xpService.getProgressBar(alliance)
+                "§fOwner: " + Messages.ALLIANCE_COLOR + ownerName,
+                "§fMembers: " + Messages.ALLIANCE_COLOR + alliance.getMembers().size() + "§f/5",
+                "§fAlliance Level: " + Messages.ALLIANCE_COLOR + alliance.getLevel(),
+                "§fAlliance XP: " + Messages.ALLIANCE_COLOR + Math.round(alliance.getXp()),
+                "§fProgress: " + xpService.getProgressBar(alliance)
         );
 
         return createSimpleItem(Material.GRASS_BLOCK,
@@ -120,8 +121,8 @@ public final class AllianceInfoGui {
         ItemStack item = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
         meta.setOwningPlayer(player);
-        meta.displayName(LEGACY.deserialize(("&f" + name).replace('§', '&')));
-        meta.lore(loreLines.stream().map(LEGACY::deserialize).map(component -> (Component) component).toList());
+        meta.displayName(LEGACY.deserialize("§f" + name).decoration(TextDecoration.ITALIC, false));
+        meta.lore(loreLines.stream().map(LEGACY::deserialize).map(component -> component.decoration(TextDecoration.ITALIC, false)).map(component -> (Component) component).toList());
         item.setItemMeta(meta);
         return item;
     }
@@ -129,8 +130,8 @@ public final class AllianceInfoGui {
     private static ItemStack createSimpleItem(Material material, String name, List<String> loreLines) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(LEGACY.deserialize(name.replace('§', '&')));
-        meta.lore(loreLines.stream().map(LEGACY::deserialize).map(component -> (Component) component).toList());
+        meta.displayName(LEGACY.deserialize(name).decoration(TextDecoration.ITALIC, false));
+        meta.lore(loreLines.stream().map(LEGACY::deserialize).map(component -> component.decoration(TextDecoration.ITALIC, false)).map(component -> (Component) component).toList());
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
         return item;

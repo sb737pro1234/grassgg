@@ -1,10 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.bukkit.inventory.Inventory
- *  org.bukkit.inventory.InventoryHolder
- */
 package me.sbpro.grassggalliances.gui;
 
 import org.bukkit.inventory.Inventory;

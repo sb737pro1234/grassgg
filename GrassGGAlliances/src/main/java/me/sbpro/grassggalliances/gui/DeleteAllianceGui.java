@@ -1,23 +1,10 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.kyori.adventure.text.Component
- *  net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
- *  org.bukkit.Bukkit
- *  org.bukkit.Material
- *  org.bukkit.entity.Player
- *  org.bukkit.inventory.Inventory
- *  org.bukkit.inventory.InventoryHolder
- *  org.bukkit.inventory.ItemStack
- *  org.bukkit.inventory.meta.ItemMeta
- */
 package me.sbpro.grassggalliances.gui;
 
 import me.sbpro.grassggalliances.GrassGGAlliances;
 import me.sbpro.grassggalliances.Messages;
 import me.sbpro.grassggalliances.gui.DeleteGuiHolder;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -43,7 +30,7 @@ public final class DeleteAllianceGui {
     private static ItemStack createButton(Material material, String name) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName((Component)LEGACY.deserialize(name.replace('§', '&')));
+        meta.displayName((Component)LEGACY.deserialize(name.replace('§', '&')).decoration(TextDecoration.ITALIC, false));
         item.setItemMeta(meta);
         return item;
     }
