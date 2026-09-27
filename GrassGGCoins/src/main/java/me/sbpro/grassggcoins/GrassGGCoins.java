@@ -5,6 +5,7 @@ import me.sbpro.grassggcoins.command.CoinCommand;
 import me.sbpro.grassggcoins.data.CoinManager;
 import me.sbpro.grassggcoins.listener.BankNoteListener;
 import me.sbpro.grassggcoins.listener.CoinMenuListener;
+import me.sbpro.grassggcoins.listener.PlayerKillListener;
 import me.sbpro.grassggcoins.placeholder.CoinsPlaceholderExpansion;
 import me.sbpro.grassggcoins.shop.ShopManager;
 import org.bukkit.Bukkit;
@@ -56,6 +57,11 @@ public final class GrassGGCoins extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(
                 new BankNoteListener(this),
+                this
+        );
+
+        Bukkit.getPluginManager().registerEvents(
+                new PlayerKillListener(this),
                 this
         );
 

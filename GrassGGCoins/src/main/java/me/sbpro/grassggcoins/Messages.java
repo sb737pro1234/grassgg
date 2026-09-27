@@ -563,4 +563,47 @@ public final class Messages {
                 + "This bank note could not be redeemed. "
                 + "No coins were added.";
     }
+
+    // =============================================================
+// Player kill rewards
+// =============================================================
+
+    public static String playerKillRewardActionBar(
+            String victimName,
+            long amount
+    ) {
+        return WHITE
+                + "You have received "
+                + CUSTOM
+                + "+"
+                + AmountFormatter.format(amount)
+                + " coins"
+                + WHITE
+                + " for killing "
+                + CUSTOM
+                + victimName
+                + WHITE
+                + ".";
+    }
+
+    public static String playerKillRewardChatMessage(
+            String victimName,
+            long amount
+    ) {
+        return "§8-----------------------------------------------\n"
+                + prefix()
+                + WHITE
+                + "You have received "
+                + CUSTOM
+                + "+"
+                + AmountFormatter.format(amount)
+                + " coins"
+                + WHITE
+                + " for killing "
+                + CUSTOM
+                + victimName
+                + WHITE
+                + ". \n"
+                + "§8-----------------------------------------------";
+    }
 }
