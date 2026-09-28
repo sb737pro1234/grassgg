@@ -1,0 +1,17 @@
+name: GrassGGSuperTools
+version: 1.0
+main: me.sbpro.grassggsupertools.GrassGGSuperTools
+description: Super tools for GrassGG
+author: GrassGG
+api-version: '26.2'
+
+commands:
+  supertools:
+    description: Gives GrassGG SuperTools
+    usage: /supertools give [player] [tool]
+    permission: grassgg.supertools.admin
+
+permissions:
+  grassgg.supertools.admin:
+    description: Allows use of /supertools
+    default: op
