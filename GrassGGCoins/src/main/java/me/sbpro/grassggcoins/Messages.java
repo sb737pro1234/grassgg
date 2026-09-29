@@ -152,7 +152,7 @@ public final class Messages {
                 WHITE + "Coins can be used to buy special items in" + CUSTOM + " /coinshop" + WHITE + ".",
                 "",
                 CUSTOM + "Ways to get coins:",
-                CUSTOM + "✦" + WHITE + " Receive " + CUSTOM + "1 coin" + WHITE + "every 15 minutes through playtime.",
+                CUSTOM + "✦" + WHITE + " Receive " + CUSTOM + "1 coin" + WHITE + " every 15 minutes through playtime.",
                 CUSTOM + "✦" + WHITE + " Receive " + CUSTOM + "5 coins" + WHITE + " upon killing a player.",
                 CUSTOM + "✦" + WHITE + " Receive " + CUSTOM + "10 coins" + WHITE + " upon completing a dailymission."
         );
