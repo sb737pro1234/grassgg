@@ -149,8 +149,12 @@ public final class Messages {
 
     public static List<String> infoItemLore() {
         return List.of(
-                WHITE + "Earn coins through playing.",
-                WHITE + "More ways to earn coins can be added later."
+                WHITE + "Coins are a second currency which can be used to buy special  items in" + CUSTOM + "/coinshop" + WHITE + ".",
+                "",
+                CUSTOM + "Ways to get coins:",
+                CUSTOM + "✦" + WHITE + " Receive" + CUSTOM + "1 coin" + WHITE + "every 15 minutes through playtime",
+                CUSTOM + "✦" + WHITE + " Receive " + CUSTOM + "5 coins" + WHITE + " upon killing a player",
+                CUSTOM + "✦" + WHITE + " Receive " + CUSTOM + "10 coins" + WHITE + " upon completing a dailymission"
         );
     }
 
