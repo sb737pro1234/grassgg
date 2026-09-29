@@ -21,7 +21,7 @@ commands:
   content:
     aliases:
       - contentannounce
-      - announce  content
+      - announcecontent
       - video
       - short
     permission: grassgg.media.announce
