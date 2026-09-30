@@ -1,0 +1,8 @@
+Shop:
+  Items:
+    example:
+      Display Name: "&aExample Reward"
+      Cost: 1
+      Command: "give %player% diamond 1"
+      Slot: 11
+      Display Item: ""
