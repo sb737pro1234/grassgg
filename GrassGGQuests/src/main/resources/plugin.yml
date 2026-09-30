@@ -1,0 +1,8 @@
+name: GrassGGQuests
+version: '1.0'
+
+main: me.sbpro.grassggquests.GrassGGQuests
+api-version: '26.2'
+load: POSTWORLD
+
+authors: [ SBPro ]
