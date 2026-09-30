@@ -33,7 +33,7 @@ public final class Messages {
     public static String ALREADY_ACTIVE = ERROR_COLOR + "That quest is already active for this player.";
     public static String QUEST_GIVEN_TO_YOU = CUSTOM_COLOR + "You received quest: " + MAIN_COLOR + "%quest%" + CUSTOM_COLOR + ".";
 
-    public static String DAILY_MISSIONS_NAME = CUSTOM_COLOR + "Daily Missions";
+    public static String DAILY_MISSIONS_NAME = "§x§F§F§6§D§0§0Daily Missions";
     public static List<String> DAILY_MISSIONS_LORE = List.of(MAIN_COLOR + "Open the Daily Missions menu.");
     public static String ACTIVE_QUESTS_NAME = CUSTOM_COLOR + "Active Quests";
     public static List<String> ACTIVE_QUESTS_LORE = List.of(MAIN_COLOR + "View your active quests.");
