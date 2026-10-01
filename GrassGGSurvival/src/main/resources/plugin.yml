@@ -1,0 +1,81 @@
+name: GrassGGSurvival
+version: "1.0"
+description: Official base plugin of Grass.GG Survival.
+
+main: me.sbpro.grassggsurvival.GrassGGSurvival
+api-version: "1.21"
+load: POSTWORLD
+
+authors:
+  - SBPro
+
+softdepend:
+  - LuckPerms
+  - GrassGGTeleport
+
+commands:
+
+  hideplayer:
+    description: Toggle hiding all other players from your view.
+    usage: "/hideplayer"
+    aliases:
+      - hp
+    permission: grassgg.hideplayer
+
+  glow:
+    description: Toggle your glowing effect.
+    usage: "/glow"
+    permission: grassgg.glow
+
+
+
+  chattoggle:
+    description: Toggles chat visibility.
+    usage: "/chattoggle"
+    aliases:
+      - togglechat
+    permission: grassgg.settings.chattoggle
+
+  settings:
+    description: Opens the settings menu.
+    usage: "/settings"
+    permission: grassgg.settings
+
+
+  customenchant:
+    description: Gives the player a custom enchantment.
+    usage: "/customenchant give [PLAYER] [ENCHANT]"
+    permission: grassgg.admin
+
+
+permissions:
+  grassgg.store:
+    description: Allows players to use /store
+    default: true
+  grassgg.youtube:
+    description: Allows players to use /youtube
+    default: true
+
+
+  grassgg.hideplayer:
+    description: Allows players to use /hideplayer.
+    default: false
+
+  grassgg.glow:
+    description: Allows players to toggle glowing.
+    default: false
+
+
+
+  grassgg.chattoggle:
+    description: Allows players to toggle chat visibility.
+    default: true
+
+  grassgg.settings:
+    description: Allows players to open the settings menu.
+    default: true
+
+
+
+
+
