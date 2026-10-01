@@ -118,7 +118,7 @@ public class DeleteHomeMenu {
         inventory.setItem(
                 16,
                 createItem(
-                        Material.LIME_STAINED_GLASS_PANE,
+                        Material.GREEN_STAINED_GLASS_PANE,
                         "§aConfirm",
                         List.of(
                                 "§7",

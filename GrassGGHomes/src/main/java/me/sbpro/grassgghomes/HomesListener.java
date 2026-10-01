@@ -145,7 +145,7 @@ public class HomesListener implements Listener {
              * CONFIRM
              */
             if (item.getType()
-                    == Material.LIME_STAINED_GLASS_PANE) {
+                    == Material.GREEN_STAINED_GLASS_PANE) {
 
 
                 plugin.getHomesManager()

@@ -560,7 +560,7 @@ public final class SusMenuListener implements Listener {
         inventory.setItem(
                 16,
                 simpleItem(
-                        Material.LIME_STAINED_GLASS_PANE,
+                        Material.GREEN_STAINED_GLASS_PANE,
                         "§a§lConfirm"
                 )
         );

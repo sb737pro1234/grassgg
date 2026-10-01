@@ -132,7 +132,7 @@ public final class ClearChatCommand
         inventory.setItem(
                 16,
                 item(
-                        Material.LIME_STAINED_GLASS_PANE,
+                        Material.GREEN_STAINED_GLASS_PANE,
                         "§a§lCONFIRM"
                 )
         );
