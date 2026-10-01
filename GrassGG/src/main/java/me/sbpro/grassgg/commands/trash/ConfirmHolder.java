@@ -45,10 +45,6 @@ public class ConfirmHolder implements InventoryHolder {
                 Component.text("Confirm Trash", NamedTextColor.RED)
         );
 
-        ItemStack filler = filler();
-        for (int i = 0; i < SIZE; i++) {
-            inventory.setItem(i, filler);
-        }
 
         inventory.setItem(CONFIRM_SLOT, confirmButton());
         inventory.setItem(CANCEL_SLOT, cancelButton());
@@ -81,13 +77,6 @@ public class ConfirmHolder implements InventoryHolder {
         return holder;
     }
 
-    private static ItemStack filler() {
-        ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-        ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text(" "));
-        item.setItemMeta(meta);
-        return item;
-    }
 
     private static ItemStack confirmButton() {
         ItemStack item = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);

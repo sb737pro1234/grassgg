@@ -131,22 +131,13 @@ public class DeleteHomeMenu {
 
     private void fillBackground() {
 
-        ItemStack filler =
-                createItem(
-                        Material.GRAY_STAINED_GLASS_PANE,
-                        " ",
-                        null
-                );
 
 
         for (int i = 0;
              i < inventory.getSize();
              i++) {
 
-            inventory.setItem(
-                    i,
-                    filler
-            );
+
         }
     }
 

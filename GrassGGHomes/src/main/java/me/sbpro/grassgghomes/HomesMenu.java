@@ -89,28 +89,12 @@ public class HomesMenu {
 
     private void fillBackground() {
 
-        ItemStack filler =
-                new ItemStack(
-                        Material.GRAY_STAINED_GLASS_PANE
-                );
 
-        ItemMeta meta =
-                filler.getItemMeta();
 
-        if (meta != null) {
-
-            meta.setDisplayName(" ");
-
-            filler.setItemMeta(meta);
-        }
 
 
         for (int i = 0; i < inventory.getSize(); i++) {
 
-            inventory.setItem(
-                    i,
-                    filler
-            );
         }
     }
 
