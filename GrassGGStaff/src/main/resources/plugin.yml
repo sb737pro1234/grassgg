@@ -1,5 +1,5 @@
 name: GrassGGStaff
-version: 1.1.0
+version: 1.0
 main: me.sbpro.grassggstaff.GrassGGStaff
 api-version: '26.2'
 description: GrassGG network-wide custom staff punishment system.
