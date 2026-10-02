@@ -96,9 +96,9 @@ public class MenuManager {
     public void openConfirmation(Player player, ShopItem item) {
         pendingPurchases.put(player.getUniqueId(), item);
         Inventory inv = Bukkit.createInventory(null, 27, Messages.CONFIRM_TITLE);
-        inv.setItem(10, button(Material.RED_WOOL, Messages.CANCEL_NAME, Messages.CANCEL_LORE));
+        inv.setItem(10, button(Material.RED_STAINED_GLASS_PANE, Messages.CANCEL_NAME, Messages.CANCEL_LORE));
         inv.setItem(13, item.displayItem().clone());
-        inv.setItem(16, button(Material.GREEN_WOOL, Messages.CONFIRM_NAME, Messages.CONFIRM_LORE));
+        inv.setItem(16, button(Material.GREEN_STAINED_GLASS_PANE, Messages.CONFIRM_NAME, Messages.CONFIRM_LORE));
         player.openInventory(inv);
     }
 

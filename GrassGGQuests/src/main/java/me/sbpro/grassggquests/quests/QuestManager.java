@@ -98,30 +98,59 @@ public class QuestManager {
 
     public void addProgress(Player player, QuestType type, String target, int amount) {
         if (amount <= 0) return;
+
         PlayerData data = getData(player.getUniqueId());
         List<ActiveQuest> completed = new ArrayList<>();
 
+        // Only matching active quests receive progress. Completion is handled separately
+        // and can NEVER happen merely because progress was made.
         for (ActiveQuest active : new ArrayList<>(data.getActiveQuests())) {
             QuestDefinition quest = getDefinition(active.getQuestId());
-            if (quest == null || quest.getType() != type || !quest.getTarget().equalsIgnoreCase(target)) continue;
-            int newProgress = Math.min(quest.getRequiredAmount(), active.getProgress() + amount);
+            if (quest == null || quest.getType() != type || !quest.getTarget().equalsIgnoreCase(target)) {
+                continue;
+            }
+
+            int required = quest.getRequiredAmount();
+            int newProgress = Math.min(required, active.getProgress() + amount);
             active.setProgress(newProgress);
-            if (newProgress >= quest.getRequiredAmount()) completed.add(active);
+
+            if (required > 0 && newProgress >= required) {
+                completed.add(active);
+            } else {
+                // This is the normal progress path: show/update the bossbar only.
+                plugin.getBossBars().showProgress(player, quest, newProgress);
+            }
         }
 
-        for (ActiveQuest active : completed) completeQuest(player, data, active);
+        // Completion messages/title are ONLY sent from here, after the requirement is reached.
+        for (ActiveQuest active : completed) {
+            completeQuest(player, data, active);
+        }
+
         plugin.getDataManager().save(data);
     }
 
     private void completeQuest(Player player, PlayerData data, ActiveQuest active) {
         QuestDefinition quest = getDefinition(active.getQuestId());
-        if (quest == null) return;
+        if (quest == null || active.getProgress() < quest.getRequiredAmount()) return;
         data.getActiveQuests().remove(active);
         data.setXp(data.getXp() + quest.getXpReward());
+        data.setQuestPoints(data.getQuestPoints() + 1);
 
-        player.sendMessage(Messages.PREFIX + Messages.QUEST_COMPLETED
+        plugin.getBossBars().hide(player);
+
+        player.sendTitle(
+                Messages.QUEST_COMPLETION_TITLE.replace("%quest%", quest.getTitle()),
+                Messages.QUEST_COMPLETION_SUBTITLE.replace("%quest%", quest.getTitle()),
+                Messages.QUEST_COMPLETION_FADE_IN,
+                Messages.QUEST_COMPLETION_STAY,
+                Messages.QUEST_COMPLETION_FADE_OUT);
+
+        player.sendMessage(Messages.QUEST_COMPLETION_BOX_TOP);
+        player.sendMessage(Messages.QUEST_COMPLETION_BOX_MESSAGE
                 .replace("%quest%", quest.getTitle())
                 .replace("%xp%", String.valueOf(quest.getXpReward())));
+        player.sendMessage(Messages.QUEST_COMPLETION_BOX_BOTTOM);
 
         while (canLevelUp(data)) {
             int required = Quests.LEVEL_XP.getOrDefault(data.getLevel(), Integer.MAX_VALUE);

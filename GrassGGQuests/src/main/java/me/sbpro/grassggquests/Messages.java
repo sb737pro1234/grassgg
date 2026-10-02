@@ -1,13 +1,16 @@
 package me.sbpro.grassggquests;
 
 import java.util.List;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
 
 public final class Messages {
     private Messages() {}
 
     // Colours - use § codes, including §x hex colours.
-    public static String CUSTOM_COLOR = "§x§A§0§2§0§F§F";
+    public static String CUSTOM_COLOR = "§x§1§4§b§8§a§6";
     public static String MAIN_COLOR = "§f";
+    public static String WHITE = MAIN_COLOR;
     public static String ERROR_COLOR = "§c";
 
     public static String PREFIX = CUSTOM_COLOR + "§lQUESTS §8» " + MAIN_COLOR;
@@ -23,6 +26,38 @@ public final class Messages {
     public static String NOT_ENOUGH_POINTS = ERROR_COLOR + "You do not have enough Quest Points.";
     public static String PURCHASE_SUCCESS = CUSTOM_COLOR + "Purchase successful!";
     public static String QUEST_COMPLETED = CUSTOM_COLOR + "Quest completed: " + MAIN_COLOR + "%quest% " + CUSTOM_COLOR + "(+%xp% XP)";
+
+    // Quest completion title/subtitle.
+    public static String QUEST_COMPLETION_TITLE = CUSTOM_COLOR + "Quest Complete!";
+    public static String QUEST_COMPLETION_SUBTITLE = MAIN_COLOR + "You have been given a Quest Point.";
+    public static int QUEST_COMPLETION_FADE_IN = 10;
+    public static int QUEST_COMPLETION_STAY = 50;
+    public static int QUEST_COMPLETION_FADE_OUT = 10;
+
+    // Achievement-style quest completion message.
+    public static String QUEST_COMPLETION_BOX_TOP = "§8-----------------------------------------------";
+    public static String QUEST_COMPLETION_BOX_BOTTOM = "§8-----------------------------------------------";
+    public static String QUEST_COMPLETION_BOX_MESSAGE = PREFIX
+            + WHITE
+            + "You completed "
+            + CUSTOM_COLOR
+            + "%quest%"
+            + WHITE
+            + " and received "
+            + CUSTOM_COLOR
+            + "+%xp% XP"
+            + WHITE
+            + " and "
+            + CUSTOM_COLOR
+            + "+1 Quest Point"
+            + WHITE
+            + ".";
+
+    // Quest progress bossbar.
+    public static BarColor BOSSBAR_COLOR = BarColor.BLUE;
+    public static BarStyle BOSSBAR_STYLE = BarStyle.SOLID;
+    public static String BOSSBAR_TITLE = CUSTOM_COLOR + "%quest%" + WHITE + " (%progress%/%required%)";
+    public static long BOSSBAR_DISPLAY_TICKS = 100L;
     public static String LEVEL_UP = CUSTOM_COLOR + "Quest Level increased to " + MAIN_COLOR + "%level%" + CUSTOM_COLOR + "!";
     public static String POINT_RECEIVED = CUSTOM_COLOR + "You received " + MAIN_COLOR + "1 Quest Point" + CUSTOM_COLOR + ".";
     public static String RELOAD_SUCCESS = CUSTOM_COLOR + "Configuration reloaded successfully.";

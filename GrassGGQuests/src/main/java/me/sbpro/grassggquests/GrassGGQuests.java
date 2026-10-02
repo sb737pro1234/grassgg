@@ -6,6 +6,7 @@ import me.sbpro.grassggquests.menus.MenuListener;
 import me.sbpro.grassggquests.menus.MenuManager;
 import me.sbpro.grassggquests.placeholder.QuestExpansion;
 import me.sbpro.grassggquests.quests.QuestListener;
+import me.sbpro.grassggquests.quests.QuestBossBarManager;
 import me.sbpro.grassggquests.quests.QuestManager;
 import me.sbpro.grassggquests.shop.ShopManager;
 import org.bukkit.Bukkit;
@@ -18,6 +19,7 @@ public class GrassGGQuests extends JavaPlugin {
     private QuestManager questManager;
     private ShopManager shopManager;
     private MenuManager menus;
+    private QuestBossBarManager bossBars;
     private QuestExpansion expansion;
 
     @Override
@@ -28,6 +30,7 @@ public class GrassGGQuests extends JavaPlugin {
         questManager = new QuestManager(this);
         shopManager = new ShopManager(this);
         menus = new MenuManager(this);
+        bossBars = new QuestBossBarManager(this);
 
         PluginCommand quests = getCommand("quests");
         if (quests == null) throw new IllegalStateException("quests command missing from plugin.yml");
@@ -77,6 +80,7 @@ public class GrassGGQuests extends JavaPlugin {
     @Override
     public void onDisable() {
         if (questManager != null) questManager.saveAll();
+        if (bossBars != null) bossBars.removeAll();
         if (expansion != null) expansion.unregister();
     }
 
@@ -89,4 +93,5 @@ public class GrassGGQuests extends JavaPlugin {
     public QuestManager getQuestManager() { return questManager; }
     public ShopManager getShopManager() { return shopManager; }
     public MenuManager getMenus() { return menus; }
+    public QuestBossBarManager getBossBars() { return bossBars; }
 }

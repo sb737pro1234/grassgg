@@ -38,3 +38,10 @@ Use Java 25 and Maven:
 `mvn clean package`
 
 The compiled plugin will be created as `target/GrassGGQuests-1.0.jar`.
+
+## Quest Progress Feedback
+
+- Active quest progress displays in a per-player bossbar while the player is making progress.
+- Bossbar colour, style, title and display duration are configurable in `Messages.java`.
+- Completing a quest awards 1 Quest Point, shows a configurable title/subtitle, and sends an achievement-style boxed message.
+- Completion title timing is configurable in `Messages.java`.
