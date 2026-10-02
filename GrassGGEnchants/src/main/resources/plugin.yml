@@ -1,0 +1,20 @@
+name: GrassGGEnchants
+version: 1.0
+main: me.sbpro.grassggenchants.GrassGGEnchants
+api-version: '26.2'
+author: GrassGG
+description: Custom enchant upgrade items for GrassGG.
+
+commands:
+  enchantitem:
+    description: Gives custom enchant items.
+    usage: /enchantitem give <player> <item>
+    permission: grassgg.enchant.give
+    aliases:
+      - customenchant
+      - enchantcustom
+
+permissions:
+  grassgg.enchant.give:
+    description: Allows the player to give GrassGG enchant items.
+    default: op
