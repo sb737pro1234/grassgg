@@ -34,6 +34,9 @@ import net.milkbowl.vault.economy.Economy;
 import me.sbpro.grassggsurvival.enchants.AutoSmeltEnchant;
 import me.sbpro.grassggsurvival.settings.*;
 import me.sbpro.grassggsurvival.commands.*;
+import me.sbpro.grassggsurvival.commands.baltop.BalTopCommand;
+import me.sbpro.grassggsurvival.commands.baltop.BalTopListener;
+import me.sbpro.grassggsurvival.commands.baltop.BalTopMenu;
 import me.sbpro.grassggsurvival.listeners.HidePlayerListener;
 
 
@@ -61,6 +64,10 @@ public final class GrassGGSurvival extends JavaPlugin implements Listener {
         }
 
         return rsp.getProvider();
+    }
+
+    public Economy getEconomy() {
+        return economy;
     }
 
 
@@ -119,6 +126,8 @@ public final class GrassGGSurvival extends JavaPlugin implements Listener {
         AutoSmeltEnchant autoSmelt = new AutoSmeltEnchant(this);
         getCommand("customenchant").setExecutor(new CustomEnchantCommand(autoSmelt));
 
+        getCommand("baltop").setExecutor(new BalTopCommand(this));
+
 
         // Listeners / Events
         getServer().getPluginManager().registerEvents(this, this);
@@ -126,6 +135,7 @@ public final class GrassGGSurvival extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new ChatListener(this), this);
         getServer().getPluginManager().registerEvents(new SettingsListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerSettingsListener(this), this);
+        getServer().getPluginManager().registerEvents(new BalTopListener(), this);
 
 
         // Economy
@@ -137,12 +147,22 @@ public final class GrassGGSurvival extends JavaPlugin implements Listener {
             return;
         }
 
+        // Build the balance leaderboard immediately, then refresh it silently every 5 minutes.
+        BalTopMenu.refresh(this);
+        getServer().getScheduler().runTaskTimer(
+                this,
+                () -> BalTopMenu.refresh(this),
+                20L * 60L * 5L,
+                20L * 60L * 5L
+        );
+
 
         // Managers
         chatToggleManager = new ChatToggleManager(this);
         scoreboardManager = new ScoreboardManager(this);
         nightVisionManager = new NightVisionManager(this);
         glowManager = new GlowManager(this);
+
     }
 
 

@@ -3,13 +3,15 @@ version: "1.0"
 description: Official base plugin of Grass.GG Survival.
 
 main: me.sbpro.grassggsurvival.GrassGGSurvival
-api-version: "1.21"
+api-version: "26.2"
 load: POSTWORLD
 
 authors:
   - SBPro
 
 softdepend:
+  - Vault
+  - Essentials
   - LuckPerms
   - GrassGGTeleport
 
@@ -46,6 +48,13 @@ commands:
     description: Gives the player a custom enchantment.
     usage: "/customenchant give [PLAYER] [ENCHANT]"
     permission: grassgg.admin
+
+
+  baltop:
+    description: View the players with the most money.
+    usage: "/baltop [reload]"
+    aliases:
+      - balancetop
 
 
 permissions:
