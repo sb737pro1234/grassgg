@@ -59,7 +59,7 @@ public final class AllianceBuffService {
     public void clearPlayer(Player player) {
         player.removePotionEffect(PotionEffectType.HEALTH_BOOST);
         player.removePotionEffect(PotionEffectType.SPEED);
-        player.removePotionEffect(PotionEffectType.JUMP_BOOST);
+        player.removePotionEffect(PotionEffectType.HASTE);
         player.removePotionEffect(PotionEffectType.STRENGTH);
     }
 
@@ -69,7 +69,7 @@ public final class AllianceBuffService {
             this.addEffect(player, PotionEffectType.SPEED, level >= 10 ? 1 : 0);
         }
         if (level >= 4) {
-            this.addEffect(player, PotionEffectType.JUMP_BOOST, 0);
+            this.addEffect(player, PotionEffectType.HASTE, 0);
         }
         if (level >= 5) {
             this.addEffect(player, PotionEffectType.STRENGTH, level >= 10 ? 1 : 0);

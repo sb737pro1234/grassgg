@@ -235,7 +235,7 @@ public final class AllianceXpService {
     }
 
     public List<String> getLevelPerksLore() {
-        return List.of("§fLevel 1: " + Messages.ALLIANCE_COLOR + "Health Boost I", "§fLevel 2: " + Messages.ALLIANCE_COLOR + "+5% Alliance XP", "§fLevel 3: " + Messages.ALLIANCE_COLOR + "Speed I", "§fLevel 4: " + Messages.ALLIANCE_COLOR + "Jump Boost I", "§fLevel 5: " + Messages.ALLIANCE_COLOR + "Strength I", "§fLevel 6: " + Messages.ALLIANCE_COLOR + "+10% Alliance XP", "§fLevel 7: " + Messages.ALLIANCE_COLOR + "+15% Alliance XP", "§fLevel 8: " + Messages.ALLIANCE_COLOR + "+17.5% Alliance XP", "§fLevel 9: " + Messages.ALLIANCE_COLOR + "No extra perk", "§fLevel 10: " + Messages.ALLIANCE_COLOR + "+20% XP, Strength II, Speed II, Health Boost II");
+        return List.of("§fLevel 1: " + Messages.ALLIANCE_COLOR + "Health Boost I", "§fLevel 2: " + Messages.ALLIANCE_COLOR + "+5% Alliance XP", "§fLevel 3: " + Messages.ALLIANCE_COLOR + "Speed I", "§fLevel 4: " + Messages.ALLIANCE_COLOR + "Haste I", "§fLevel 5: " + Messages.ALLIANCE_COLOR + "Strength I", "§fLevel 6: " + Messages.ALLIANCE_COLOR + "+10% Alliance XP", "§fLevel 7: " + Messages.ALLIANCE_COLOR + "+15% Alliance XP", "§fLevel 8: " + Messages.ALLIANCE_COLOR + "+17.5% Alliance XP", "§fLevel 9: " + Messages.ALLIANCE_COLOR + "No extra perk", "§fLevel 10: " + Messages.ALLIANCE_COLOR + "+20% XP, Strength II, Speed II, Health Boost II");
     }
 
     private void syncStoredLevels() {
