@@ -22,6 +22,10 @@ import me.sbpro.grassgg.commands.rules.RulesListener;
 import me.sbpro.grassgg.commands.say.SayCommand;
 import me.sbpro.grassgg.commands.trash.TrashCommand;
 import me.sbpro.grassgg.commands.trash.TrashListener;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,6 +37,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.awt.*;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -113,6 +118,28 @@ public final class GrassGGGlobal extends JavaPlugin implements Listener {
         getCommand("colors").setExecutor(new ColorsCommand());
         getServer().getPluginManager().registerEvents(new AnvilColorListener(), this);
 
+
+        // ServerLinks
+        getServer().getServerLinks().addLink(
+                net.kyori.adventure.text.Component.text("Discord")
+                        .color(TextColor.fromHexString("#7289DA"))
+                        .decorate(TextDecoration.BOLD),
+                URI.create("https://discord.gg/A97Dkcb7TU"));
+
+
+        getServer().getServerLinks().addLink(
+                net.kyori.adventure.text.Component.text("Bug Reporting")
+                        .color(TextColor.fromHexString("#FF746C"))
+                        .decorate(TextDecoration.BOLD),
+                URI.create("https://discord.gg/A97Dkcb7TU")
+        );
+
+        getServer().getServerLinks().addLink(
+                Component.text("MrGrassYT")
+                        .color(NamedTextColor.DARK_GREEN)
+                        .decorate(TextDecoration.BOLD),
+                URI.create("https://youtube.com/@MrGrassYT1")
+        );
     }
 
 
