@@ -36,13 +36,13 @@ public final class EnchantUpgradeGUI {
         ItemStack upgrade = holder.getUpgrade();
 
         if (target == null) {
-            holder.getInventory().setItem(11, namedItem(Material.RED_STAINED_GLASS_PANE, Messages.GRAY + "Place Item", List.of(Messages.GRAY + "Place the item you want to upgrade.")));
+            holder.getInventory().setItem(11, namedItem(Material.RED_STAINED_GLASS_PANE, Messages.CUSTOM + "Place Item", List.of(Messages.GRAY + "Place the item you want to upgrade.")));
         } else {
             holder.getInventory().setItem(11, target);
         }
 
         if (upgrade == null) {
-            holder.getInventory().setItem(15, namedItem(Material.RED_STAINED_GLASS_PANE, Messages.GRAY + "Place Upgrade", List.of(Messages.GRAY + "Place an Enchant Upgrade here.")));
+            holder.getInventory().setItem(15, namedItem(Material.RED_STAINED_GLASS_PANE, Messages.CUSTOM + "Place Upgrade", List.of(Messages.GRAY + "Place an Enchant Upgrade here.")));
         } else {
             holder.getInventory().setItem(15, upgrade);
         }

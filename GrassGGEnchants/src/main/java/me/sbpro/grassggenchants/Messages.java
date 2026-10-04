@@ -105,7 +105,12 @@ public final class Messages {
             Enchantment.CHANNELING,
             Enchantment.MULTISHOT,
             Enchantment.QUICK_CHARGE,
-            Enchantment.PIERCING
+            Enchantment.PIERCING,
+            Enchantment.WIND_BURST,
+            Enchantment.BREACH,
+            Enchantment.DENSITY,
+            Enchantment.SWEEPING_EDGE,
+            Enchantment.LUNGE
     );
 
     public static String format(String message, String... replacements) {
