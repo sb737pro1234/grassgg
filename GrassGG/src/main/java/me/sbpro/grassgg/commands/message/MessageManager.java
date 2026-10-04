@@ -24,8 +24,8 @@ public class MessageManager {
     private final Set<UUID> messagesDisabled = new HashSet<>();
 
     public void sendMessage(Player sender, Player target, String message) {
-        sender.sendMessage("§8[§2You §8-> §2" + target.getName() + "§8] " + message);
-        target.sendMessage("§8[§2" + sender.getName() + "§8-> §2You§8] " + message);
+        sender.sendMessage("§f[§2You §f-> §2" + target.getName() + "§f] " + message);
+        target.sendMessage("§2[§2" + sender.getName() + "§f-> §2You§f] " + message);
 
         target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
 
