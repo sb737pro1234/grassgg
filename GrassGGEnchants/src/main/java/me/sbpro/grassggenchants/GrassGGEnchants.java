@@ -23,6 +23,19 @@ public final class GrassGGEnchants extends JavaPlugin {
         getLogger().info("GrassGGEnchants enabled.");
     }
 
+    @Override
+    public void onDisable() {
+        // Close any open upgrade GUIs so reserved upgrade items are handed
+        // back to players instead of being lost on reload/shutdown.
+        for (org.bukkit.entity.Player player : getServer().getOnlinePlayers()) {
+            Object holder = player.getOpenInventory().getTopInventory().getHolder();
+            if (holder instanceof me.sbpro.grassggenchants.gui.EnchantUpgradeGUI.SelectionHolder
+                    || holder instanceof me.sbpro.grassggenchants.gui.EnchantUpgradeGUI.ConfirmationHolder) {
+                player.closeInventory();
+            }
+        }
+    }
+
     public static GrassGGEnchants getInstance() {
         return instance;
     }

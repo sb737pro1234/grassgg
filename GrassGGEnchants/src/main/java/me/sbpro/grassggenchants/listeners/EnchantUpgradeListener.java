@@ -11,9 +11,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,223 +32,248 @@ public final class EnchantUpgradeListener implements Listener {
         this.plugin = plugin;
     }
 
-    /**
-     * Apply an Enchant Upgrade by picking it up with the cursor and clicking
-     * the item that should be upgraded, just like swapping two inventory items.
-     */
-    @EventHandler(priority = EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onInteract(PlayerInteractEvent event) {
+        if (event.getHand() != EquipmentSlot.HAND) return;
+        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+
+        Player player = event.getPlayer();
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if (!EnchantUpgradeItem.isEnchantUpgrade(plugin, item)) return;
+
+        event.setCancelled(true);
+        EnchantUpgradeGUI.open(player);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClick(InventoryClickEvent event) {
-        if (!(event.getWhoClicked() instanceof Player player)) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        Inventory top = event.getView().getTopInventory();
+
+        if (top.getHolder() instanceof EnchantUpgradeGUI.UpgradeHolder holder) {
+            handleUpgradeMenu(event, player, holder);
             return;
         }
 
-        if (event.getClickedInventory() == null) {
+        if (top.getHolder() instanceof EnchantUpgradeGUI.SelectionHolder holder) {
+            handleSelectionMenu(event, player, holder);
             return;
         }
 
-        // First handle the actual application of the Enchant Upgrade.
-        if (event.getClickedInventory() == player.getInventory()
-                && event.getCursor() != null
-                && EnchantUpgradeItem.isEnchantUpgrade(plugin, event.getCursor())) {
-
-            ItemStack target = event.getCurrentItem();
-            if (target == null || target.getType() == Material.AIR) {
-                return;
-            }
-
-            List<Enchantment> eligible = EnchantUpgradeGUI.getEligibleEnchantments(target);
-            if (eligible.isEmpty()) {
-                event.setCancelled(true);
-                player.sendMessage(Messages.NO_ENCHANTMENTS);
-                playError(player);
-                return;
-            }
-
-            event.setCancelled(true);
-            EnchantUpgradeGUI.openSelection(player, target, event.getSlot());
-            return;
-        }
-
-        if (event.getInventory().getHolder() instanceof EnchantUpgradeGUI.SelectionHolder holder) {
-            event.setCancelled(true);
-
-            if (event.getRawSlot() < 0 || event.getRawSlot() >= event.getInventory().getSize()) {
-                return;
-            }
-
-            ItemStack clicked = event.getCurrentItem();
-            if (clicked == null || clicked.getType() == Material.AIR) {
-                return;
-            }
-
-            List<Enchantment> eligible = EnchantUpgradeGUI.getEligibleEnchantments(holder.getTarget());
-            int slot = event.getRawSlot();
-
-            int index = -1;
-            if (slot >= 10 && slot <= 16) {
-                index = slot - 10;
-            } else if (slot >= 19 && slot <= 25) {
-                index = slot - 19 + 7;
-            }
-
-            if (index < 0 || index >= eligible.size()) {
-                return;
-            }
-
-            Enchantment selected = eligible.get(index);
-            EnchantUpgradeGUI.openConfirm(player, holder.getTarget(), holder.getTargetSlot(), selected);
-            return;
-        }
-
-        if (event.getInventory().getHolder() instanceof EnchantUpgradeGUI.ConfirmationHolder holder) {
-            event.setCancelled(true);
-
-            if (event.getRawSlot() == 10) {
-                player.closeInventory();
-                return;
-            }
-
-            if (event.getRawSlot() != 16) {
-                return;
-            }
-
-            ItemStack target = holder.getTarget();
-            Enchantment enchantment = holder.getEnchantment();
-
-            List<Enchantment> eligible = EnchantUpgradeGUI.getEligibleEnchantments(target);
-            if (!eligible.contains(enchantment)) {
-                player.closeInventory();
-                player.sendMessage(Messages.NO_ENCHANTMENTS);
-                playError(player);
-                return;
-            }
-
-            int targetSlot = holder.getTargetSlot();
-            ItemStack actualTarget = getInventoryItem(player.getInventory(), targetSlot);
-
-            if (!sameItem(actualTarget, target)) {
-                player.closeInventory();
-                player.sendMessage(Messages.ERROR + "The item you selected is no longer in that inventory slot.");
-                playError(player);
-                return;
-            }
-
-            ItemStack upgradeItem = player.getItemOnCursor();
-            if (!EnchantUpgradeItem.isEnchantUpgrade(plugin, upgradeItem)) {
-                player.closeInventory();
-                player.sendMessage(Messages.ERROR + "You no longer have an Enchant Upgrade selected.");
-                playError(player);
-                return;
-            }
-
-            int current = actualTarget.getEnchantmentLevel(enchantment);
-            int max = enchantment.getMaxLevel();
-
-            if (current != max) {
-                player.closeInventory();
-                player.sendMessage(Messages.NO_ENCHANTMENTS);
-                playError(player);
-                return;
-            }
-
-            actualTarget.addUnsafeEnchantment(enchantment, current + 1);
-            player.getInventory().setItem(targetSlot, actualTarget);
-
-            if (upgradeItem.getAmount() <= 1) {
-                player.setItemOnCursor(null);
-            } else {
-                upgradeItem.setAmount(upgradeItem.getAmount() - 1);
-                player.setItemOnCursor(upgradeItem);
-            }
-
-            player.closeInventory();
-            player.sendMessage(Messages.format(
-                    Messages.UPGRADED,
-                    "%enchant%", EnchantUpgradeGUI.formatEnchantment(enchantment),
-                    "%current%", String.valueOf(current),
-                    "%next%", String.valueOf(current + 1)
-            ));
-            player.playSound(player.getLocation(), parseSound(Messages.SUCCESS_SOUND), Messages.SOUND_VOLUME, Messages.SUCCESS_PITCH);
+        if (top.getHolder() instanceof EnchantUpgradeGUI.ConfirmationHolder holder) {
+            handleConfirmationMenu(event, player, holder);
         }
     }
 
-    /**
-     * Also supports an actual inventory drag event. If the Enchant Upgrade is
-     * being dragged onto an inventory slot containing an eligible item, the
-     * normal selection GUI is opened instead of moving the item.
-     */
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void onInventoryDrag(InventoryDragEvent event) {
-        if (!(event.getWhoClicked() instanceof Player player)) {
+    private void handleUpgradeMenu(InventoryClickEvent event, Player player, EnchantUpgradeGUI.UpgradeHolder holder) {
+        event.setCancelled(true);
+
+        if (event.getClickedInventory() == null) return;
+
+        // Never allow shift-click, number-key swapping, double-click collecting,
+        // or offhand swapping to interact with the custom input slots.
+        if (event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT
+                || event.getClick() == ClickType.NUMBER_KEY || event.getClick() == ClickType.DOUBLE_CLICK
+                || event.getClick() == ClickType.SWAP_OFFHAND) {
             return;
         }
 
-        if (!EnchantUpgradeItem.isEnchantUpgrade(plugin, event.getOldCursor())) {
+        int rawSlot = event.getRawSlot();
+        if (rawSlot >= event.getView().getTopInventory().getSize()) {
+            // Let normal clicks in the player's inventory pick an item onto the cursor.
+            if (event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT) {
+                event.setCancelled(false);
+            }
             return;
         }
 
-        Inventory top = event.getView().getTopInventory();
-        if (event.getRawSlots().stream().noneMatch(slot -> slot >= top.getSize())) {
+        if (rawSlot != 11 && rawSlot != 15) return;
+
+        ItemStack cursor = event.getCursor();
+        boolean upgradeSlot = rawSlot == 15;
+
+        if (cursor != null && cursor.getType() != Material.AIR) {
+            if (upgradeSlot) {
+                if (!EnchantUpgradeItem.isEnchantUpgrade(plugin, cursor)) {
+                    error(player, Messages.NOT_ENCHANTED_ITEM);
+                    return;
+                }
+
+                if (holder.getUpgrade() != null) return;
+
+                // Consume exactly ONE from the cursor and store exactly ONE.
+                ItemStack one = cursor.clone();
+                one.setAmount(1);
+                holder.setUpgrade(one);
+                ItemStack remaining = cursor.clone();
+                if (remaining.getAmount() <= 1) event.getView().setCursor(null);
+                else {
+                    remaining.setAmount(remaining.getAmount() - 1);
+                    event.getView().setCursor(remaining);
+                }
+            } else {
+                if (EnchantUpgradeItem.isEnchantUpgrade(plugin, cursor)) {
+                    error(player, Messages.NOT_ENCHANTED_ITEM);
+                    return;
+                }
+                if (cursor.getAmount() > 1) {
+                    error(player, Messages.NOT_ENCHANTED_ITEM);
+                    return;
+                }
+                if (holder.getTarget() != null) return;
+
+                holder.setTarget(cursor.clone());
+                event.getView().setCursor(null);
+            }
+
+            EnchantUpgradeGUI.refresh(holder);
+            tryOpenSelection(player, holder);
             return;
         }
 
-        for (int rawSlot : event.getRawSlots()) {
-            if (rawSlot < top.getSize()) {
-                continue;
-            }
+        // Empty cursor: pick the stored item back up.
+        if (upgradeSlot && holder.getUpgrade() != null) {
+            event.getView().setCursor(holder.getUpgrade().clone());
+            holder.setUpgrade(null);
+        } else if (!upgradeSlot && holder.getTarget() != null) {
+            event.getView().setCursor(holder.getTarget().clone());
+            holder.setTarget(null);
+        }
+        EnchantUpgradeGUI.refresh(holder);
+    }
 
-            int playerSlot = rawSlot - top.getSize();
-            if (playerSlot < 0 || playerSlot >= player.getInventory().getSize()) {
-                continue;
-            }
+    private void tryOpenSelection(Player player, EnchantUpgradeGUI.UpgradeHolder holder) {
+        if (holder.getTarget() == null || holder.getUpgrade() == null) return;
 
-            ItemStack target = player.getInventory().getItem(playerSlot);
-            if (target == null || target.getType() == Material.AIR) {
-                continue;
-            }
+        List<Enchantment> eligible = EnchantUpgradeGUI.getEligibleEnchantments(holder.getTarget());
+        if (eligible.isEmpty()) {
+            error(player, Messages.NO_ENCHANTMENTS);
+            return;
+        }
 
-            List<Enchantment> eligible = EnchantUpgradeGUI.getEligibleEnchantments(target);
-            if (eligible.isEmpty()) {
+        holder.setTransitioning(true);
+        ItemStack target = holder.getTarget().clone();
+        ItemStack upgrade = holder.getUpgrade().clone();
+        holder.setTarget(null);
+        holder.setUpgrade(null);
+        player.getOpenInventory().getTopInventory().clear();
+        EnchantUpgradeGUI.openSelection(player, target, upgrade);
+    }
+
+    private void handleSelectionMenu(InventoryClickEvent event, Player player, EnchantUpgradeGUI.SelectionHolder holder) {
+        event.setCancelled(true);
+        if (event.getClickedInventory() != event.getView().getTopInventory()) return;
+
+        int slot = event.getRawSlot();
+        if (slot < 10 || slot > 25) return;
+        if (slot == 17 || slot == 18) return;
+
+        List<Enchantment> eligible = EnchantUpgradeGUI.getEligibleEnchantments(holder.getTarget());
+        int index = slot <= 16 ? slot - 10 : slot - 19 + 7;
+        if (index < 0 || index >= eligible.size()) return;
+
+        holder.setTransitioning(true);
+        EnchantUpgradeGUI.openConfirm(player, holder.getTarget(), holder.getUpgrade(), eligible.get(index));
+    }
+
+    private void handleConfirmationMenu(InventoryClickEvent event, Player player, EnchantUpgradeGUI.ConfirmationHolder holder) {
+        event.setCancelled(true);
+        if (event.getClickedInventory() != event.getView().getTopInventory()) return;
+
+        if (event.getRawSlot() == 10) {
+            returnItems(player, holder.getTarget(), holder.getUpgrade());
+            holder.setTransitioning(true);
+            player.closeInventory();
+            return;
+        }
+
+        if (event.getRawSlot() != 16) return;
+
+        ItemStack target = holder.getTarget().clone();
+        Enchantment enchantment = holder.getEnchantment();
+        List<Enchantment> eligible = EnchantUpgradeGUI.getEligibleEnchantments(target);
+        if (!eligible.contains(enchantment)) {
+            error(player, Messages.NO_ENCHANTMENTS);
+            returnItems(player, target, holder.getUpgrade());
+            holder.setTransitioning(true);
+            player.closeInventory();
+            return;
+        }
+
+        int current = target.getEnchantmentLevel(enchantment);
+        if (current != enchantment.getMaxLevel()) {
+            error(player, Messages.NO_ENCHANTMENTS);
+            returnItems(player, target, holder.getUpgrade());
+            holder.setTransitioning(true);
+            player.closeInventory();
+            return;
+        }
+
+        target.addUnsafeEnchantment(enchantment, current + 1);
+        returnItems(player, target, null);
+        holder.setTransitioning(true);
+        player.closeInventory();
+        player.sendMessage(Messages.format(Messages.UPGRADED,
+                "%enchant%", EnchantUpgradeGUI.formatEnchantment(enchantment),
+                "%current%", String.valueOf(current),
+                "%next%", String.valueOf(current + 1)));
+        player.playSound(player.getLocation(), parseSound(Messages.SUCCESS_SOUND), Messages.SOUND_VOLUME, Messages.SUCCESS_PITCH);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onDrag(InventoryDragEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        if (!(event.getView().getTopInventory().getHolder() instanceof EnchantUpgradeGUI.UpgradeHolder)) return;
+
+        for (int slot : event.getRawSlots()) {
+            if (slot < event.getView().getTopInventory().getSize()) {
                 event.setCancelled(true);
-                player.sendMessage(Messages.NO_ENCHANTMENTS);
-                playError(player);
                 return;
             }
-
-            event.setCancelled(true);
-            EnchantUpgradeGUI.openSelection(player, target, playerSlot);
-            return;
         }
     }
 
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
-        // Nothing is consumed when either GUI is closed.
-    }
+        if (!(event.getPlayer() instanceof Player player)) return;
 
-    private static ItemStack getInventoryItem(Inventory inventory, int slot) {
-        if (slot < 0 || slot >= inventory.getSize()) {
-            return null;
+        if (event.getInventory().getHolder() instanceof EnchantUpgradeGUI.UpgradeHolder holder) {
+            if (holder.isTransitioning()) return;
+            returnItems(player, holder.getTarget(), holder.getUpgrade());
+            holder.setTarget(null);
+            holder.setUpgrade(null);
+            return;
         }
-        return inventory.getItem(slot);
-    }
 
-    private static boolean sameItem(ItemStack first, ItemStack second) {
-        if (first == null || second == null || first.getType() == Material.AIR || second.getType() == Material.AIR) {
-            return false;
+        if (event.getInventory().getHolder() instanceof EnchantUpgradeGUI.SelectionHolder holder) {
+            if (holder.isTransitioning()) return;
+            returnItems(player, holder.getTarget(), holder.getUpgrade());
+            return;
         }
-        return first.equals(second);
+
+        if (event.getInventory().getHolder() instanceof EnchantUpgradeGUI.ConfirmationHolder holder) {
+            if (holder.isTransitioning()) return;
+            returnItems(player, holder.getTarget(), holder.getUpgrade());
+        }
     }
 
-    private static void playError(Player player) {
+    private void returnItems(Player player, ItemStack target, ItemStack upgrade) {
+        if (target != null && target.getType() != Material.AIR) giveOrDrop(player, target);
+        if (upgrade != null && upgrade.getType() != Material.AIR) giveOrDrop(player, upgrade);
+    }
+
+    private void giveOrDrop(Player player, ItemStack item) {
+        player.getInventory().addItem(item).forEach((slot, leftover) ->
+                player.getWorld().dropItemNaturally(player.getLocation(), leftover));
+    }
+
+    private void error(Player player, String message) {
+        player.sendMessage(message);
         player.playSound(player.getLocation(), parseSound(Messages.ERROR_SOUND), Messages.SOUND_VOLUME, Messages.ERROR_PITCH);
     }
 
     private static Sound parseSound(String name) {
-        try {
-            return Sound.valueOf(name);
-        } catch (IllegalArgumentException exception) {
-            return Sound.ENTITY_VILLAGER_NO;
-        }
+        try { return Sound.valueOf(name); }
+        catch (IllegalArgumentException exception) { return Sound.ENTITY_VILLAGER_NO; }
     }
 }

@@ -24,12 +24,14 @@ public final class Messages {
     // Custom item
     public static final String ENCHANT_UPGRADE_NAME = CUSTOM + "Enchant Upgrade";
     public static final String[] ENCHANT_UPGRADE_LORE = {
-            GRAY + "Apply this to an enchanted item",
-            GRAY + "and select an enchant to upgrade."
+            GRAY + "Right-click this to open the Enchant Upgrade menu.",
+            GRAY + "Select an item with a max-level enchantment",
+            GRAY + "and select which enchant to upgrade."
     };
 
     // GUI
-    public static final String ENCHANT_SELECT_TITLE = CUSTOM + "Enchant Upgrade";
+    public static final String UPGRADE_MENU_TITLE = CUSTOM + "Enchant Upgrade";
+    public static final String ENCHANT_SELECT_TITLE = CUSTOM + "Select Enchant";
     public static final String CONFIRM_TITLE = CUSTOM + "Confirm Upgrade";
 
     public static final String CONFIRM_NAME = GREEN + "Confirm";
