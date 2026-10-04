@@ -56,6 +56,13 @@ commands:
     aliases:
       - balancetop
 
+  ranks:
+    description: View the ranks
+    usage: "/ranks"
+    aliases:
+      - perks
+      - permissions
+
 
 permissions:
   grassgg.store:

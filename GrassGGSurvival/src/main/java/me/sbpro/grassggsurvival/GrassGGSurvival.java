@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.UUID;
 
 // Bukkit Imports
+import me.sbpro.grassggsurvival.commands.ranks.RanksCommand;
+import me.sbpro.grassggsurvival.commands.ranks.RanksListener;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -163,6 +165,10 @@ public final class GrassGGSurvival extends JavaPlugin implements Listener {
         nightVisionManager = new NightVisionManager(this);
         glowManager = new GlowManager(this);
 
+
+
+        getServer().getPluginManager().registerEvents(new RanksListener(), this);
+        getCommand("ranks").setExecutor(new RanksCommand());
     }
 
 
