@@ -55,6 +55,19 @@ commands:
     usage: "/baltop [reload]"
     aliases:
       - balancetop
+      - topbalance
+    permission: grassgg.baltop
+
+  playtop:
+    description: View the players with the most playtime
+    permission: grassgg.playtop
+    aliases:
+      - playtimetop
+      - topplaytime
+
+  playtime:
+    description: View your total playtime
+    permission: grassgg.playtop
 
   ranks:
     description: View the ranks
@@ -91,7 +104,11 @@ permissions:
     description: Allows players to open the settings menu.
     default: true
 
+  grassgg.baltop:
+    default: true
 
+  grassgg.playtop:
+    default: true
 
 
 

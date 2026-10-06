@@ -7,6 +7,9 @@ import java.util.Set;
 import java.util.UUID;
 
 // Bukkit Imports
+import me.sbpro.grassggsurvival.commands.playtop.PlayTimeCommand;
+import me.sbpro.grassggsurvival.commands.playtop.PlayTopCommand;
+import me.sbpro.grassggsurvival.commands.playtop.PlayTopListener;
 import me.sbpro.grassggsurvival.commands.ranks.RanksCommand;
 import me.sbpro.grassggsurvival.commands.ranks.RanksListener;
 import net.kyori.adventure.text.Component;
@@ -169,6 +172,10 @@ public final class GrassGGSurvival extends JavaPlugin implements Listener {
 
         getServer().getPluginManager().registerEvents(new RanksListener(), this);
         getCommand("ranks").setExecutor(new RanksCommand());
+
+        getCommand("playtop").setExecutor(new PlayTopCommand(this));
+        getServer().getPluginManager().registerEvents(new PlayTopListener(), this);
+        getCommand("playtime").setExecutor(new PlayTimeCommand());
     }
 
 
