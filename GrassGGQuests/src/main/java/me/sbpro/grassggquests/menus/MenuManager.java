@@ -39,7 +39,7 @@ public class MenuManager {
             if (quest == null) continue;
 
             List<String> lore = new ArrayList<>();
-            lore.add((active.isEasy() ? Messages.EASY_LABEL : Messages.MEDIUM_LABEL));
+            lore.add((active.isEasy() ? Messages.EASY_LABEL : Messages.NORMAL_LABEL));
             lore.add(Messages.PROGRESS_LINE.replace("%progress%", String.valueOf(active.getProgress()))
                     .replace("%required%", String.valueOf(quest.getRequiredAmount())));
             lore.add(Messages.REWARD_LINE.replace("%reward%", active.isEasy() ? "5" : "10"));
@@ -69,7 +69,7 @@ public class MenuManager {
 
     private ItemStack questDisplay(ActiveQuest active, QuestDefinition quest) {
         List<String> lore = new ArrayList<>();
-        lore.add(active.isEasy() ? Messages.EASY_LABEL : Messages.MEDIUM_LABEL);
+        lore.add(active.isEasy() ? Messages.EASY_LABEL : Messages.NORMAL_LABEL);
         lore.add(Messages.PROGRESS_LINE.replace("%progress%", String.valueOf(active.getProgress()))
                 .replace("%required%", String.valueOf(quest.getRequiredAmount())));
         lore.add(Messages.REWARD_LINE.replace("%reward%", active.isEasy() ? "5" : "10"));

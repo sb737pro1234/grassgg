@@ -50,16 +50,16 @@ public final class Messages {
     public static String COIN_SHOP_NAME = "§x§F§F§D§5§4§ACoin Shop";
     public static List<String> COIN_SHOP_LORE = List.of(WHITE + "Open the Coin Shop.");
     public static String QUEST_TITLE_FORMAT = CUSTOM_COLOR + "%quest%";
-    public static String MEDIUM_LABEL = "§fDiffculty:" + WHITE +"Normal";
+    public static String NORMAL_LABEL = "§fDiffculty:" + WHITE +"Normal";
     public static String EASY_LABEL = "§fDiffculty: §aEasy";
     public static String PROGRESS_LINE = WHITE + "Progress: " + CUSTOM_COLOR + "%progress%" + WHITE + " / " + CUSTOM_COLOR + "%required%";
     public static String REWARD_LINE = WHITE + "Reward: " + CUSTOM_COLOR + "%reward% coins";
     public static String REROLL_BUTTON_NAME = "§eEasify Quest";
-    public static List<String> REROLL_BUTTON_LORE = List.of(WHITE + "Turn this Medium quest into an Easy quest for " + CUSTOM_COLOR + "2 coins" + WHITE + ".");
+    public static List<String> REROLL_BUTTON_LORE = List.of(WHITE + "Turn this quest into an easier quest for " + CUSTOM_COLOR + "2 coins" + WHITE + ".");
 
     public static String EASIFY_CONFIRM_TITLE = CUSTOM_COLOR + "Confirm Easify";
     public static String CONFIRM_NAME = "§aConfirm";
-    public static List<String> CONFIRM_LORE = List.of(WHITE + "Turn this Medium quest into an Easy quest.");
+    public static List<String> CONFIRM_LORE = List.of(WHITE + "Turn this quest into an easier quest.");
     public static String CANCEL_NAME = "§cCancel";
     public static List<String> CANCEL_LORE = List.of(WHITE + "Return to your quests.");
 
