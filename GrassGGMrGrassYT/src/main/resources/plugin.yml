@@ -1,0 +1,21 @@
+name: GrassGGMrGrassYT
+version: 1.0
+main: me.sbpro.grassggmrgrassyt.GrassGGMrGrassYT
+api-version: '26.2'
+
+commands:
+  mrgrassyt:
+    description: MrGrassYT commands
+    usage: "/mrgrassyt [toolgive] [item]"
+    aliases:
+      - grass
+    permission: grassgg.mrgrassyt.use
+
+permissions:
+  grassgg.mrgrassyt.use:
+    description: Allows use of /mrgrassyt
+    default: true
+
+  grassgg.mrgrassyt.toolgive:
+    description: Allows use of /mrgrassyt toolgive
+    default: op
