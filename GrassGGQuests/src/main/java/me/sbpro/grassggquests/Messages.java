@@ -22,7 +22,7 @@ public final class Messages {
     public static String NOT_ENOUGH_COINS = RED + "You do not have enough coins.";
     public static String ALREADY_ACTIVE = RED + "That quest is already active for this player.";
 
-    public static String EASY_SUCCESS = WHITE + "Quest changed to Easy for " + CUSTOM_COLOR + "2 coins" + WHITE + ".";
+    public static String EASY_SUCCESS = WHITE + "Quest made easier for " + CUSTOM_COLOR + "2 coins" + WHITE + ".";
     public static String REROLL_SUCCESS = WHITE + "Quest Easified for " + CUSTOM_COLOR + "2 coins" + WHITE + ".";
     public static String QUEST_COMPLETED = WHITE + "Quest completed: " + CUSTOM_COLOR + "%quest%";
     public static String QUEST_GIVEN_TO_YOU = WHITE + "You received quest: " + CUSTOM_COLOR + "%quest%" + WHITE + ".";
@@ -50,7 +50,7 @@ public final class Messages {
     public static String COIN_SHOP_NAME = "§x§F§F§D§5§4§ACoin Shop";
     public static List<String> COIN_SHOP_LORE = List.of(WHITE + "Open the Coin Shop.");
     public static String QUEST_TITLE_FORMAT = CUSTOM_COLOR + "%quest%";
-    public static String NORMAL_LABEL = "§fDiffculty:" + WHITE +"Normal";
+    public static String NORMAL_LABEL = "§fDiffculty: §eNormal";
     public static String EASY_LABEL = "§fDiffculty: §aEasy";
     public static String PROGRESS_LINE = WHITE + "Progress: " + CUSTOM_COLOR + "%progress%" + WHITE + " / " + CUSTOM_COLOR + "%required%";
     public static String REWARD_LINE = WHITE + "Reward: " + CUSTOM_COLOR + "%reward% coins";

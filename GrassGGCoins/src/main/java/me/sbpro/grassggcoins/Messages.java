@@ -154,7 +154,7 @@ public final class Messages {
                 CUSTOM + "Ways to get coins:",
                 CUSTOM + "✦" + WHITE + " Receive " + CUSTOM + "1 coin" + WHITE + " every 15 minutes through playtime.",
                 CUSTOM + "✦" + WHITE + " Receive " + CUSTOM + "5 coins" + WHITE + " upon killing a player.",
-                CUSTOM + "✦" + WHITE + " Receive " + CUSTOM + "10 coins" + WHITE + " upon completing a dailymission."
+                CUSTOM + "✦" + WHITE + " Receive " + CUSTOM + "10 coins" + WHITE + " upon completing quests."
         );
     }
 
