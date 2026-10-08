@@ -46,7 +46,7 @@ public class MenuManager {
 
             inv.setItem(questSlots[i], button(Material.BOOK,
                     Messages.QUEST_TITLE_FORMAT.replace("%quest%", quest.getTitle()), lore));
-            if (!active.isEasy()) inv.setItem(rerollSlots[i], button(Material.REDSTONE, Messages.REROLL_BUTTON_NAME, Messages.REROLL_BUTTON_LORE));
+            if (!active.isEasy()) inv.setItem(rerollSlots[i], button(Material.CLOCK, Messages.REROLL_BUTTON_NAME, Messages.REROLL_BUTTON_LORE));
         }
         player.openInventory(inv);
     }
