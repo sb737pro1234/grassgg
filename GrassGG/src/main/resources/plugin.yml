@@ -32,9 +32,6 @@ commands:
   youtube:
     description: Shows the youtube link for MrGrassYT
     usage: "/<command>"
-    aliases:
-      - mrgrassyt
-      - grass
   ping:
     description: Shows your or another player's ping.
     usage: "/ping [PLAYER]"

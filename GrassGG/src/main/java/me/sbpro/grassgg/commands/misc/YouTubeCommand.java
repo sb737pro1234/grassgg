@@ -1,5 +1,9 @@
 package me.sbpro.grassgg.commands.misc;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,7 +19,13 @@ public class YouTubeCommand implements CommandExecutor {
             return true;
         }
 
-        player.sendMessage("§2§lGRASS.GG §8» §cyoutube.com/@MrGrassYT1");
+        Component message = Component.text("§2§lGRASS.GG §8» §c")
+                .append(Component.text("youtube.com/@MrGrassYT1")
+                        .clickEvent(ClickEvent.openUrl("https://youtube.com/@MrGrassYT1"))
+                        .hoverEvent(HoverEvent.showText(Component.text("§cClick to open YouTube")))
+                        .color(NamedTextColor.RED));
+        player.sendMessage(message);
+
         return true;
     }
 }
