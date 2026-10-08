@@ -3,20 +3,16 @@ version: '1.0'
 main: me.sbpro.grassggquests.GrassGGQuests
 api-version: '26.2'
 author: GrassGG
-description: Quest progression, quest points and quest shop system.
-softdepend:
-  - PlaceholderAPI
+description: GrassGG quest system with Medium and Easy quests.
+depend:
+  - GrassGGCoins
 commands:
   quests:
     description: Opens and manages the GrassGG quest system.
-    usage: /quests [shop|level|reload|setlevel|reset|give]
-    aliases: [quest]
-  questshop:
-    description: Opens the Quest Shop.
-    usage: /questshop
-  questlevel:
-    description: Opens the Quest Level menu.
-    usage: /questlevel
+    usage: /quests [reload|reset|give]
+    aliases:
+      - quest
+      - q
 permissions:
   grassggquests.admin:
     description: Allows access to GrassGGQuests administration commands.

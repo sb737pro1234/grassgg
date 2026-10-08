@@ -1,35 +1,43 @@
 # GrassGGQuests
 
-GrassGGQuests is a Paper 26.2 quest progression plugin for the GrassGG network.
+GrassGGQuests is a Paper 26.2 quest plugin for the GrassGG network.
 
 ## Requirements
 
 - Paper 26.2
 - Java 25 on the server
-- PlaceholderAPI is optional; when installed, `%grassggquests_level%`, `%grassggquests_xp%` and `%grassggquests_points%` are available.
+- GrassGGCoins commands available on the server
 
-## Project configuration
+## Quest system
 
-- `Messages.java` — all messages, colours, GUI names and GUI lore.
-- `Quests.java` — quest definitions and Quest XP level requirements.
-- `config.yml` — Quest Shop items, costs, commands, slots and saved display items.
-- `players.yml` — generated persistent player data.
+- Every player has 3 active quests.
+- New quests are Medium quests and reward 10 coins.
+- A Medium quest can be changed to Easy for 2 coins.
+- Easy quests reward 5 coins.
+- Quests can be rerolled for 2 coins.
+- Rerolls use a confirmation menu with Cancel in slot 10, the quest display in slot 13, and Confirm in slot 16.
+- Coin rewards use `/coins give %player% %amount%`.
+- Coin costs use `/coins take %player% 2`.
+- The plugin does not hook into or depend on GrassGGCoins.
 
 ## Commands
 
 - `/quests`
-- `/quests shop`
-- `/quests level`
 - `/quest`
-- `/questshop`
-- `/questlevel`
+- `/q`
 - `/quests reload` (admin)
-- `/quests shop setDisplayItem <ITEM_IDENTIFIER>` (admin)
-- `/quests setlevel <player> <level>` (admin)
 - `/quests reset <player>` (admin)
 - `/quests give <player> <quest>` (admin)
 
+The main menu opens Coin Shop through `/coinshop` as the player. This plugin does not create or implement `/coinshop`.
+
 Admin permission: `grassggquests.admin`
+
+## Configuration
+
+- `Messages.java` — GUI names, lore, colours and messages.
+- `Quests.java` — quest definitions.
+- `players.yml` — generated persistent player quest data.
 
 ## Building
 
@@ -38,10 +46,3 @@ Use Java 25 and Maven:
 `mvn clean package`
 
 The compiled plugin will be created as `target/GrassGGQuests-1.0.jar`.
-
-## Quest Progress Feedback
-
-- Active quest progress displays in a per-player bossbar while the player is making progress.
-- Bossbar colour, style, title and display duration are configurable in `Messages.java`.
-- Completing a quest awards 1 Quest Point, shows a configurable title/subtitle, and sends an achievement-style boxed message.
-- Completion title timing is configurable in `Messages.java`.

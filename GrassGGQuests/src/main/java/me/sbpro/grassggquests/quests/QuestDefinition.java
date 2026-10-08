@@ -7,16 +7,14 @@ public class QuestDefinition {
     private final QuestType type;
     private final String target;
     private final int requiredAmount;
-    private final int xpReward;
 
-    public QuestDefinition(String id, String title, String description, QuestType type, String target, int requiredAmount, int xpReward) {
+    public QuestDefinition(String id, String title, String description, QuestType type, String target, int requiredAmount) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.type = type;
         this.target = target;
         this.requiredAmount = requiredAmount;
-        this.xpReward = xpReward;
     }
 
     public String getId() { return id; }
@@ -25,5 +23,4 @@ public class QuestDefinition {
     public QuestType getType() { return type; }
     public String getTarget() { return target; }
     public int getRequiredAmount() { return requiredAmount; }
-    public int getXpReward() { return xpReward; }
 }
